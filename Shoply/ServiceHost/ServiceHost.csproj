@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\AdminTheme\assets\js\bootstrap.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\jquery-ui-1.10.1.custom.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\jquery.app.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\jquery.chat.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\jquery.dashboard.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\jquery.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\jquery.nicescroll.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\jquery.scrollTo.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\jquery.todo.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\modernizr.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\npm.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\skycons.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\waves.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\wow.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShopManagment.Imfrastructure.Config\ShopManagment.Imfrastructure.Config.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+</Project>

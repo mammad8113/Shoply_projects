@@ -1,0 +1,46 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3579fc30-8d8f-470a-ba36-43d6ddbf2056": {
+      "ProjectGuid": "3579fc30-8d8f-470a-ba36-43d6ddbf2056",
+      "DisplayName": "ShopManagement.Domain",
+      "ColorIndex": 0
+    },
+    "b2c2fc1f-7802-4a8b-8e06-ac7fdf64b185": {
+      "ProjectGuid": "b2c2fc1f-7802-4a8b-8e06-ac7fdf64b185",
+      "DisplayName": "01_framwork",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "0a4a2958-3955-426a-96cc-02954d7ffa55": {
+      "ProjectGuid": "0a4a2958-3955-426a-96cc-02954d7ffa55",
+      "DisplayName": "ShopManagement.Application.Contracts",
+      "ColorIndex": 2
+    },
+    "cd414331-ac7e-4e46-90b1-823bd2891488": {
+      "ProjectGuid": "cd414331-ac7e-4e46-90b1-823bd2891488",
+      "DisplayName": "ShopManagement.Application",
+      "ColorIndex": 3
+    },
+    "ec863eae-7873-45e0-a1e5-9146668609b1": {
+      "ProjectGuid": "ec863eae-7873-45e0-a1e5-9146668609b1",
+      "DisplayName": "ShopManagement.Infrastructure.EfCore",
+      "ColorIndex": 4
+    },
+    "1fdc0e7d-792e-41ac-84a3-89cca9898888": {
+      "ProjectGuid": "1fdc0e7d-792e-41ac-84a3-89cca9898888",
+      "DisplayName": "ShopManagment.Imfrastructure.Config",
+      "ColorIndex": 5
+    },
+    "247ab78f-e28a-4831-8c88-d966c6b304b4": {
+      "ProjectGuid": "247ab78f-e28a-4831-8c88-d966c6b304b4",
+      "DisplayName": "ServiceHost",
+      "ColorIndex": 6
+    }
+  },
+  "NextColorIndex": 7
+}
