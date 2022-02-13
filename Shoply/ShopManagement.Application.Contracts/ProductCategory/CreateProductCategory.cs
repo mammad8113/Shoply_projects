@@ -24,9 +24,7 @@ namespace ShopManagement.Application.Contracts.ProductCategory
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string PictureTitle { get; set; }
-        [Required(ErrorMessage = VallidationMessage.Message)]
-
-        public bool IsRemoved { get; set; }
+  
         [Required(ErrorMessage =VallidationMessage.Message)]
 
         public string Keywords { get; set; }

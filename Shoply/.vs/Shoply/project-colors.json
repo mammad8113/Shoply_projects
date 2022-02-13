@@ -40,7 +40,12 @@
       "ProjectGuid": "247ab78f-e28a-4831-8c88-d966c6b304b4",
       "DisplayName": "ServiceHost",
       "ColorIndex": 6
+    },
+    "919fd655-f067-4ba2-b932-d926e85dd6b4": {
+      "ProjectGuid": "919fd655-f067-4ba2-b932-d926e85dd6b4",
+      "DisplayName": "Script Documents",
+      "ColorIndex": 7
     }
   },
-  "NextColorIndex": 7
+  "NextColorIndex": 8
 }

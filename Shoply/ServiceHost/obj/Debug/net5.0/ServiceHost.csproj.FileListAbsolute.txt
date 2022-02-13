@@ -164,3 +164,12 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administr
 D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\ProductCategory\Create.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\ProductCategory\Edit.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\Product\Create.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\Product\Edit.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\Product\Index.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\ProductPicture\Index.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\ProductPicture\Create.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\ProductPicture\Edit.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\Slides\Create.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\Slides\Edit.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\Slides\Index.cshtml.g.cs

@@ -1,0 +1,103 @@
+﻿@page
+@model ServiceHost.Areas.administration.Pages.Shop.Slides.IndexModel
+
+@{
+
+    ViewData["title"] = "مدیریت اسلایدر محصولات";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title pull-right">@ViewData["title"]</h4>
+        <p class="pull-left">
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد اسلایدر جدید</a>
+        </p>
+    </div>
+</div>
+
+
+<div class="row" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">لیست اسلایدر</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>عکس</th>
+                                    <th>سرتیتر</th>
+                                    <th>عنوان</th>
+                                    <th>وضیعت</th>
+                                    <th>تاریخ تولید</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var slide in Model.Slides)
+                                {
+                                    <tr>
+                                        <td>@slide.Id</td>
+                                        <td>
+                                            <img src="@slide.Picture" style="width: 70px; height: 70px" />
+                                        </td>
+                                        <td>@slide.Heding</td>
+                                        <td>@slide.Title</td>
+
+                                        <td class="text-center">
+                                            @if (slide.IsRemove)
+                                            {
+                                                <i class="fa fa-remove fa-2x text-danger"></i>
+
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-check fa-2x text-success"></i>
+
+                                            }
+                                        </td>
+                                        <td>@slide.CreationDate</td>
+
+                                        <td>
+                                            <a href="#showmodal=@Url.Page("./Index", "Edit",new{id=slide.Id})" class="btn btn-warning pull-right m-rl-5">
+                                                <i class="fa fa-edit"></i> ویرایش
+                                            </a>
+                                            @if (!slide.IsRemove)
+                                            {
+                                                <a asp-page="./Index" asp-page-handler="Remove" asp-route-id="@slide.Id" class="btn btn-danger">
+                                                    غیرفعال
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-success" asp-page="./Index" asp-page-handler="Activate" asp-route-id="@slide.Id">
+                                                    فعال
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/adminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+<script src="~/adminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+<script src="~/js/Stock.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+    });
+</script>
+}

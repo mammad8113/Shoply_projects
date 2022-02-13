@@ -20,11 +20,11 @@ namespace ShopManagement.Domain.ProductCategory
         public string Keywords { get; private set; }
         public string MetaDescription { get; private set; }
         public string Slug { get; private set; }
-      
+        public List <Domain.Product.Agg.Product > Products { get; set; }
 
         protected ProductCategory()
         {
-
+            Products = new List<Product.Agg.Product>();
         }
         public ProductCategory(string name, string description, string picture,
             string pictureAlt, string pictureTitle,
@@ -81,6 +81,10 @@ namespace ShopManagement.Domain.ProductCategory
         public void Remove()
         {
             IsRemoved = true;
+        }
+        public void Activate()
+        {
+            IsRemoved = false;
         }
     }
 }

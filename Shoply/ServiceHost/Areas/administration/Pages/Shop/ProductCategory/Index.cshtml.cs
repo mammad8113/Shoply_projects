@@ -39,5 +39,15 @@ namespace ServiceHost.Areas.administration.Pages.Shop.ProductCategory
             var result=productCategoryApplication.Edit(command);
             return new JsonResult(result);
         }
+        public IActionResult OnGetRemove(long id)
+        {
+            productCategoryApplication.Removed(id);
+            return RedirectToPage("./Index");
+        }
+        public IActionResult OnGetActivate(long id)
+        {
+            productCategoryApplication.Activate(id);
+            return RedirectToPage("./Index");
+        }
     }
 }

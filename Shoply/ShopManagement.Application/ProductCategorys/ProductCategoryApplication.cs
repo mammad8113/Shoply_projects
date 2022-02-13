@@ -22,6 +22,13 @@ namespace ShopManagement.Application.ProductCategorys
             this.validation = validation;
         }
 
+        public void Activate(long id)
+        {
+            var category = productCategoryRepository.Get(id);
+            category.Activate();
+            productCategoryRepository.Save();
+        }
+
         public OperationResult Create(CreateProductCategory command)
         {
             var operation = new OperationResult();
@@ -56,6 +63,18 @@ namespace ShopManagement.Application.ProductCategorys
         public EditProductCategory GetDetals(int id)
         {
             return productCategoryRepository.GetDetals(id);
+        }
+
+        public List<ProductCategoryViewModel> GetProductCategories()
+        {
+           return productCategoryRepository.GetProductCategories();
+        }
+
+        public void Removed(long id)
+        {
+            var category = productCategoryRepository.Get(id);
+            category.Remove();
+            productCategoryRepository.Save();
         }
 
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel search)

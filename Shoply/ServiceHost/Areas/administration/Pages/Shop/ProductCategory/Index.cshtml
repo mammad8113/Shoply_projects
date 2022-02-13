@@ -2,7 +2,7 @@
 @model ServiceHost.Areas.administration.Pages.Shop.ProductCategory.IndexModel
 
 @{
-    
+
     ViewData["title"] = "مدیریت گروه محصولات";
 }
 
@@ -50,25 +50,51 @@
                                     <th>#</th>
                                     <th>عکس</th>
                                     <th>نام</th>
+                                    <th>وضعیت</th>
                                     <th>تاریخ تولید</th>
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach(var category in Model.ProductCategories){
-                                <tr>
-                                    <td>@category.Id</td>
-                                    <td>
-                                        <img src="@category.Picture" style="width: 70px; height: 70px" />
-                                    </td>
-                                    <td>@category.Name</td>
-                                    <td>@category.CreationDate</td>
-                                    <td>
-                                        <a href="#showmodal=@Url.Page("./Index", "Edit",new{id=category.Id})" class="btn btn-warning pull-right m-rl-5">
-                                            <i class="fa fa-edit"></i> ویرایش
-                                        </a>
-                                    </td>
-                                </tr>
+                                @foreach (var category in Model.ProductCategories)
+                                {
+                                    <tr>
+                                        <td>@category.Id</td>
+                                        <td>
+                                            <img src="@category.Picture" style="width: 70px; height: 70px" />
+                                        </td>
+                                        <td>@category.Name</td>
+                                        <td class="text-center">
+                                            @if (@category.IsRemoved)
+                                            {
+                                                <i class="fa fa-remove fa-2x text-danger"></i>
+
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-check fa-2x text-success"></i>
+
+                                            }
+                                        </td>
+                                        <td>@category.CreationDate</td>
+                                        <td>
+                                            <a href="#showmodal=@Url.Page("./Index", "Edit",new{id=category.Id})" class="btn btn-warning pull-right m-rl-5">
+                                                <i class="fa fa-edit"></i> ویرایش
+                                            </a>
+                                            @if (category.IsRemoved)
+                                            {
+                                                <a asp-page="./Index" asp-page-handler="Activate" asp-route-id="@category.Id" class="btn btn-success pull-right m-rl-5">
+                                                    فعال
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-page="./Index" asp-page-handler="Remove" asp-route-id="@category.Id" class="btn btn-danger pull-right m-rl-5">
+                                                    غیرفعال
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
