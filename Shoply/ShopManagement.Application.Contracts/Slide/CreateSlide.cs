@@ -23,6 +23,9 @@ namespace ShopManagement.Application.Contracts.Slide
         public string Heding { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
 
+        public string Link { get; set; }
+        [Required(ErrorMessage = VallidationMessage.Message)]
+
         public string Title { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
 

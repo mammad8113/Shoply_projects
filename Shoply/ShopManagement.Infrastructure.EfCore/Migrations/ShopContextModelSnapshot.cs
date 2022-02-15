@@ -111,6 +111,9 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
                     b.Property<string>("MetaDescription")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -120,6 +123,9 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<long>("Parent")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Picture")
                         .HasMaxLength(1000)
@@ -200,6 +206,9 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
 
                     b.Property<bool>("IsRemove")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Picture")
                         .IsRequired()

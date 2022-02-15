@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopManagment.Imfrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHost", "ServiceHost\ServiceHost.csproj", "{247AB78F-E28A-4831-8C88-D966C6B304B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Shoplyquery", "01-Shoplyquery\01-Shoplyquery.csproj", "{DE9882FC-C256-4CD9-A222-9E70A1D581DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{247AB78F-E28A-4831-8C88-D966C6B304B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{247AB78F-E28A-4831-8C88-D966C6B304B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{247AB78F-E28A-4831-8C88-D966C6B304B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE9882FC-C256-4CD9-A222-9E70A1D581DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE9882FC-C256-4CD9-A222-9E70A1D581DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE9882FC-C256-4CD9-A222-9E70A1D581DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE9882FC-C256-4CD9-A222-9E70A1D581DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

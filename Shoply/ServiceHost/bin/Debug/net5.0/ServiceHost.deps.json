@@ -1804,6 +1804,17 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
+      "01-Shoplyquery/1.0.0": {
+        "dependencies": {
+          "ShopManagement.Infrastructure.EfCore": "1.0.0"
+        },
+        "runtime": {
+          "01-Shoplyquery.dll": {}
+        },
+        "compile": {
+          "01-Shoplyquery.dll": {}
+        }
+      },
       "01_framwork/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "5.0.13"
@@ -1865,6 +1876,7 @@
       },
       "ShopManagment.Imfrastructure.Config/1.0.0": {
         "dependencies": {
+          "01-Shoplyquery": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
           "ShopManagement.Application": "1.0.0",
           "ShopManagement.Domain": "1.0.0",
@@ -4425,6 +4437,11 @@
       "sha512": "sha512-MYoTCP7EZ98RrANESW05J5ZwskKDoN0AuZ06ZflnowE50LTpbR5yRg3tHckTVm5j/m47stuGgCrCHWePyHS70Q==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "01-Shoplyquery/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "01_framwork/1.0.0": {
       "type": "project",

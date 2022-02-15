@@ -173,3 +173,6 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administr
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\Slides\Create.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\Slides\Edit.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\Slides\Index.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\01-Shoplyquery.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\01-Shoplyquery.pdb
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Shared\Components\Slide\Default.cshtml.g.cs

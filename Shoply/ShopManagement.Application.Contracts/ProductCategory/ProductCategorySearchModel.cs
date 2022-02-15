@@ -9,5 +9,6 @@ namespace ShopManagement.Application.Contracts.ProductCategory
     public class ProductCategorySearchModel
     {
         public string Name { get; set; }
+        public long Parent { get; set; } = 0;
     }
 }

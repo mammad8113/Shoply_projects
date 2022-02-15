@@ -36,7 +36,9 @@ namespace ShopManagement.Application.ProductCategorys
             {
                 var slug = command.Slug.Slugify();
                 ProductCategory productCategory = new ProductCategory(command.Name, command.Description,command.Picture,
-                     command.PictureAlt, command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation);
+                     command.PictureAlt, command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation,command.parent);
+                var category = productCategoryRepository.Get(productCategory.Parent);
+                productCategory.Level = category.Level + 1;
                 productCategoryRepository.Create(productCategory);
                 productCategoryRepository.Save();
                 return operation.Success();
@@ -54,7 +56,7 @@ namespace ShopManagement.Application.ProductCategorys
             var productCategory = productCategoryRepository.Get(command.Id);
             var slug = command.Slug.Slugify();
             var operation = productCategory.Edit(command.Name, command.Description, command.Picture, command.PictureAlt,
-                   command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation);
+                   command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation,command.parent);
             productCategoryRepository.Save();
             return operation;
 
@@ -65,9 +67,9 @@ namespace ShopManagement.Application.ProductCategorys
             return productCategoryRepository.GetDetals(id);
         }
 
-        public List<ProductCategoryViewModel> GetProductCategories()
+        public List<ProductCategoryViewModel> GetProductCategories(long id)
         {
-           return productCategoryRepository.GetProductCategories();
+           return productCategoryRepository.GetProductCategories(id);
         }
 
         public void Removed(long id)

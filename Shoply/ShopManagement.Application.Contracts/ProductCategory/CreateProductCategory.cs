@@ -10,7 +10,7 @@ namespace ShopManagement.Application.Contracts.ProductCategory
 {
     public class CreateProductCategory
     {
-        [Required(ErrorMessage =VallidationMessage.Message)]
+        [Required(ErrorMessage = VallidationMessage.Message)]
         public string Name { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
 
@@ -24,15 +24,17 @@ namespace ShopManagement.Application.Contracts.ProductCategory
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string PictureTitle { get; set; }
-  
-        [Required(ErrorMessage =VallidationMessage.Message)]
+
+        [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string Keywords { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string MetaDescription { get; set; }
-        [Required(ErrorMessage =VallidationMessage.Message)]
+        [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string Slug { get; set; }
+        public long parent { get; set; }
+        public List<ProductCategoryViewModel> GetAll { get; set; }=new List<ProductCategoryViewModel>();
     }
 }

@@ -40,24 +40,33 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
 
         }
 
-        public List<ProductCategoryViewModel> GetProductCategories()
+        public List<ProductCategoryViewModel> GetProductCategories(long id)
         {
-            return _shopContext.ProductCategories.Select(x => new ProductCategoryViewModel
+            var query = _shopContext.ProductCategories;
+            if (id != 0)
+                query.Where(x => x.Parent == id);
+
+            return query.Select(x => new ProductCategoryViewModel
             {
                 Id=x.Id,
-                Name=x.Name,    
+                Name=x.Name,
+                CreationDate = x.CreationDate.ToShamsi(),
+                Picture=x.Picture,
+                IsRemoved=x.IsRemoved,
+
             }).OrderByDescending(x => x.Id).ToList();
         }
 
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel)
         {
-            var query = _shopContext.ProductCategories.Select(x => new ProductCategoryViewModel
+            var query = _shopContext.ProductCategories.Where(x => x.Parent == searchModel.Parent).Select(x => new ProductCategoryViewModel
             {
                 Id = x.Id,
                 Name = x.Name,
                 CreationDate = x.CreationDate.ToString(),
                 Picture = x.Picture,
                 IsRemoved = x.IsRemoved,
+
 
             });
 

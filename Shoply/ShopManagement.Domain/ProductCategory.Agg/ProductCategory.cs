@@ -16,11 +16,13 @@ namespace ShopManagement.Domain.ProductCategory
         public string Picture { get; private set; }
         public string PictureAlt { get; private set; }
         public string PictureTitle { get; private set; }
+        public int Level { get; set; }
+        public long Parent { get; set; }
         public bool IsRemoved { get; private set; }
         public string Keywords { get; private set; }
         public string MetaDescription { get; private set; }
         public string Slug { get; private set; }
-        public List <Domain.Product.Agg.Product > Products { get; set; }
+        public List<Domain.Product.Agg.Product> Products { get; set; }
 
         protected ProductCategory()
         {
@@ -28,26 +30,27 @@ namespace ShopManagement.Domain.ProductCategory
         }
         public ProductCategory(string name, string description, string picture,
             string pictureAlt, string pictureTitle,
-            string keywords, string metaDescription, string slug, IValidationProducatCategory validation)
+            string keywords, string metaDescription, string slug, IValidationProducatCategory validation, long parent = 0)
         {
-           
-              CheckNull(name, description, picture, pictureAlt, pictureTitle,
-                 keywords, metaDescription, slug);
-                validation.Doblicated(x => x.Name == name && x.Picture == picture);
-                Name = name;
-                Description = description;
-                Picture = picture;
-                PictureAlt = pictureAlt;
-                PictureTitle = pictureTitle;
-                Keywords = keywords;
-                MetaDescription = metaDescription;
-                Slug = slug;
-                IsRemoved = false;
-            
+
+            CheckNull(name, description, picture, pictureAlt, pictureTitle,
+               keywords, metaDescription, slug);
+            validation.Doblicated(x => x.Name == name && x.Picture == picture);
+            Name = name;
+            Description = description;
+            Picture = picture;
+            PictureAlt = pictureAlt;
+            PictureTitle = pictureTitle;
+            Keywords = keywords;
+            MetaDescription = metaDescription;
+            Slug = slug;
+            IsRemoved = false;
+            Level = 0;
+            Parent = parent;
         }
         public OperationResult Edit(string name, string description, string picture,
             string pictureAlt, string pictureTitle,
-            string keywords, string metaDescription, string slug, IValidationProducatCategory validation)
+            string keywords, string metaDescription, string slug, IValidationProducatCategory validation, long parent = 0)
         {
             OperationResult operation = new OperationResult();
             try
@@ -62,11 +65,12 @@ namespace ShopManagement.Domain.ProductCategory
                 Keywords = keywords;
                 MetaDescription = metaDescription;
                 Slug = slug;
+                Parent = parent;
                 return operation.Success();
             }
             catch (Exception e)
             {
-               return operation.Faild(e.Message);
+                return operation.Faild(e.Message);
             }
         }
 

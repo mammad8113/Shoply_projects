@@ -21,3 +21,5 @@ D:\Shoply_Project\Code\Shoply\ShopManagment.Imfrastructure.Config\obj\Debug\net5
 D:\Shoply_Project\Code\Shoply\ShopManagment.Imfrastructure.Config\obj\Debug\net5.0\ShopManagment.Imfrastructure.Config.dll
 D:\Shoply_Project\Code\Shoply\ShopManagment.Imfrastructure.Config\obj\Debug\net5.0\ref\ShopManagment.Imfrastructure.Config.dll
 D:\Shoply_Project\Code\Shoply\ShopManagment.Imfrastructure.Config\obj\Debug\net5.0\ShopManagment.Imfrastructure.Config.pdb
+D:\Shoply_Project\Code\Shoply\ShopManagment.Imfrastructure.Config\bin\Debug\net5.0\01-Shoplyquery.dll
+D:\Shoply_Project\Code\Shoply\ShopManagment.Imfrastructure.Config\bin\Debug\net5.0\01-Shoplyquery.pdb

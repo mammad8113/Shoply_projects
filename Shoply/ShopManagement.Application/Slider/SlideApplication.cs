@@ -36,7 +36,7 @@ namespace ShopManagement.Application.Slider
             if (sliderepository.Exist(x => x.Picture == command.Picture && x.Heding == command.Heding))
                 return result.Faild(ApplicationMessage.DoblicatedMessage);
 
-            var slide = new Slide(command.Picture, command.PictureAlt, command.PictureTitle, command.Heding, command.Title, command.Text, command.BtnText);
+            var slide = new Slide(command.Picture, command.PictureAlt, command.PictureTitle, command.Heding, command.Link, command.Title, command.Text, command.BtnText);
             sliderepository.Create(slide);
             sliderepository.Save();
             return result.Success();
@@ -52,14 +52,14 @@ namespace ShopManagement.Application.Slider
             if (sliderepository.Exist(x => x.Picture == command.Picture && x.Heding == command.Heding && x.Id != command.Id))
                 return result.Faild(ApplicationMessage.DoblicatedMessage);
 
-            slide.Edit(command.Picture, command.PictureAlt, command.PictureTitle, command.Heding, command.Title, command.Text, command.BtnText);
+            slide.Edit(command.Picture, command.PictureAlt, command.PictureTitle, command.Heding, command.Link, command.Title, command.Text, command.BtnText);
             sliderepository.Save();
             return result.Success();
         }
 
         public List<SlideViewModel> GetAll()
         {
-          return sliderepository.GetAll();
+            return sliderepository.GetAll();
         }
 
         public EditSlide GetDetals(long id)

@@ -19,8 +19,7 @@ namespace ShopManagement.Domain.Product.Agg
         public string Picture { get; private set; }
         public string PictureAlt { get; private set; }
         public string PictureTitle { get; private set; }
-        public int Level { get; set; }
-        public long Parent { get; set; }
+    
         public double Price { get; private set; }
         public string Slug { get; private set; }
         public string MetaDescription { get; private set; }
@@ -50,6 +49,7 @@ namespace ShopManagement.Domain.Product.Agg
             KeyWords = keyWords;
             ProductCategoryId = productCategoryId;
             IsInStock = true;
+         
         }
         public void Edit(string name, string code, string description, string shortDescription, string picture,
         string pictureAlt, string pictureTitle, double price, string slug, string metaDescription,

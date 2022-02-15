@@ -10,18 +10,22 @@ namespace ServiceHost.Areas.administration.Pages.Shop.ProductCategory
         private readonly IProductCategoryApplication productCategoryApplication;
         public List<ProductCategoryViewModel> ProductCategories { get; set; }
         public ProductCategorySearchModel SearchModel { get; set; }
+
         public IndexModel(IProductCategoryApplication productCategoryApplication)
         {
             this.productCategoryApplication = productCategoryApplication;
         }
 
-        public void OnGet(ProductCategorySearchModel searchModel)
+        public void OnGet(ProductCategorySearchModel searchModel,long id=0)
         {
+            searchModel.Parent = id;
             ProductCategories = productCategoryApplication.Search(searchModel);
         }
-        public IActionResult OnGetCreate()
+        public IActionResult OnGetCreate(long id=0)
         {
-            return Partial("./Create", new CreateProductCategory());
+            var category = new CreateProductCategory();
+            category.GetAll = productCategoryApplication.GetProductCategories(id);
+            return Partial("./Create",category );
         }
         public JsonResult OnPostCreate(CreateProductCategory command)
         {

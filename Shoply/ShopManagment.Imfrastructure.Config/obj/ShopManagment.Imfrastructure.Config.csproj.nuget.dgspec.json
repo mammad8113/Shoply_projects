@@ -4,6 +4,64 @@
     "D:\\Shoply_Project\\Code\\Shoply\\ShopManagment.Imfrastructure.Config\\ShopManagment.Imfrastructure.Config.csproj": {}
   },
   "projects": {
+    "D:\\Shoply_Project\\Code\\Shoply\\01-Shoplyquery\\01-Shoplyquery.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Shoply_Project\\Code\\Shoply\\01-Shoplyquery\\01-Shoplyquery.csproj",
+        "projectName": "01-Shoplyquery",
+        "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\01-Shoplyquery\\01-Shoplyquery.csproj",
+        "packagesPath": "C:\\Users\\Albaloo.Co\\.nuget\\packages\\",
+        "outputPath": "D:\\Shoply_Project\\Code\\Shoply\\01-Shoplyquery\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Albaloo.Co\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Infrastructure.EfCore\\ShopManagement.Infrastructure.EfCore.csproj": {
+                "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Infrastructure.EfCore\\ShopManagement.Infrastructure.EfCore.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "D:\\Shoply_Project\\Code\\Shoply\\01_framwork\\01_framwork.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -342,6 +400,9 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
+              "D:\\Shoply_Project\\Code\\Shoply\\01-Shoplyquery\\01-Shoplyquery.csproj": {
+                "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\01-Shoplyquery\\01-Shoplyquery.csproj"
+              },
               "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Application\\ShopManagement.Application.csproj": {
                 "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Application\\ShopManagement.Application.csproj"
               },

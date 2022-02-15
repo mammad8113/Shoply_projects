@@ -1485,6 +1485,19 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "01-Shoplyquery/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "ShopManagement.Infrastructure.EfCore": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/01-Shoplyquery.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/01-Shoplyquery.dll": {}
+        }
+      },
       "01_framwork/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -5771,6 +5784,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "01-Shoplyquery/1.0.0": {
+      "type": "project",
+      "path": "../01-Shoplyquery/01-Shoplyquery.csproj",
+      "msbuildProject": "../01-Shoplyquery/01-Shoplyquery.csproj"
+    },
     "01_framwork/1.0.0": {
       "type": "project",
       "path": "../01_framwork/01_framwork.csproj",
@@ -5799,6 +5817,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "01-Shoplyquery >= 1.0.0",
       "Microsoft.Extensions.DependencyInjection.Abstractions >= 6.0.0",
       "ShopManagement.Application >= 1.0.0",
       "ShopManagement.Domain >= 1.0.0",
@@ -5832,6 +5851,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "D:\\Shoply_Project\\Code\\Shoply\\01-Shoplyquery\\01-Shoplyquery.csproj": {
+              "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\01-Shoplyquery\\01-Shoplyquery.csproj"
+            },
             "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Application\\ShopManagement.Application.csproj": {
               "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Application\\ShopManagement.Application.csproj"
             },

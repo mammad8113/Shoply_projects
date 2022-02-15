@@ -24,12 +24,12 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Product
         public void OnGet(ProductSearchModel searchModel)
         {
             Products = productApplication.Search(searchModel);
-            productCategories = new SelectList(productCategoryApplication.GetProductCategories(), "Id", "Name");
+            productCategories = new SelectList(productCategoryApplication.GetProductCategories(0), "Id", "Name");
         }
         public IActionResult OnGetCreate()
         {
             var command = new CreateProduct();
-            command.ProductCategories=productCategoryApplication.GetProductCategories();
+            command.ProductCategories=productCategoryApplication.GetProductCategories(0);
             return Partial("./Create", command);
         }
         public JsonResult OnPostCreate(CreateProduct command)
@@ -40,7 +40,7 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Product
         public IActionResult OnGetEdit(int id)
         {
             var product = productApplication.GetDetals(id);
-            product.ProductCategories = productCategoryApplication.GetProductCategories();
+            product.ProductCategories = productCategoryApplication.GetProductCategories(0);
             return Partial("./Edit", product);
         }
 
