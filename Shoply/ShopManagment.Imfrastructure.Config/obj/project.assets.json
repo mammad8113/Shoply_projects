@@ -5830,9 +5830,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagment.Imfrastructure.Config\\ShopManagment.Imfrastructure.Config.csproj",
-      "projectName": "ShopManagment.Imfrastructure.Config",
-      "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagment.Imfrastructure.Config\\ShopManagment.Imfrastructure.Config.csproj",
+      "projectUniqueName": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagment.Imfrastructure.Config\\ShopManagment.Infrastructure.Config.csproj",
+      "projectName": "ShopManagment.Infrastructure.Config",
+      "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagment.Imfrastructure.Config\\ShopManagment.Infrastructure.Config.csproj",
       "packagesPath": "C:\\Users\\Albaloo.Co\\.nuget\\packages\\",
       "outputPath": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagment.Imfrastructure.Config\\obj\\",
       "projectStyle": "PackageReference",

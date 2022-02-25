@@ -23,8 +23,7 @@ namespace ShopManagement.Application.Contracts.Product
         public string Picture { get; set; }
         public string PictureAlt { get; set; }
         public string PictureTitle { get; set; }
-        [Range(1,9999999999999999,ErrorMessage = VallidationMessage.Message)]
-        public double Price { get; set; }
+     
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string Slug { get; set; }

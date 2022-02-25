@@ -1,3 +1,5 @@
+using DiscountManagement.Infrastructure.Config;
+using InventoryManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,7 +26,10 @@ namespace ServiceHost
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ShopManagementConfiguration.Configur(services, Configuration.GetConnectionString("ShoplyDb"));
+            var connectionString = Configuration.GetConnectionString("ShoplyDb");
+            ShopManagementConfiguration.Configur(services,connectionString );
+            DiscountManagementBootstraper.Configur(services, connectionString);
+            InventoryManagementBootstraper.Configur(services, connectionString);
             services.AddRazorPages();
         }
 

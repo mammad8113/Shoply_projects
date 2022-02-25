@@ -49,14 +49,14 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Product
             var result = productApplication.Edit(command);
             return new JsonResult(result);
         }
-        public IActionResult OnGetNotInStock(long id)
+        public IActionResult OnGetRemove(long id)
         {
-          var result= productApplication.NotInStock(id);
+          var result= productApplication.Remove(id);
             return RedirectToPage("./Index");
         }
-        public IActionResult OnGetIsInStock(long id)
+        public IActionResult OnGetActivate(long id)
         {
-            var result = productApplication.InStock(id);
+            var result = productApplication.Activate(id);
             return RedirectToPage("./Index");
 
         }

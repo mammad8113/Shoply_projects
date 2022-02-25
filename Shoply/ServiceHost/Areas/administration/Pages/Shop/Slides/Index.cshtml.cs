@@ -36,7 +36,7 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Slides
             var result = slideApplication.Create(command);
             return new JsonResult(result);
         }
-        public IActionResult OnGetEdit(int id)
+        public IActionResult OnGetEdit(long id)
         {
             var product = slideApplication.GetDetals(id);
       

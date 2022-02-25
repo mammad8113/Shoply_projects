@@ -19,6 +19,18 @@ namespace ShopManagement.Application.Producta
             this.productRepository = productRepository;
         }
 
+        public OperationResult Activate(long id)
+        {
+            OperationResult result = new OperationResult();
+            var product = productRepository.Get(id);
+            if (product == null)
+                return result.Faild(ApplicationMessage.NullMessage);
+
+            product.Activate();
+            productRepository.Save();
+            return result.Success();
+        }
+
         public OperationResult Create(CreateProduct command)
         {
             OperationResult result = new OperationResult();
@@ -28,7 +40,7 @@ namespace ShopManagement.Application.Producta
 
             var slug = command.Slug.Slugify();
             var product = new Product(command.Name, command.Code, command.Description, command.ShortDescription, command.Picture, command.PictureAlt,
-                command.PictureTitle, command.Price, slug, command.MetaDescription, command.KeyWords, command.ProductCategoryId);
+                command.PictureTitle, slug, command.MetaDescription, command.KeyWords, command.ProductCategoryId);
             productRepository.Create(product);
             productRepository.Save();
             return result.Success();
@@ -47,7 +59,7 @@ namespace ShopManagement.Application.Producta
 
             var slug = command.Slug.Slugify();
             product.Edit(command.Name, command.Code, command.Description, command.ShortDescription, command.Picture, command.PictureAlt,
-               command.PictureTitle, command.Price, slug, command.MetaDescription, command.KeyWords, command.ProductCategoryId);
+               command.PictureTitle, slug, command.MetaDescription, command.KeyWords, command.ProductCategoryId);
 
             productRepository.Save();
             return result.Success();
@@ -63,26 +75,15 @@ namespace ShopManagement.Application.Producta
             return productRepository.GetProducts();
         }
 
-        public OperationResult InStock(long id)
+
+        public OperationResult Remove(long id)
         {
             OperationResult result = new OperationResult();
             var product = productRepository.Get(id);
             if (product == null)
                 return result.Faild(ApplicationMessage.NullMessage);
 
-            product.InStock();
-            productRepository.Save();
-            return result.Success();
-        }
-
-        public OperationResult NotInStock(long id)
-        {
-            OperationResult result = new OperationResult();
-            var product = productRepository.Get(id);
-            if (product == null)
-                return result.Faild(ApplicationMessage.NullMessage);
-
-            product.NotInStock();
+            product.Remove();
             productRepository.Save();
             return result.Success();
         }

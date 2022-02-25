@@ -16,7 +16,7 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.13")
+                .HasAnnotation("ProductVersion", "5.0.14")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ShopManagement.Domain.Product.Agg.Product", b =>
@@ -37,7 +37,7 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsInStock")
+                    b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<string>("KeyWords")
@@ -66,9 +66,6 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                     b.Property<string>("PictureTitle")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
 
                     b.Property<long>("ProductCategoryId")
                         .HasColumnType("bigint");

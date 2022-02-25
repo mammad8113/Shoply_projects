@@ -31,7 +31,6 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
                 PictureTitle = x.PictureTitle,
                 ShortDescription = x.ShortDescription,
                 Slug = x.Slug,
-                Price = x.Price,
                 MetaDescription = x.MetaDescription,
                 KeyWords = x.KeyWords,
                 Description = x.Description,
@@ -49,11 +48,11 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
                 Picture = x.Picture,
                 ShortDescription = x.ShortDescription,
                 Code = x.Code,
-                Price = x.Price,
+                IsRemove = x.IsRemoved,
                 CreationDate = x.CreationDate.ToShamsi(),
                 ProductCategory = x.ProductCategory.Name,
                 ProductCategoryId = x.ProductCategoryId,
-                IsInStock = x.IsInStock
+
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
@@ -71,8 +70,8 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
         {
             return _shopContext.Products.Select(x => new ProductViewModel
             {
-                Id=x.Id,
-                Name=x.Name,
+                Id = x.Id,
+                Name = x.Name,
             }).OrderByDescending(x => x.Id).ToList();
         }
     }

@@ -61,7 +61,6 @@
                                     <th>عکس</th>
                                     <th>نام</th>
                                     <th>کد</th>
-                                    <th>قیمت</th>
                                     <th>دسته بندی</th>
                                     <th>وضعیت</th>
                                     <th>توضیحات کوتاه</th>
@@ -79,16 +78,18 @@
                                         </td>
                                         <td>@product.Name</td>
                                         <td>@product.Code</td>
-                                        <td>@product.Price</td>
+
                                         <td>@product.ProductCategory</td>
                                         <td class="text-center">
-                                        @if (@product.IsInStock)
-                                        {
-                                            <i class="fa fa-check fa-2x text-success"></i>
-                                        }else{
-                                            <i class="fa fa-remove fa-2x text-danger"></i>
+                                            @if (!product.IsRemove)
+                                            {
+                                                <i class="fa fa-check fa-2x text-success"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-remove fa-2x text-danger"></i>
 
-                                        }
+                                            }
                                         </td>
                                         <td>@product.ShortDescription</td>
                                         <td>@product.CreationDate</td>
@@ -96,16 +97,16 @@
                                             <a href="#showmodal=@Url.Page("./Index", "Edit",new{id=product.Id})" class="btn btn-warning pull-right m-rl-5">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
-                                            @if (product.IsInStock)
+                                            @if (product.IsRemove)
                                             {
-                                                <a asp-page="./Index" asp-page-handler="NotInStock" asp-route-id="@product.Id" class="btn btn-danger">
-                                                    ناموجود
+                                                <a asp-page="./Index" asp-page-handler="Activate" asp-route-id="@product.Id" class="btn btn-success">
+                                                    فعال
                                                 </a>
                                             }
                                             else
                                             {
-                                                <a class="btn btn-success" asp-page="./Index" asp-page-handler="IsInStock" asp-route-id="@product.Id">
-                                                    موجود شد
+                                                <a class="btn btn-danger " asp-page="./Index" asp-page-handler="Remove" asp-route-id="@product.Id">
+                                                    غیرفعال
                                                 </a>
                                             }
                                         </td>

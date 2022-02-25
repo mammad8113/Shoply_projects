@@ -22,7 +22,7 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
         {
             return shopContext.Slides.Select(x => new EditSlide
             {
-                Id = id,
+                Id = x.Id,
                 Picture = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,

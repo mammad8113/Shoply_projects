@@ -33,14 +33,8 @@
 
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="Price" class="control-label">قیمت</label>
-                    <input class="form-control" asp-for="Price" accept="image/*">
-                    <span asp-validation-for="Price" class="error"></span>
-                </div>
-            </div>
-            <div class="col-md-6">
+
+            <div class="col-md-12">
                 <div class="form-group">
                     <label asp-for="ProductCategoryId" class="control-label">دسته بندی</label>
                     <select class="form-control" asp-for="ProductCategoryId" asp-items='new SelectList(Model.ProductCategories,"Id","Name")'>

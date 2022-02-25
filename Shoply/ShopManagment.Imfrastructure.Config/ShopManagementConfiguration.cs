@@ -1,4 +1,5 @@
-﻿using _01_Shoplyquery.Contracts.Slide;
+﻿using _01_Shoplyquery.Contracts.ProductCategory;
+using _01_Shoplyquery.Contracts.Slide;
 using _01_Shoplyquery.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +29,7 @@ namespace ShopManagment.Imfrastructure.Config
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();
             services.AddTransient<IValidationProducatCategory, ValidationProductCategory>();
+            services.AddTransient<IProductCategoryQuery, ProductCategoryQuey>();
 
             services.AddTransient<IProductApplication, ProductApplication>();
             services.AddTransient<IProductRepository, ProductRepository>();

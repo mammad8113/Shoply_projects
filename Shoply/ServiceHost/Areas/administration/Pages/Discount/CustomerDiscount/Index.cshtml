@@ -1,0 +1,108 @@
+﻿@page
+@model ServiceHost.Areas.administration.Pages.Discount.CustomerDiscount.IndexModel
+
+@{
+
+    ViewData["title"] = "مدیریت تخفیفات";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title pull-right">@ViewData["title"]</h4>
+        <p class="pull-left">
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد تخفیف جدید</a>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">جستجو در تخفیفات</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline" role="form" method="get">
+                    <div class="form-group">
+                        <label asp-for="SearchModel.StartDiscount" class="sr-only persianDate"></label>
+                        <input asp-for="SearchModel.StartDiscount" class="form-control persianDate">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SearchModel.EndDiscount" class="sr-only persianDate"></label>
+                        <input asp-for="SearchModel.EndDiscount" class="form-control persianDate">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SearchModel.ProductId" class="sr-only"></label>
+                        <select asp-for="SearchModel.ProductId" asp-items="Model.Products" class="form-control">
+                            <option value="0"> محصولات</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
+                    <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">لیست تخفیفات محصولات</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>محصول</th>
+                                    <th>مقدار</th>
+                                    <th>تاریخ شروع</th>
+                                    <th>تاریخ پایان</th>
+                                    <th>شرح تخفیف</th>
+                                    <th>تاریخ تولید</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var discount in Model.CustomerDiscounts)
+                                {
+                                    <tr>
+                                        <td>@discount.Id</td>
+
+                                        <td>@discount.Product</td>
+                                        <td>@discount.Discount%</td>
+                                        <td>@discount.StartDiscount</td>
+                                        <td>@discount.EndDiscount</td>
+                                        <td>@discount.Title</td>
+                                        <td>@discount.CreationDate</td>
+                                        <td>
+                                            <a href="#showmodal=@Url.Page("./Index", "Edit",new{id=discount.Id})" class="btn btn-warning pull-right m-rl-5">
+                                                <i class="fa fa-edit"></i> ویرایش
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/adminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+<script src="~/adminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+<script src="~/js/Stock.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+    });
+</script>
+}
