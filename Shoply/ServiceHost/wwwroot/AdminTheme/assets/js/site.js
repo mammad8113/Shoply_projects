@@ -35,7 +35,6 @@ $(document).ready(function () {
     $("#MainModal").on("shown.bs.modal",
         function () {
             window.location.hash = "##";
-       
             $('.persianDate').persianDatepicker({
                 format: 'YYYY/MM/DD',
                 autoClose: true,
@@ -187,27 +186,34 @@ function handleAjaxCall(method, url, data) {
     }
 }
 
+
+
 jQuery.validator.addMethod("maxFileSize",
     function (value, element, params) {
         var size = element.files[0].size;
-        var maxSize = 3 * 1024 * 1024;
+        var format = element.files[0].type;
+        var maxSize = 3 * 1024*1024 ;
         if (size > maxSize)
             return false;
         else {
             return true;
         }
     });
+
 jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
 
-//jQuery.validator.addMethod("maxFileSize",
-//    function (value, element, params) {
-//        var size = element.files[0].size;
-//        var maxSize = 3 * 1024 * 1024;
-//        debugger;
-//        if (size > maxSize)
-//            return false;
-//        else {
-//            return true;
-//        }
-//    });
-//jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
+jQuery.validator.addMethod("fileExtention",
+    function (value, element, params) {
+
+        var format = element.files[0].name.split(".");
+        let extention = format[1];
+        let Extentions = ["jpeg", "png","jpg"];
+        var result = Extentions.find(x => x == extention);
+
+        if (result == undefined)
+            return false;
+        else {
+            return true;
+        }
+    });
+jQuery.validator.unobtrusive.adapters.addBool("fileExtention");

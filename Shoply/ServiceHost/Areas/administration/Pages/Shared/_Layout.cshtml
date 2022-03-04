@@ -54,7 +54,7 @@
             <!-- LOGO -->
             <div class="topbar-left">
                 <div class="text-center">
-                    <a href="index.html" class="logo"><i class="md md-terrain"></i> <span>Moltran </span></a>
+                    <a asp-page="Index" asp-area="" class="logo"><i class="md md-terrain"></i> <span>Moltran </span></a>
                 </div>
             </div>
             <!-- Button mobile view to collapse sidebar menu -->
@@ -181,7 +181,7 @@
                         <li>
                             <a asp-page="/Index" asp-area="Administration" class="waves-effect active"><i class="md md-home"></i><span> داشبورد </span></a>
                         </li>
-                         <li>
+                        <li>
                             <a asp-page="/Inventory/Index" class="waves-effect active"><i class="md md-home"></i><span> انبار </span></a>
                         </li>
                         <li class="has_sub">
@@ -198,7 +198,7 @@
                             <ul class="list-unstyled">
                                 <li><a asp-page="/Discount/CustomerDiscount/Index">تخفیف مشتریان</a></li>
                                 <li><a asp-page="/Discount/ColleagueDiscount/Index">تخفیف همکاران </a></li>
-                             
+
                             </ul>
                         </li>
                     </ul>
@@ -286,9 +286,11 @@
     <!-- Todo -->
     <script src="~/AdminTheme/assets/js/jquery.todo.js"></script>
 
-    <script src="~/AdminTheme/assets/js/site.js"></script>
+
+
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/AdminTheme/assets/js/site.js"></script>
     <script src="~/AdminTheme/assets/js/persian-date.min.js"></script>
     <script src="~/AdminTheme/assets/js/persian-datepicker.min.js"></script>
     <script>

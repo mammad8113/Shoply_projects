@@ -34,7 +34,7 @@ namespace DiscountManagement.Application.ColleagueDiscount
         public OperationResult Create(CreateColleagueDiscount command)
         {
             var result = new OperationResult();
-            if (colleagueDiscountRepository.Exist(x => x.ProductId == command.ProductId && x.Discount == command.Discount))
+            if (colleagueDiscountRepository.Exist(x => x.ProductId == command.ProductId ))
                 return result.Faild(ApplicationMessage.DoblicatedMessage);
 
             var ColleagueDiscount=new Domain.ColleagueDiscount.Agg.ColleagueDiscount(command.ProductId,command.Discount);

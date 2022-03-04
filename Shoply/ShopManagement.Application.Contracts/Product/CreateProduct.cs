@@ -1,12 +1,9 @@
 ﻿using _01_framwork.Applicatin;
+using Microsoft.AspNetCore.Http;
 using ShopManagement.Application.Contracts.ProductCategory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace ShopManagement.Application.Contracts.Product
 {
     public class CreateProduct
@@ -20,7 +17,10 @@ namespace ShopManagement.Application.Contracts.Product
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string ShortDescription { get; set; }
-        public string Picture { get; set; }
+
+        [FileExtention(".jpeg", ".jpg", ".png", ErrorMessage = "فرمت عکس مجاز نیست")]
+        [MaxSizeAttribut(3 * 1024 * 1024, ErrorMessage = "فایل نباید حجیم تر از 3 مگابایت باشد")]
+        public IFormFile Picture { get; set; }
         public string PictureAlt { get; set; }
         public string PictureTitle { get; set; }
      
@@ -36,6 +36,6 @@ namespace ShopManagement.Application.Contracts.Product
         [Range(1,100000,ErrorMessage = VallidationMessage.Message)]
 
         public long ProductCategoryId { get; set; }
-        public List<ProductCategoryViewModel> ProductCategories { get; set; }=new List<ProductCategoryViewModel>();
+        public List<ProductCategoryViewModel> ProductCategories{ get; set; }
     }
 }

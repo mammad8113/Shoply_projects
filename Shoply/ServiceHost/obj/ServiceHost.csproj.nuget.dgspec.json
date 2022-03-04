@@ -28,6 +28,12 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
+              "D:\\Shoply_Project\\Code\\Shoply\\DiscountManagement.Infrastructure\\DiscountManagement.Infrastructure.csproj": {
+                "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\DiscountManagement.Infrastructure\\DiscountManagement.Infrastructure.csproj"
+              },
+              "D:\\Shoply_Project\\Code\\Shoply\\Inventory.Infrastructure\\InventoryManagement.Infrastructure.csproj": {
+                "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\Inventory.Infrastructure\\InventoryManagement.Infrastructure.csproj"
+              },
               "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Infrastructure.EfCore\\ShopManagement.Infrastructure.EfCore.csproj": {
                 "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Infrastructure.EfCore\\ShopManagement.Infrastructure.EfCore.csproj"
               }
@@ -98,6 +104,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.14, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.13, )"
@@ -906,6 +920,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.14, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

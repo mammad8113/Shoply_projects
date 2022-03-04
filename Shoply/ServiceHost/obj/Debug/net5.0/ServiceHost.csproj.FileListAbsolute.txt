@@ -65,7 +65,6 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\ServiceHost.TagHelper
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\ServiceHost.RazorCoreGenerate.cache
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Index.cshtml.g.cs
-D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Privacy.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
@@ -209,3 +208,14 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administr
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Inventory\Increase.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Inventory\Reduce.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Inventory\Log.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Shared\Components\CategoryWithProduct\Default.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Shared\Components\LatestProduct\Default.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\PRoductCategory.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Shared\Components\Menu\Default.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Shared\Components\Footer\Default.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Search.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Partial\Pagation.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\System.IO.Pipelines.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\ServiceHost.MvcApplicationPartsAssemblyInfo.cs

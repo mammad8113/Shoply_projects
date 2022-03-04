@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopManagement.Domain.ProductPicture.Agg
 {
-    public class ProductPicture:EntityBase<long>
+    public class ProductPicture : EntityBase<long>
     {
-        public string Picture { get;private set; }
+        public string Picture { get; private set; }
         public string PictureAlt { get; private set; }
         public string PictureTitle { get; private set; }
         public bool IsRemoved { get; private set; }
@@ -28,7 +28,9 @@ namespace ShopManagement.Domain.ProductPicture.Agg
         }
         public void Edit(string picture, string pictureAlt, string pictureTitle, long productId)
         {
-            Picture = picture;
+            if (!string.IsNullOrWhiteSpace(Picture))
+                Picture = picture;
+
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             ProductId = productId;
@@ -41,7 +43,7 @@ namespace ShopManagement.Domain.ProductPicture.Agg
         }
         public void Activate()
         {
-            IsRemoved=false;
+            IsRemoved = false;
         }
     }
 }

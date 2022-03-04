@@ -12,10 +12,11 @@ namespace ShopManagement.Application.Slider
     public class SlideApplication : ISlideApplication
     {
         private readonly ISlideRepository sliderepository;
-
-        public SlideApplication(ISlideRepository sliderepository)
+        private readonly IFileUploader fileUploader;
+        public SlideApplication(ISlideRepository sliderepository, IFileUploader fileUploader)
         {
             this.sliderepository = sliderepository;
+            this.fileUploader = fileUploader;
         }
 
         public OperationResult Activate(long id)
@@ -33,10 +34,12 @@ namespace ShopManagement.Application.Slider
         public OperationResult Create(CreateSlide command)
         {
             var result = new OperationResult();
-            if (sliderepository.Exist(x => x.Picture == command.Picture && x.Heding == command.Heding))
+            if (sliderepository.Exist(x=>x.Heding == command.Heding))
                 return result.Faild(ApplicationMessage.DoblicatedMessage);
+            var path = "slides";
+            var picture = fileUploader.Upload(command.Picture, path);
 
-            var slide = new Slide(command.Picture, command.PictureAlt, command.PictureTitle, command.Heding, command.Link, command.Title, command.Text, command.BtnText);
+            var slide = new Slide(picture, command.PictureAlt, command.PictureTitle, command.Heding, command.Link, command.Title, command.Text, command.BtnText);
             sliderepository.Create(slide);
             sliderepository.Save();
             return result.Success();
@@ -49,10 +52,12 @@ namespace ShopManagement.Application.Slider
             if (slide == null)
                 return result.Faild(ApplicationMessage.NullMessage);
 
-            if (sliderepository.Exist(x => x.Picture == command.Picture && x.Heding == command.Heding && x.Id != command.Id))
-                return result.Faild(ApplicationMessage.DoblicatedMessage);
+            //if (sliderepository.Exist(x => x.Picture == command.Picture && x.Heding == command.Heding && x.Id != command.Id))
+            //    return result.Faild(ApplicationMessage.DoblicatedMessage);
 
-            slide.Edit(command.Picture, command.PictureAlt, command.PictureTitle, command.Heding, command.Link, command.Title, command.Text, command.BtnText);
+            var path = "slides";
+            var picture = fileUploader.Upload(command.Picture, path);
+            slide.Edit(picture, command.PictureAlt, command.PictureTitle, command.Heding, command.Link, command.Title, command.Text, command.BtnText);
             sliderepository.Save();
             return result.Success();
         }

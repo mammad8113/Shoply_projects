@@ -19,3 +19,15 @@ D:\Shoply_Project\Code\Shoply\01-Shoplyquery\obj\Debug\net5.0\01-Shoplyquery.csp
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\obj\Debug\net5.0\01-Shoplyquery.dll
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\obj\Debug\net5.0\ref\01-Shoplyquery.dll
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\obj\Debug\net5.0\01-Shoplyquery.pdb
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\InventoryManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\InventoryManagement.Domain.dll
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\InventoryManagement.Infrastructure.dll
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\InventoryManagement.Infrastructure.pdb
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\InventoryManagement.Application.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\InventoryManagement.Domain.pdb
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\DiscountManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\DiscountManagement.Domain.dll
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\DiscountManagement.Infrastructure.dll
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\DiscountManagement.Infrastructure.pdb
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\DiscountManagement.Application.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\DiscountManagement.Domain.pdb

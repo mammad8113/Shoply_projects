@@ -26,7 +26,7 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
                 Id = x.Id,
                 Name = x.Name,
                 Code = x.Code,
-                Picture = x.Picture,
+                //Picture = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
                 ShortDescription = x.ShortDescription,
@@ -73,6 +73,16 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
                 Id = x.Id,
                 Name = x.Name,
             }).OrderByDescending(x => x.Id).ToList();
+        }
+
+        public string GetSlug(long id)
+        {
+            return _shopContext.Products.Select(x => new {x.Slug,x.Id}).FirstOrDefault(x=>x.Id == id).Slug;
+        }
+
+        public Product GetProductWithCategory(long id)
+        {
+           return _shopContext.Products.Include(x=>x.ProductCategory).FirstOrDefault(x=>x.Id==id);
         }
     }
 }

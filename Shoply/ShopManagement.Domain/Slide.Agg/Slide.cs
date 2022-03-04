@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace ShopManagement.Domain.Slide.Agg
 {
-    public class Slide:EntityBase<long>
+    public class Slide : EntityBase<long>
     {
-        public string Picture { get;private set; }
-        public string PictureAlt { get;private set; }
-        public string PictureTitle { get;private set; }
-        public string Heding { get;private set; }
+        public string Picture { get; private set; }
+        public string PictureAlt { get; private set; }
+        public string PictureTitle { get; private set; }
+        public string Heding { get; private set; }
         public string Link { get; set; }
-        public string Title { get;private set; }
-        public string Text { get;private set; }
-        public string BtnText { get;private set; }
+        public string Title { get; private set; }
+        public string Text { get; private set; }
+        public string BtnText { get; private set; }
         public bool IsRemove { get; private set; }
 
-        public Slide(string picture, string pictureAlt, string pictureTitle, string heding,string link, string title, string text, string btnText)
+        public Slide(string picture, string pictureAlt, string pictureTitle, string heding, string link, string title, string text, string btnText)
         {
             Picture = picture;
             PictureAlt = pictureAlt;
@@ -34,15 +34,17 @@ namespace ShopManagement.Domain.Slide.Agg
 
         public void Edit(string picture, string pictureAlt, string pictureTitle, string heding, string link, string title, string text, string btnText)
         {
-            Picture = picture;
+            if (!string.IsNullOrWhiteSpace(picture))
+                Picture = picture;
+
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             Heding = heding;
-            Link=link;
+            Link = link;
             Title = title;
             Text = text;
             BtnText = btnText;
-          
+
         }
         public void Remove()
         {

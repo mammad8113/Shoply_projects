@@ -28,7 +28,7 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
-                Picture = x.Picture,
+                PicturePath = x.Picture,
                 PictureTitle = x.PictureTitle,
                 PictureAlt = x.PictureAlt,
 
@@ -48,13 +48,18 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
 
             return query.Select(x => new ProductCategoryViewModel
             {
-                Id=x.Id,
-                Name=x.Name,
+                Id = x.Id,
+                Name = x.Name,
                 CreationDate = x.CreationDate.ToShamsi(),
-                Picture=x.Picture,
-                IsRemoved=x.IsRemoved,
+                Picture = x.Picture,
+                IsRemoved = x.IsRemoved,
 
             }).OrderByDescending(x => x.Id).ToList();
+        }
+
+        public string GetSlug(long id)
+        {
+           return _shopContext.ProductCategories.Select(x => new {x.Id,x.Slug}).FirstOrDefault(x=>x.Id == id).Slug;
         }
 
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel)
@@ -75,6 +80,5 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
 
             return query.OrderByDescending(x => x.Id).ToList();
         }
-
     }
 }

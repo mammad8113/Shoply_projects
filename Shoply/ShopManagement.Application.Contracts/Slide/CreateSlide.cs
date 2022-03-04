@@ -1,4 +1,5 @@
 ﻿using _01_framwork.Applicatin;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,8 +11,9 @@ namespace ShopManagement.Application.Contracts.Slide
 {
     public class CreateSlide
     {
-        [Required(ErrorMessage = VallidationMessage.Message)]
-        public string Picture { get; set; }
+        [FileExtention(".jpeg", ".jpg", ".png", ErrorMessage = "فرمت عکس مجاز نیست")]
+        [MaxSizeAttribut(3 * 1024 * 1024, ErrorMessage = "فایل نباید حجیم تر از 3 مگابایت باشد")]
+        public IFormFile Picture { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string PictureAlt { get; set; }

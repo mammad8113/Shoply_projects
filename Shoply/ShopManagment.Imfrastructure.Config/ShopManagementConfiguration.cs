@@ -1,4 +1,5 @@
-﻿using _01_Shoplyquery.Contracts.ProductCategory;
+﻿using _01_Shoplyquery.Contracts.Product;
+using _01_Shoplyquery.Contracts.ProductCategory;
 using _01_Shoplyquery.Contracts.Slide;
 using _01_Shoplyquery.Query;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,7 @@ namespace ShopManagment.Imfrastructure.Config
 
             services.AddTransient<IProductApplication, ProductApplication>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductQuery, ProductQuery>();
 
             services.AddTransient<IProductPictureRepository, ProductPictureRepository>();
             services.AddTransient<IProductPictureApplication, ProductPictureApplication>();
@@ -40,6 +42,8 @@ namespace ShopManagment.Imfrastructure.Config
             services.AddTransient<ISlideApplication, SlideApplication>();
             services.AddTransient<ISlideRepository, SlideRepository>();
             services.AddTransient<ISlidequery, SlideQuey>();
+
+
 
             services.AddDbContext<ShopContext>(x => x.UseSqlServer(ConnectionString));
         }

@@ -98,9 +98,15 @@ body {
 .navigation-menu-wrapper nav > ul > li.menu-item-has-children > a::after {
     float: left;
     margin-right: 5px;
+    display:none
 }
-
-.navigation-menu-wrapper nav > ul > li:last-child {
+.navigation-menu-wrapper nav > ul > li.menu-item-has-children > a::before {
+    float:left;
+    margin-right:5px;
+    font-size:15px;
+    font-weight:100;
+}
+    .navigation-menu-wrapper nav > ul > li:last-child {
     margin-right: 50px;
 }
 

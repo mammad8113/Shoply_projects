@@ -56,11 +56,11 @@ namespace DiscountManagement.Infrastructure.Repository
 
             if (!string.IsNullOrEmpty(searchModel.StartDiscount))
             {
-                query = query.Where(x => x.StartDiscountGr > searchModel.StartDiscount.ToGeorgianDateTime());
+                query = query.Where(x => x.StartDiscountGr >= searchModel.StartDiscount.ToGeorgianDateTime());
             }
             if (!string.IsNullOrEmpty(searchModel.EndDiscount))
             {
-                query = query.Where(x => x.EndDiscountGr < searchModel.EndDiscount.ToGeorgianDateTime());
+                query = query.Where(x => x.EndDiscountGr <= searchModel.EndDiscount.ToGeorgianDateTime());
             }
 
             var discount = query.OrderByDescending(x => x.Id).ToList();

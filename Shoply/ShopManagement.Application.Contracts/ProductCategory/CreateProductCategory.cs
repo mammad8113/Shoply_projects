@@ -1,4 +1,5 @@
 ﻿using _01_framwork.Applicatin;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,9 +16,12 @@ namespace ShopManagement.Application.Contracts.ProductCategory
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string Description { get; set; }
-        [Required(ErrorMessage = VallidationMessage.Message)]
-
-        public string Picture { get; set; }
+        
+        [FileExtention(".jpeg",".jpg",".png",ErrorMessage ="فرمت عکس مجاز نیست")]
+        [MaxSizeAttribut(3 * 1024 * 1024,ErrorMessage ="فایل نباید حجیم تر از 3 مگابایت باشد")]
+      
+        public IFormFile Picture { get; set; }
+        public string PicturePath { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string PictureAlt { get; set; }
@@ -34,7 +38,7 @@ namespace ShopManagement.Application.Contracts.ProductCategory
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string Slug { get; set; }
-        public long parent { get; set; }
-        public List<ProductCategoryViewModel> GetAll { get; set; }=new List<ProductCategoryViewModel>();
+  
+        public List<ProductCategoryViewModel> GetAll { get; set; } = new List<ProductCategoryViewModel>();
     }
 }

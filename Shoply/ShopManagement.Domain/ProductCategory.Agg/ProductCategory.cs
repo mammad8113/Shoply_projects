@@ -59,7 +59,9 @@ namespace ShopManagement.Domain.ProductCategory
                 validation.Doblicated(x => x.Name == name && x.Picture == picture && x.Id != x.Id);
                 Name = name;
                 Description = description;
+                if(!string.IsNullOrEmpty(picture))
                 Picture = picture;
+
                 PictureAlt = pictureAlt;
                 PictureTitle = pictureTitle;
                 Keywords = keywords;

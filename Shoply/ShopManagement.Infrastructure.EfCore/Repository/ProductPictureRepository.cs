@@ -24,7 +24,7 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
             return _shopContext.ProductPictures.Include(x => x.Product).Select(x => new EditProductPicture
             {
                 Id = id,
-                Picture = x.Picture,
+                //Picture = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle =x.PictureTitle,
                 ProductId = x.ProductId,
