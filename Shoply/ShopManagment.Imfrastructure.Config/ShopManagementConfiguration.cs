@@ -4,6 +4,8 @@ using _01_Shoplyquery.Contracts.Slide;
 using _01_Shoplyquery.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ShopManagement.Application.Comment;
+using ShopManagement.Application.Contracts.Comment;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductCategory;
 using ShopManagement.Application.Contracts.ProductPicture;
@@ -12,6 +14,7 @@ using ShopManagement.Application.Producta;
 using ShopManagement.Application.ProductCategorys;
 using ShopManagement.Application.ProductPictures;
 using ShopManagement.Application.Slider;
+using ShopManagement.Domain.Comment.Agg;
 using ShopManagement.Domain.Product.Agg;
 using ShopManagement.Domain.ProductCategory.Agg;
 using ShopManagement.Domain.ProductCategory.Agg.Services;
@@ -39,6 +42,9 @@ namespace ShopManagment.Imfrastructure.Config
             services.AddTransient<IProductPictureRepository, ProductPictureRepository>();
             services.AddTransient<IProductPictureApplication, ProductPictureApplication>();
 
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<ICommentApplication, CommentApplication>();
+            
             services.AddTransient<ISlideApplication, SlideApplication>();
             services.AddTransient<ISlideRepository, SlideRepository>();
             services.AddTransient<ISlidequery, SlideQuey>();

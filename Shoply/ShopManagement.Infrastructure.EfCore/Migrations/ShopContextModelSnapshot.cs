@@ -19,6 +19,47 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                 .HasAnnotation("ProductVersion", "5.0.14")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ShopManagement.Domain.Comment.Agg.Comment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsCanceld")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsConfirm")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(1500)
+                        .HasColumnType("nvarchar(1500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Commens");
+                });
+
             modelBuilder.Entity("ShopManagement.Domain.Product.Agg.Product", b =>
                 {
                     b.Property<long>("Id")
@@ -237,6 +278,17 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                     b.ToTable("Slides");
                 });
 
+            modelBuilder.Entity("ShopManagement.Domain.Comment.Agg.Comment", b =>
+                {
+                    b.HasOne("ShopManagement.Domain.Product.Agg.Product", "Product")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("ShopManagement.Domain.Product.Agg.Product", b =>
                 {
                     b.HasOne("ShopManagement.Domain.ProductCategory.ProductCategory", "ProductCategory")
@@ -261,6 +313,8 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
 
             modelBuilder.Entity("ShopManagement.Domain.Product.Agg.Product", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("ProductPictures");
                 });
 

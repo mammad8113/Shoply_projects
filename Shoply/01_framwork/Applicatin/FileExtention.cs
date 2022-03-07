@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,11 +27,12 @@ namespace _01_framwork.Applicatin
             var extention = Path.GetExtension(file.FileName);
             return _Extention.Contains(extention);
         }
-
+        
         public void AddValidation(ClientModelValidationContext context)
         {
             context.Attributes.Add("data-val", "true");
             context.Attributes.Add("data-val-fileExtention", ErrorMessage);
         }
     }
+  
 }

@@ -3,6 +3,8 @@ using _01_Shoplyquery.Contracts.Product;
 using DiscountManagement.Infrastructure;
 using InventoryManagement.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Domain.Comment.Agg;
+using ShopManagement.Domain.ProductPicture.Agg;
 using ShopManagement.Infrastructure.EfCore;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,81 @@ namespace _01_Shoplyquery.Contracts.Slide
             this.discountContext = discountContext;
         }
 
+        public ProductQueryModel GetDetals(string slug)
+        {
+            var Inventory = inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice, x.InStock }).ToList();
+
+            var Discount = discountContext.CustomerDiscounts.Where(x => x.StartDiscount < DateTime.Now && x.EndDiscount > DateTime.Now).
+                Select(x => new { x.ProductId, x.Discount, x.EndDiscount }).ToList();
+
+            var product = shopContext.Products.Where(x => !x.IsRemoved).Include(x => x.ProductCategory)
+                .Include(x => x.ProductPictures)
+                .Include(x=>x.Comments)
+                .Select(x => new ProductQueryModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Picture = x.Picture,
+                    PictureAlt = x.PictureAlt,
+                    PictureTitle = x.PictureTitle,
+                    Slug = x.Slug,
+                    Category = x.ProductCategory.Name,
+                    CategorySlug = x.ProductCategory.Slug,
+                    ShortDescription = x.ShortDescription,
+                    Description = x.Description,
+                    MetaDescription = x.MetaDescription,
+                    Code = x.Code,
+                    KeyWords = x.KeyWords,
+                    IsRemoved = x.IsRemoved,
+                    Pictures = MapPictures(x.ProductPictures),
+                    Comments = MapComments(x.Comments),
+                }).FirstOrDefault(x => x.Slug == slug);
+
+            var productInventory = Inventory.FirstOrDefault(x => x.ProductId == product.Id);
+            if (productInventory != null)
+            {
+                var price = productInventory.UnitPrice;
+                product.Price = price.ToMoney();
+                product.InStock = productInventory.InStock;
+
+                var productDiscount = Discount.FirstOrDefault(x => x.ProductId == product.Id);
+                if (productDiscount != null)
+                {
+                    product.EndDate = productDiscount.EndDiscount.ToString();
+                    var discountRate = productDiscount.Discount;
+                    product.DiscountRate = discountRate;
+
+                    product.HasDiscount = discountRate > 0;
+                    var discountAmount = Math.Round((price * discountRate) / 100);
+                    product.PricewithDicount = (price - discountAmount).ToMoney();
+                }
+            }
+            return product;
+        }
+
+        private static List<CommentQueryModel> MapComments(List<Comment> comments)
+        {
+            return comments.Where(x => x.IsConfirm && !x.IsCanceld).Select(x => new CommentQueryModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Message = x.Message,
+                Email = x.Email,
+            }).OrderByDescending(x=>x.Id).ToList();
+        }
+
+        private static List<ProductPictureQueryModel> MapPictures(List<ProductPicture> productPictures)
+        {
+            return productPictures.Where(x => !x.IsRemoved).Select(x => new ProductPictureQueryModel
+            {
+                Picture = x.Picture,
+                ProductId = x.ProductId,
+                IsRemoved = x.IsRemoved,
+                PictureAlt = x.PictureAlt,
+                PictureTitle = x.PictureTitle,
+            }).ToList();
+        }
+
         public List<ProductQueryModel> GetLatest()
         {
             var Inventory = inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
@@ -41,6 +118,13 @@ namespace _01_Shoplyquery.Contracts.Slide
                 PictureTitle = x.PictureTitle,
                 Slug = x.Slug,
                 Category = x.ProductCategory.Name,
+                CategorySlug = x.ProductCategory.Slug,
+                ShortDescription = x.ShortDescription,
+                Description = x.Description,
+                MetaDescription = x.MetaDescription,
+                Code = x.Code,
+                KeyWords = x.KeyWords,
+                IsRemoved = x.IsRemoved,
             });
 
             var products = query.OrderByDescending(x => x.Id).Take(10).ToList();

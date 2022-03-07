@@ -25,6 +25,7 @@ namespace ShopManagement.Domain.Product.Agg
         public long ProductCategoryId { get; private set; }
         public Domain.ProductCategory.ProductCategory ProductCategory { get; private set; }
         public List<ProductPicture.Agg.ProductPicture> ProductPictures { get; private set; }
+        public List<Comment.Agg.Comment> Comments { get; private set; }
         protected Product()
         {
             ProductPictures = new List<ProductPicture.Agg.ProductPicture>();

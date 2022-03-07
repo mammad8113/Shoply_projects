@@ -10,5 +10,6 @@ namespace _01_framwork.Applicatin
     {
         public const string DoblicatedMessage = "امکان ثبت رکورد تکراری وجود ندارد";
         public const string NullMessage = "اطلاعاتی یافت نشد";
+        public const string NullFildMessage = "اطلاعات به درستی وارد نشده اند";
     }
 }

@@ -10,5 +10,6 @@ namespace _01_Shoplyquery.Contracts.Product
     {
         List<ProductQueryModel> Search(string search);
         List<ProductQueryModel> GetLatest();
+        ProductQueryModel GetDetals(string slug);
     }
 }

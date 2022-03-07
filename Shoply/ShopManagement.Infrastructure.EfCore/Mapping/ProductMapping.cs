@@ -29,6 +29,7 @@ namespace ShopManagement.Infrastructure.EfCore.Mapping
 
             builder.HasOne(x=>x.ProductCategory).WithMany(x=>x.Products).HasForeignKey(x=>x.ProductCategoryId);
             builder.HasMany(x => x.ProductPictures).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+            builder.HasMany(x => x.Comments).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
         }
     }
 }

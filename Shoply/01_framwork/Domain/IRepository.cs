@@ -9,6 +9,10 @@ namespace _01_framwork.Domain
 {
     public interface IRepository<TKey,T> where T : EntityBase<TKey>
     {
+        /// <summary>
+        /// create entity
+        /// </summary>
+        /// <param name="entity"></param>
         void Create(T entity);
         T Get(TKey id);
         List<T> GetAll();
