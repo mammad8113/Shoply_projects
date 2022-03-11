@@ -31,3 +31,9 @@ D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\DiscountManagement
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\DiscountManagement.Infrastructure.pdb
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\DiscountManagement.Application.Contracts.pdb
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\DiscountManagement.Domain.pdb
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\BlogManagement.Applicatio.Contracts.dll
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\BlogManagement.Domain.dll
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\BlogManagement.Infrastructure.EfCore.dll
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\BlogManagement.Infrastructure.EfCore.pdb
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\BlogManagement.Applicatio.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\BlogManagement.Domain.pdb

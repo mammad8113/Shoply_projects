@@ -2673,6 +2673,7 @@ select {
 
         .single-slider-post__image a img {
             width: 100%;
+            height:222px;
         }
 
         .single-slider-post__image a:hover img {
@@ -2688,8 +2689,7 @@ select {
     display: -ms-flexbox;
     display: flex;
     flex-direction: column;
-    width: 62px;
-    height: 70px;
+    padding: 5px;
     text-align: center;
     background: #fff;
     -webkit-box-orient: vertical;
@@ -2728,6 +2728,7 @@ select {
     font-size: 16px;
     line-height: 1;
     line-height: 18px;
+    height:36px;
     margin-top: 20px;
     margin-bottom: 15px;
 }
@@ -3271,14 +3272,16 @@ select {
     padding-top: 130px;
     padding-bottom: 210px;
 }
-.breadcrumb-wrapper img{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:-1;
-}
+
+    .breadcrumb-wrapper img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
 .breadcrumb-bg {
     background-image: url('../img/backgrounds/category-image-1820x400.jpg');
     background-repeat: no-repeat;

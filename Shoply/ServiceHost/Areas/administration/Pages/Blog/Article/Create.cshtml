@@ -1,0 +1,104 @@
+﻿@page
+@model ServiceHost.Areas.administration.Pages.Blog.Article.CreateModel
+@{
+}
+
+<p id="Alert" class="alert-danger"></p>
+<form method="post"
+      enctype="multipart/form-data">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="@Model.command.Title" class="control-label">نام</label>
+                    <input type="text" class="form-control" asp-for="@Model.command.Title" onchange="makeSlug('command.Title', 'command.Slug')">
+                    <span asp-validation-for="@Model.command.Title" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="@Model.command.Slug" class="control-label">اسلاگ</label>
+                    <input type="text" class="form-control" asp-for="@Model.command.Slug">
+                    <span asp-validation-for="@Model.command.Slug" class="error"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="@Model.command.Picture" class="control-label">عکس</label>
+                    <input type="file" class="form-control" asp-for="@Model.command.Picture">
+                    <span asp-validation-for="@Model.command.Picture" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="@Model.command.ArticleCategoryId" class="control-label">دسته بندی</label>
+                    <select class="form-control" asp-for="@Model.command.ArticleCategoryId" asp-items=@Model.ArticleCategories>
+                        <option value="0">گروه محصولی</option>
+                    </select>
+                    <span asp-validation-for="@Model.command.ArticleCategoryId" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="@Model.command.CanonicalAddress" class="control-label"></label>
+                    <input type="text" class="form-control" asp-for="@Model.command.CanonicalAddress" accept="image/*">
+                    <span asp-validation-for="@Model.command.CanonicalAddress" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="@Model.command.KeyWords" class="control-label">کلمات کلیدی</label>
+                    <input type="text" class="form-control" asp-for="@Model.command.KeyWords">
+                    <span asp-validation-for="@Model.command.KeyWords" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="@Model.command.PublishDate" class="control-label">تاریخ انتشار</label>
+                    <input class="form-control persianDate" asp-for="@Model.command.PublishDate">
+                    <span asp-validation-for="@Model.command.PublishDate" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group no-margin">
+                    <label asp-for="@Model.command.ShortDescription" class="control-label">توضیحات کوتاه</label>
+                    <textarea class="form-control autogrow " asp-for="@Model.command.ShortDescription"
+                              style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;" onchange="fillField('command.ShortDescription', 'command.MetaDescription')"></textarea>
+                    <span asp-validation-for="@Model.command.ShortDescription" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group no-margin">
+                    <label asp-for="@Model.command.Description" class="control-label">توضیحات</label>
+                    <textarea class="form-control autogrow textEditor" asp-for="@Model.command.Description"
+                              style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                    <span asp-validation-for="@Model.command.Description" class="error"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group no-margin">
+                    <label asp-for="@Model.command.MetaDescription" class="control-label">توضیحات متا</label>
+                    <textarea class="form-control autogrow" asp-for="@Model.command.MetaDescription"
+                              style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                    <span asp-validation-for="@Model.command.MetaDescription" class="error"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a type="button" class="btn btn-default waves-effect" asp-page="./Index">بستن</a>
+        <button type="submit" class="btn btn-info waves-effect waves-light">ایجاد</button>
+    </div>
+</form>

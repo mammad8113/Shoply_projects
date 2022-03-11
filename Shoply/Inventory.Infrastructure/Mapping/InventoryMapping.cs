@@ -21,7 +21,6 @@ namespace InventoryManagement.Infrastructure.Mapping
                 builder.ToTable("InventoryOperations");
                 builder.HasKey(x => x.Id);
                 builder.Property(x => x.Description).HasMaxLength(1000);
-
                 builder.WithOwner(x => x.Inventory).HasForeignKey(x => x.InventoryId);
             });
         }

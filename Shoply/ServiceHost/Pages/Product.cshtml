@@ -308,13 +308,13 @@
                                                                     </div>*@
                                                             </div>
                                                             <p>
-                                                                @comment.Message
+                                                               @Html.Raw(comment.Message)
                                                             </p>
                                                         </div>
                                                     }
                                                 </div>
                                                 <div class="rating-form-wrapper fix">
-                                                    <h3>Add your Comments</h3>
+                                                    <h3>نظر خود را بنویسید</h3>
                                                     <form method="post">
                                                         <div class="rating-form row">
 
@@ -327,8 +327,8 @@
                                                                 <input id="Email" name="Email" placeholder="ایمیل" type="text">
                                                             </div>
                                                             <div class="col-12 form-group">
-                                                                <label for="your-review">نظر خود را بنویسید:</label>
-                                                                <textarea name="Message" id="Message" placeholder="نظر خود را وارد کنید..."></textarea>
+                                                                <label for="your-review">نظر :</label>
+                                                                <textarea  name="Message" id="Message" placeholder="نظر خود را وارد کنید..."></textarea>
                                                             </div>
                                                             <input type="hidden" id="productId" name="productId" value="@Model.Product.Id" />
                                                             <input type="hidden" id="productSlug" name="productSlug" value="@Model.Product.Slug" />
