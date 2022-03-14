@@ -21,25 +21,29 @@ namespace _01_Shoplyquery.Query
 
         public ArticleQueryModel GetArticleDetals(string slug)
         {
-            return blogContext.Articles.Include(x => x.ArticleCategory).Where(x => !x.IsRemove && x.PublishDate <= DateTime.Now).
-                 Select(x => new ArticleQueryModel
-                 {
-                     Id = x.Id,
-                     Title = x.Title,
-                     Picture = x.Picture,
-                     PictureAlt = x.PictureAlt,
-                     PictureTitle = x.PictureTitle,
-                     ShortDescription = x.ShortDescription,
-                     Description = x.Description,
-                     Slug = x.Slug,
-                     KeyWords = x.KeyWords,
-                     MetaDescription = x.MetaDescription,
-                     CanonicalAddress = x.CanonicalAddress,
-                     CategoryId = x.ArticleCategoryId,
-                     CategoryName = x.ArticleCategory.Name,
-                     CategorySlug = x.ArticleCategory.Slug,
-                     PublishDate = x.PublishDate.ToFarsi(),
-                 }).AsNoTracking().FirstOrDefault(x => x.Slug == slug);
+            var article = blogContext.Articles.Include(x => x.ArticleCategory).Where(x => !x.IsRemove && x.PublishDate <= DateTime.Now).
+                  Select(x => new ArticleQueryModel
+                  {
+                      Id = x.Id,
+                      Title = x.Title,
+                      Picture = x.Picture,
+                      PictureAlt = x.PictureAlt,
+                      PictureTitle = x.PictureTitle,
+                      ShortDescription = x.ShortDescription,
+                      Description = x.Description,
+                      Slug = x.Slug,
+                      KeyWords = x.KeyWords,
+                      MetaDescription = x.MetaDescription,
+                      CanonicalAddress = x.CanonicalAddress,
+                      CategoryId = x.ArticleCategoryId,
+                      CategoryName = x.ArticleCategory.Name,
+                      CategorySlug = x.ArticleCategory.Slug,
+                      PublishDate = x.PublishDate.ToFarsi(),
+                  }).AsNoTracking().FirstOrDefault(x => x.Slug == slug);
+
+            article.KeyWordsList = article.KeyWords.Split(",").ToList();
+
+            return article;
         }
 
         public List<ArticleQueryModel> LatestArticles()

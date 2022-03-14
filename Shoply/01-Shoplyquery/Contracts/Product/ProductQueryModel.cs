@@ -28,6 +28,7 @@ namespace _01_Shoplyquery.Contracts.Product
         public bool IsRemoved { get; set; }
         public string MetaDescription { get; set; }
         public string KeyWords { get; set; }
+        public List<string> KeyWordsList { get; set; }
         public List<ProductPictureQueryModel> Pictures { get; set; }
         public List<CommentQueryModel> Comments { get; set; }
     }

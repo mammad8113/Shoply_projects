@@ -11,5 +11,6 @@
         public bool IsRemove { get; set; }
         public string Slug { get; set; }
         public string CreationDate { get; set; }
+        public int ArticleCount { get; set; }
     }
 }

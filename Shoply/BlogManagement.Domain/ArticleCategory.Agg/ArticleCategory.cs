@@ -57,6 +57,8 @@ namespace BlogManagement.Domain.ArticleCategory.Agg
             CanonicalAddress = canonicalAddress;
         }
 
+   
+
         public void Remove()
         {
             IsRemove = true;

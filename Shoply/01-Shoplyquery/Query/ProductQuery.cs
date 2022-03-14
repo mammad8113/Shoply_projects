@@ -36,7 +36,7 @@ namespace _01_Shoplyquery.Contracts.Slide
 
             var product = shopContext.Products.Where(x => !x.IsRemoved).Include(x => x.ProductCategory)
                 .Include(x => x.ProductPictures)
-                .Include(x=>x.Comments)
+                .Include(x => x.Comments)
                 .Select(x => new ProductQueryModel
                 {
                     Id = x.Id,
@@ -87,7 +87,7 @@ namespace _01_Shoplyquery.Contracts.Slide
                 Name = x.Name,
                 Message = x.Message,
                 Email = x.Email,
-            }).OrderByDescending(x=>x.Id).ToList();
+            }).OrderByDescending(x => x.Id).ToList();
         }
 
         private static List<ProductPictureQueryModel> MapPictures(List<ProductPicture> productPictures)
@@ -169,13 +169,17 @@ namespace _01_Shoplyquery.Contracts.Slide
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
                 Slug = x.Slug,
+                KeyWords = x.KeyWords,
+                KeyWordsList = MappKeyWord(x.KeyWords),
                 Category = x.ProductCategory.Name,
                 CategorySlug = x.ProductCategory.Slug,
                 ShortDescription = x.ShortDescription,
             }).AsNoTracking();
 
+
+
             if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(x => x.Name.Contains(search) || x.ShortDescription.Contains(search) || x.Category.Contains(search));
+                query = query.Where(x => x.Name.Contains(search) || x.ShortDescription.Contains(search) || x.Category.Contains(search) || x.KeyWordsList.Contains(search));
 
             var products = query.OrderByDescending(x => x.Id).ToList();
 
@@ -199,6 +203,13 @@ namespace _01_Shoplyquery.Contracts.Slide
             }
 
             return products;
+        }
+
+        private List<string> MappKeyWord(string keyWord)
+        {
+            var KeyWords = keyWord.Split(",").ToList();
+
+            return KeyWords;
         }
     }
 }

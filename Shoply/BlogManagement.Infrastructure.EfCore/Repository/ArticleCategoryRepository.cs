@@ -1,6 +1,7 @@
 ﻿using _01_framwork.Infrastructure;
 using BlogManagement.Application.Contracts.ArticleCategory;
 using BlogManagement.Domain.ArticleCategory.Agg;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,11 +34,13 @@ namespace BlogManagement.Infrastructure.EfCore.Repository
                 MetaDescription = x.MetaDescription,
                 CanonicalAddress = x.CanonicalAddress,
                 KeyWords = x.KeyWords,
+
             }).FirstOrDefault(x => x.Id == id);
         }
+
         public List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel)
         {
-            var query = blogContext.ArticleCategories.Select(x => new ArticleCategoryViewModel
+            var query = blogContext.ArticleCategories.Include(x => x.Articles).Select(x => new ArticleCategoryViewModel
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -47,7 +50,8 @@ namespace BlogManagement.Infrastructure.EfCore.Repository
                 ShowOrder = x.ShowOrder,
                 Slug = x.Slug,
                 Picture = x.Picture,
-                CreationDate = x.CreationDate.ToShamsi()
+                CreationDate = x.CreationDate.ToShamsi(),
+                ArticleCount = x.Articles.Count,
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
@@ -61,7 +65,7 @@ namespace BlogManagement.Infrastructure.EfCore.Repository
             return blogContext.ArticleCategories.Select(x => new { x.Id, x.Slug }).FirstOrDefault(x => x.Id == id).Slug;
         }
 
-       public List<ArticleCategoryViewModel> GetSelectList()
+        public List<ArticleCategoryViewModel> GetSelectList()
         {
             return blogContext.ArticleCategories.Select(x => new ArticleCategoryViewModel
             {

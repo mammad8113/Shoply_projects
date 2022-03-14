@@ -1,25 +1,31 @@
-﻿using _01_Shoplyquery.Contracts.ProductCategory;
+﻿using _01_Shoplyquery;
+using _01_Shoplyquery.Contracts.ArticleCategory;
+using _01_Shoplyquery.Contracts.ProductCategory;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace ServiceHost.ViewComponents
 {
-    public class MenuViewComponent:ViewComponent
+    public class MenuViewComponent : ViewComponent
     {
         private readonly IProductCategoryQuery _productCategory;
+        private readonly IArticleCategoryQuery _articleCategory;
 
-        public MenuViewComponent(IProductCategoryQuery productCategory)
+        public MenuViewComponent(IProductCategoryQuery productCategory, IArticleCategoryQuery articleCategory)
         {
             _productCategory = productCategory;
-          
+            _articleCategory = articleCategory;
+
         }
 
         public IViewComponentResult Invoke()
         {
-           new KeyValuePair<bool, string>(true, "dd");
-            var productCategories = _productCategory.GetAll();
-            return View(productCategories);
-        
+            var result = new MenuModel
+            {
+                ArticleCategories = _articleCategory.GetAll(),
+                ProductCategories = _productCategory.GetAll(),
+            };
+            return View(result);
         }
     }
 }

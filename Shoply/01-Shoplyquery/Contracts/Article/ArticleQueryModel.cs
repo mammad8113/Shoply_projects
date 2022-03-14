@@ -18,6 +18,7 @@ namespace _01_Shoplyquery.Contracts.Article
         public string PublishDate { get; set; }
         public string Slug { get; set; }
         public string KeyWords { get; set; }
+        public List<string> KeyWordsList { get; set; }
         public string MetaDescription { get; set; }
         public string CanonicalAddress { get; set; }
         public long CategoryId { get; set; }

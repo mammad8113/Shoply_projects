@@ -239,3 +239,4 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administr
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Blog\Article\Edit.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Shared\Components\LatestArticle\Default.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Article.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\ArticleCategory.cshtml.g.cs

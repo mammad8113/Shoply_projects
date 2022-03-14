@@ -1,0 +1,3721 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.IO.Ports;
+using System.Security.Cryptography; //@ TODO 01.03.06
+using System.IO;
+using System.Net.Sockets;           //@ TODO 01.03.07
+using System.Net;                   //@ TODO 01.03.07
+using System.Threading;
+
+namespace CommonCode.POS_PC
+{
+    /* ************************************************************ */
+    /* ********************   Globals CLASS  ********************** */
+    /* ************************************************************ */
+    public class Globals
+    {
+        public static string DllReleaseDate = "1396/4/24";     //@ TODO 01.04.09
+        public static string dllVersion = "010500";               //@ TODO 01.04.09
+        public static string dllType = ".NET";                    //@ TODO 01.04.09
+    }
+
+    public class Result
+    {
+        private string m_ReqID = "";
+        private string m_SerialTransaction = "";
+        private string m_TraceNumber = "";
+        private string m_TerminalNo = "";
+        private string m_TransactionDate = "";
+        private string m_TransactionTime = "";
+        private string m_PAN = "";
+        private string m_AccountNo = "";
+        private string m_ReasonCode = "";
+        private int m_ReturnCode = 0;
+        private string m_PcId = "";
+
+        private string m_TotalAmount = "";
+        private string m_DiscountAmount = "";
+        public enum return_codes : int
+        {
+            RET_OK = 100,
+            ERR_PC_INVALID_REC_SIZE = 101,              /* DLL */   /* The receive Message size is not valid */
+            ERR_POS_INVALID_DATA = 102,                 /* FE */    /* The receive data is invalid */
+            ERR_PC_INVALID_REC_PROCESS_CODE = 103,      /* DLL */   /* The Process code in receive message is not valid */
+            ERR_PC_INVALID_AMOUNT = 104,                /* DLL */   /* The input amount is not valid or the amount in receive message not equal with input amount */
+            ERR_PC_INVALID_INPUT_PAYERID = 105,         /* DLL */    /* The input IdCode is not valid */
+            ERR_PC_INVALID_INPUT_TIMEOUT = 106,         /* DLL */   /* The input timeout is not valid */
+            ERR_PC_PORT_TIMEOUT_FOR_REC = 107,          /* DLL */   /* The operation did not complete before the time-out period ended */
+            ERR_POS_RESPONSE_RECEIVED_TOO_LATE = 108,   /* FF */    /* Transaction failed because of Timeout occured to rec response from switch */
+            ERR_POS_FAILED_TRANSACTION = 109,           /* F39 */   /* Transaction failed because of Field 39 has a value between 01 to 99 */
+            ERR_POS_PRINTER = 110/* not used */,        /* -- */    /* Transaction failed because of printer error *///@ TODO 01.03.07 not used
+            ERR_POS_COMMUNICATION = 111,                /* FA */    /* Transaction failed because of connection error */
+            ERR_POS_TO_SEND_TRANSACTION = 112,          /* FD */    /* Transaction failed for example: POS could not send settlement, reversal, generate serial, ... message to the server */
+            ERR_PC_INVALID_INPUT_PORTNAME = 113,        /* DLL */   /* The input port name is not valid */
+            ERR_POS_USER_ABORT = 114,                   /* FU */    /* Transaction failed because of user abort or  timeout on confirm data */
+            ERR_PC_INVALID_INPUT_BILLID = 115,          /* DLL */   /* The input billid is not valid */
+            ERR_PC_INVALID_INPUT_PAYID = 116,           /* DLL */   /* The input pay id is not valid */
+            ERR_PC_PORT_OPEN_FAILED = 117,              /* DLL */   /* The specified port is open */
+            ERR_PC_PORT_ACCESS_FAILED = 118,            /* DLL */   /* Access is denied to the port */
+            ERR_PC_INVALID_PORT_STATE = 119,            /* DLL */   /* The port is in an invalid state */
+            ERR_PC_INVALID_PORT_PARAMETERS = 120,       /* DLL */   /* One or more of the properties for this instance are invalid */
+            ERR_PC_INVALID_PORT_NAME = 121,             /* DLL */   /* The Port Name is not valid */
+            ERR_PC_NULL_STR_TO_WRITE_IN_PORT = 122,     /* DLL */   /* str is a null reference (Nothing in Visual Basic)*/
+            ERR_PC_PORT_TIMEOUT_FOR_SEND = 123,         /* DLL */   /* The operation did not complete before the time-out period ended */
+            ERR_POS_CARD_SWIPE_FAILED = 124,            /* DLL */   /* The Card has not been swiped */
+            ERR_PC_INVALID_INPUT_ACCOUNTID = 125,       /* DLL */    /* The input AccountID is not valid */ //@ ver 01.03.8 bayare tafkik pos ba pc jodash kardam
+            // until ver 01.03.05
+
+            /* ---- from 126 to 160 reserve for pos error thate pos wait for new data */
+            /*pos w8*/
+            ERR_POS_INVALID_INPUT_ACCOUNTID = 126,       /* FH */    /* The input AccountID is not valid */
+            ERR_POS_INVALID_INPUT_PAYERID = 127,         /* FC */    /* The input IdCode is not valid */
+            ERR_POS_INVALID_INPUT_AMOUNT = 128,          /* FB */    /* Transaction failed because of invalid amount */
+            ERR_POS_INVALID_INPUT_REFRENCE_NUMBER = 129, /* FM */    /* The input Reference number is not valid on pos */
+            ERR_POS_INVALID_INPUT_BILL_ID = 130,         /* FG */    /* The input bill id is not valid on pos */
+            ERR_POS_INVALID_INPUT_PAYMENT_ID = 131,      /* FP */    /* The input Pay id is not valid on pos */
+            ERR_POS_INVALID_INPUT_ADDITIONALDATA = 132,  /* FI */    /* The input additional data is not valid */
+            ERR_POS_INVALID_MULTI_PAYMENT_AMOUNT = 133,  /* FT */    /* sum of amounts in list is not aqual total amount */
+            ERR_POS_UNCONFIRM_REC_DATA = 134,            /* FL */    /* user unconfirm send data on pos */
+            /* ---- from 126 to 160 reserve for pos error thate pos wait for new data */
+
+            ERR_PC_INVALID_INPUT_MULTI_PAYMENT_REQUEST_LIST = 161,  /* DLL */   /* The input additional data is not valid */
+            ERR_PC_INVALID_INPUT_MULTI_PAYMENT_AMOUNT = 162,        /* DLL */   /* sum of amounts in list is not aqual total amount */
+            ERR_PC_INVALID_INPUT_REFERENCE_NUMBER = 163,            /* DLL */   /* The input Reference Number is not valid */
+            ERR_POS_PC_CRCERROR_INVALID_DATA = 164,                 /* FR */    /* Eror on CRC Check on send or receive data */
+            ERR_PC_INVALID_POSPC_COMMUNICATION_TYPE = 165,          /* DLL */   /* The type of POS-PC Communication doesnot Define */
+            ERR_PC_INVALID_INPUT_TCP_SOCKET_PORT = 166,             /* DLL */   /* The input TCP socket port number is not valid */
+            ERR_PC_INVALID_INPUT_TCP_SOCKET_RECEIVED_TIMEOUT = 167, /* DLL */   /* The input TCP socket port number is not valid */
+            ERR_PC_TCP_SOCKET_FAILED = 168,                         /* DLL */
+            ERR_PC_TCP_SOCKET_SEND_MSG_FAILED = 169,                /* DLL */   /* error on tcp send msg */
+            ERR_PC_TCP_SOCKET_RECEIVED_MSG_FAILED = 170,            /* DLL */   /* error on tcp rec msg */
+
+            //@ TODO 01.04.08
+            ERR_PC_INVALID_INPUT_MERCHANT_MESSAGE = 171,            /* DLL */
+            ERR_PC_PREPARE_TLV_MSG_FAILED = 172,                    /* DLL */   /* error on prepare TLV data */
+            ERR_PC_PORT_EXCEPTION_FOR_REC = 173,                    /* DLL */   /* The Card has not been swiped */
+            ERR_PC_NULL_STR_IN_READ_PORT = 174,
+            ERR_PC_CALCULATE_CRC_ERROR = 175,
+            ERR_PC_INVALID_INPUT_MERCHANT_FIELD = 176, //SHHZ
+            RET_OK_RequestID = 177,
+            RET_POS_Busy = 178,
+            ERR_POS_PC_OTHER = 200,                         /* FS */    /* switch error on fiel 39 is not in mapping table */
+        }
+        public string ReqID { get { return m_ReqID; } set { m_ReqID = value; } }
+        public string SerialTransaction { get { return m_SerialTransaction; } set { m_SerialTransaction = value; } }
+        public string TraceNumber { get { return m_TraceNumber; } set { m_TraceNumber = value; } }
+        public string TerminalNo { get { return m_TerminalNo; } set { m_TerminalNo = value; } }
+        public string TransactionDate { get { return m_TransactionDate; } set { m_TransactionDate = value; } }
+        public string TransactionTime { get { return m_TransactionTime; } set { m_TransactionTime = value; } }
+        public string PAN { get { return m_PAN; } set { m_PAN = value; } }
+        public string AccountNo { get { return m_AccountNo; } set { m_AccountNo = value; } }
+        public string ReasonCode { get { return m_ReasonCode; } set { m_ReasonCode = value; } }
+        public int ReturnCode { get { return m_ReturnCode; } set { m_ReturnCode = value; } }
+        public string PcID { get { return m_PcId; } set { m_PcId = value; } }
+
+        public string TotalAmount { get { return m_TotalAmount; } set { m_TotalAmount = value; } }
+        public string DiscountAmount { get { return m_DiscountAmount; } set { m_DiscountAmount = value; } }
+    }
+    /* ************************************************************ */
+    /* *****************   Transaction CLASS  ********************* */
+    /* ************************************************************ */
+    public class Transaction
+    {
+        private struct TransInfo
+        {
+            public string ProcessCode;
+            public string Amount;
+            public string PayerID;
+            public string AccountID;
+            public string BillID;
+            public string PayID;
+            public string MerchantMsg;
+            public string MerchantadditionalData;
+            public string ReqIDuestMsgFa;
+            public string ReqIDuestMsgEn;
+            public string TotalAmount;
+
+            public string PcID;
+            public MultiPaymentReqDataSet[] RequestList;
+            public byte PrintDetail;
+
+        }
+        public struct MultiPaymentReqDataSet
+        {
+            public string AccountID;
+            public string Amount;
+            public string PayerID;
+        }
+        public class Connection
+        {
+            ////////////////////////////////////////////////
+            //////// POSPC Communication Type       ////////
+            ////////////////////////////////////////////////
+            public static string POSPC_CommunicationType = "SERIAL";
+            public string CommunicationType { get { return POSPC_CommunicationType; } set { POSPC_CommunicationType = value; } }
+            ///////////////////////////////////////////
+            //  Prvivate class of Serial Port Commu ////
+            ////////////////////////////////////////////
+            public class SerialInfo
+            {
+                public int ReadTimeout = 180000;
+                public string PortName = "COM1";
+                public int BaudRate = 9600;
+                public Parity Parity = Parity.None;
+                public int DataBits = 8;
+                public StopBits StopBits = StopBits.One;
+            }
+
+            public static SerialInfo PC_PORT = new SerialInfo();
+
+            /* Public Propertiese for Serial Port Commu */
+            public string PC_PORT_Name { get { return PC_PORT.PortName; } set { PC_PORT.PortName = value; } }
+            public int PC_PORT_BaudRate { get { return PC_PORT.BaudRate; } set { PC_PORT.BaudRate = value; } }
+            public Parity PC_PORT_Parity { get { return PC_PORT.Parity; } set { PC_PORT.Parity = value; } }
+            public int PC_PORT_DataBits { get { return PC_PORT.DataBits; } set { PC_PORT.DataBits = value; } }
+            public StopBits PC_PORT_StopBits { get { return PC_PORT.StopBits; } set { PC_PORT.StopBits = value; } }
+            public int PC_PORT_ReadTimeout { get { return PC_PORT.ReadTimeout; } set { PC_PORT.ReadTimeout = value; } }
+
+            ////////////////////////////////////////////
+            ////  private class of Lan Port Commu //////
+            ////////////////////////////////////////////
+            public class TcpIpInfo
+            {
+                public string IP = "127.0.0.1";
+                public int PORT = 1024;
+                public int ReadTimeout = 180000;
+                //public int ListenTimeout = 0;
+            }
+
+            public static TcpIpInfo POS_IpPort = new TcpIpInfo();
+            /* Public Propertiese for Serial Port Commu */
+            public string POS_IP { get { return POS_IpPort.IP; } set { POS_IpPort.IP = value; } }
+            public int POS_PORTtcp { get { return POS_IpPort.PORT; } set { POS_IpPort.PORT = value; } }
+            public int POSPC_TCPCOMMU_SocketRecTimeout { get { return POS_IpPort.ReadTimeout; } set { POS_IpPort.ReadTimeout = value; } }
+            //public int POSPC_TCPCOMMU_SocketListenTimeout { get { return POS_IpPort.ListenTimeout; } set { POS_IpPort.ListenTimeout = value; } }
+        }
+        Connection connectInfo = new Connection();
+
+        public Transaction(Connection conn_Info)
+        {
+            this.connectInfo = conn_Info;
+        }
+        /* ************************************************************ */
+        /* **********************   CRC CLASS  ************************ */
+        /* ************************************************************ */
+        private class CRCTool
+        {
+            // 'order' [1..32] is the CRC polynom order, counted without the leading '1' bit
+            // 'polynom' is the CRC polynom without leading '1' bit
+            // 'direct' [0,1] specifies the kind of algorithm: 1=direct, no augmented zero bits
+            // 'crcinit' is the initial CRC value belonging to that algorithm
+            // 'crcxor' is the final XOR value
+            // 'refin' [0,1] specifies if a data byte is reflected before processing (UART) or not
+            // 'refout' [0,1] specifies if the CRC will be reflected before XOR
+            // Data character string
+            // For CRC-CCITT : order = 16, direct=1, poly=0x1021, CRCinit = 0xFFFF, crcxor=0; refin =0, refout=0  
+            // For CRC16:      order = 16, direct=1, poly=0x8005, CRCinit = 0x0, crcxor=0x0; refin =1, refout=1  
+            // For CRC32:      order = 32, direct=1, poly=0x4c11db7, CRCinit = 0xFFFFFFFF, crcxor=0xFFFFFFFF; refin =1, refout=1  
+            // Default : CRC-CCITT
+
+            private int order = 16;
+            private ulong polynom = 0x1021;
+            private int direct = 1;
+            private ulong crcinit = 0xFFFF;
+            private ulong crcxor = 0x0;
+            private int refin = 0;
+            private int refout = 0;
+
+            private ulong crcmask;
+            private ulong crchighbit;
+            private ulong crcinit_direct;
+            private ulong crcinit_nondirect;
+            private ulong[] crctab = new ulong[256];
+
+            // Enumeration used in the init function to specify which CRC algorithm to use
+            public enum CRCCode { CRC_CCITT, CRC16, CRC32 };
+
+            public CRCTool()
+            {
+                // 
+                // TODO: Add constructor logic here
+                //
+            }
+
+            public void Init(CRCCode CodingType)
+            {
+                switch (CodingType)
+                {
+                    case CRCCode.CRC_CCITT:
+                        order = 16; direct = 1; polynom = 0x1021; crcinit = 0xFFFF; crcxor = 0; refin = 0; refout = 0;
+                        break;
+                    case CRCCode.CRC16:
+                        order = 16; direct = 1; polynom = 0x8005; crcinit = 0x0; crcxor = 0x0; refin = 1; refout = 1;
+                        break;
+                    case CRCCode.CRC32:
+                        order = 32; direct = 1; polynom = 0x4c11db7; crcinit = 0xFFFFFFFF; crcxor = 0xFFFFFFFF; refin = 1; refout = 1;
+                        break;
+                }
+
+                // Initialize all variables for seeding and builing based upon the given coding type
+                // at first, compute constant bit masks for whole CRC and CRC high bit
+
+                crcmask = ((((ulong)1 << (order - 1)) - 1) << 1) | 1;
+                crchighbit = (ulong)1 << (order - 1);
+
+                // generate lookup table
+                generate_crc_table();
+
+                ulong bit, crc;
+                int i;
+                if (direct == 0)
+                {
+                    crcinit_nondirect = crcinit;
+                    crc = crcinit;
+                    for (i = 0; i < order; i++)
+                    {
+                        bit = crc & crchighbit;
+                        crc <<= 1;
+                        if (bit != 0)
+                        {
+                            crc ^= polynom;
+                        }
+                    }
+                    crc &= crcmask;
+                    crcinit_direct = crc;
+                }
+                else
+                {
+                    crcinit_direct = crcinit;
+                    crc = crcinit;
+                    for (i = 0; i < order; i++)
+                    {
+                        bit = crc & 1;
+                        if (bit != 0)
+                        {
+                            crc ^= polynom;
+                        }
+                        crc >>= 1;
+                        if (bit != 0)
+                        {
+                            crc |= crchighbit;
+                        }
+                    }
+                    crcinit_nondirect = crc;
+                }
+            }
+
+
+            /// <summary>
+            /// 4 ways to calculate the crc checksum. If you have to do a lot of encoding
+            /// you should use the table functions. Since they use precalculated values, which 
+            /// saves some calculating.
+            /// </summary>.
+
+            //[CLSCompliant(false)]
+
+            public ulong crctablefast(byte[] p)
+            {
+                // fast lookup table algorithm without augmented zero bytes, e.g. used in pkzip.
+                // only usable with polynom orders of 8, 16, 24 or 32.
+                ulong crc = crcinit_direct;
+                if (refin != 0)
+                {
+                    crc = reflect(crc, order);
+                }
+                if (refin == 0)
+                {
+                    for (int i = 0; i < p.Length; i++)
+                    {
+                        crc = (crc << 8) ^ crctab[((crc >> (order - 8)) & 0xff) ^ p[i]];
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < p.Length; i++)
+                    {
+                        crc = (crc >> 8) ^ crctab[(crc & 0xff) ^ p[i]];
+                    }
+                }
+                if ((refout ^ refin) != 0)
+                {
+                    crc = reflect(crc, order);
+                }
+                crc ^= crcxor;
+                crc &= crcmask;
+                return (crc);
+            }
+
+            //[CLSCompliant(false)]
+
+            public ulong crctable(byte[] p)
+            {
+                // normal lookup table algorithm with augmented zero bytes.
+                // only usable with polynom orders of 8, 16, 24 or 32.
+                ulong crc = crcinit_nondirect;
+                if (refin != 0)
+                {
+                    crc = reflect(crc, order);
+                }
+                if (refin == 0)
+                {
+                    for (int i = 0; i < p.Length; i++)
+                    {
+                        crc = ((crc << 8) | p[i]) ^ crctab[(crc >> (order - 8)) & 0xff];
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < p.Length; i++)
+                    {
+                        crc = (ulong)(((int)(crc >> 8) | (p[i] << (order - 8))) ^ (int)crctab[crc & 0xff]);
+                    }
+                }
+                if (refin == 0)
+                {
+                    for (int i = 0; i < order / 8; i++)
+                    {
+                        crc = (crc << 8) ^ crctab[(crc >> (order - 8)) & 0xff];
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < order / 8; i++)
+                    {
+                        crc = (crc >> 8) ^ crctab[crc & 0xff];
+                    }
+                }
+
+                if ((refout ^ refin) != 0)
+                {
+                    crc = reflect(crc, order);
+                }
+                crc ^= crcxor;
+                crc &= crcmask;
+
+                return (crc);
+            }
+
+            //[CLSCompliant(false)]
+
+            public ulong crcbitbybit(byte[] p)
+            {
+                // bit by bit algorithm with augmented zero bytes.
+                // does not use lookup table, suited for polynom orders between 1...32.
+                int i;
+                ulong j, c, bit;
+                ulong crc = crcinit_nondirect;
+
+                for (i = 0; i < p.Length; i++)
+                {
+                    c = (ulong)p[i];
+                    if (refin != 0)
+                    {
+                        c = reflect(c, 8);
+                    }
+
+                    for (j = 0x80; j != 0; j >>= 1)
+                    {
+                        bit = crc & crchighbit;
+                        crc <<= 1;
+                        if ((c & j) != 0)
+                        {
+                            crc |= 1;
+                        }
+                        if (bit != 0)
+                        {
+                            crc ^= polynom;
+                        }
+                    }
+                }
+
+                for (i = 0; (int)i < order; i++)
+                {
+
+                    bit = crc & crchighbit;
+                    crc <<= 1;
+                    if (bit != 0) crc ^= polynom;
+                }
+
+                if (refout != 0)
+                {
+                    crc = reflect(crc, order);
+                }
+                crc ^= crcxor;
+                crc &= crcmask;
+
+                return (crc);
+            }
+
+            //[CLSCompliant(false)]
+
+            public ulong crcbitbybitfast(byte[] p)
+            {
+                // fast bit by bit algorithm without augmented zero bytes.
+                // does not use lookup table, suited for polynom orders between 1...32.
+                int i;
+                ulong j, c, bit;
+                ulong crc = crcinit_direct;
+
+                for (i = 0; i < p.Length; i++)
+                {
+                    c = (ulong)p[i];
+                    if (refin != 0)
+                    {
+                        c = reflect(c, 8);
+                    }
+
+                    for (j = 0x80; j > 0; j >>= 1)
+                    {
+                        bit = crc & crchighbit;
+                        crc <<= 1;
+                        if ((c & j) > 0) bit ^= crchighbit;
+                        if (bit > 0) crc ^= polynom;
+                    }
+                }
+
+                if (refout > 0)
+                {
+                    crc = reflect(crc, order);
+                }
+                crc ^= crcxor;
+                crc &= crcmask;
+
+                return (crc);
+            }
+
+
+            /// <summary>
+            /// CalcCRCITT is an algorithm found on the web for calculating the CRCITT checksum
+            /// It is included to demonstrate that although it looks different it is the same 
+            /// routine as the crcbitbybit* functions. But it is optimized and preconfigured for CRCITT.
+            /// </summary>
+
+            //[CLSCompliant(false)]
+
+            public ushort CalcCRCITT(byte[] p)
+            {
+                uint uiCRCITTSum = 0xFFFF;
+                uint uiByteValue;
+
+                for (int iBufferIndex = 0; iBufferIndex < p.Length; iBufferIndex++)
+                {
+                    uiByteValue = ((uint)p[iBufferIndex] << 8);
+                    for (int iBitIndex = 0; iBitIndex < 8; iBitIndex++)
+                    {
+                        if (((uiCRCITTSum ^ uiByteValue) & 0x8000) != 0)
+                        {
+                            uiCRCITTSum = (uiCRCITTSum << 1) ^ 0x1021;
+                        }
+                        else
+                        {
+                            uiCRCITTSum <<= 1;
+                        }
+                        uiByteValue <<= 1;
+                    }
+                }
+                return (ushort)uiCRCITTSum;
+            }
+
+
+            #region subroutines
+            private ulong reflect(ulong crc, int bitnum)
+            {
+
+                // reflects the lower 'bitnum' bits of 'crc'
+
+                ulong i, j = 1, crcout = 0;
+
+                for (i = (ulong)1 << (bitnum - 1); i != 0; i >>= 1)
+                {
+                    if ((crc & i) != 0)
+                    {
+                        crcout |= j;
+                    }
+                    j <<= 1;
+                }
+                return (crcout);
+            }
+
+            private void generate_crc_table()
+            {
+
+                // make CRC lookup table used by table algorithms
+
+                int i, j;
+                ulong bit, crc;
+
+                for (i = 0; i < 256; i++)
+                {
+                    crc = (ulong)i;
+                    if (refin != 0)
+                    {
+                        crc = reflect(crc, 8);
+                    }
+                    crc <<= order - 8;
+
+                    for (j = 0; j < 8; j++)
+                    {
+                        bit = crc & crchighbit;
+                        crc <<= 1;
+                        if (bit != 0) crc ^= polynom;
+                    }
+
+                    if (refin != 0)
+                    {
+                        crc = reflect(crc, order);
+                    }
+                    crc &= crcmask;
+                    crctab[i] = crc;
+                }
+            }
+            #endregion
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Type of POSPC Commu       						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 90.08.14    													////////
+        ////////	//@ TODO 01.03.07     														////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool IsPosPcCommuConfigOK(string InputCommu)
+        {
+            /* Check the value of config of pospc communication */
+            try
+            {
+                if (InputCommu.Length == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    if ((InputCommu.ToUpper() == "SERIAL".ToUpper()) || (InputCommu.ToUpper() == "TCP/IP".ToUpper()))
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Port Name Validity	    						 	////////
+        ////////					for Lan Commu   											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 90.08.14														////////
+        ////////	//@ TODO 01.03.07															////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool TCP_SocketPortNumberValidity(string InputPortNumber)
+        {
+            /* Range of Port : 1024 - 65535 */
+            /* Check the value of input portname */
+            try
+            {
+                if ((InputPortNumber.Length < 4) || (InputPortNumber.Length > 5))
+                {
+                    return false;
+                }
+                UInt16 port;                                //@TODO 01.04.09 change Int16 to Uint16
+                port = Convert.ToUInt16(InputPortNumber);   //@TODO 01.04.09 Convert.ToInt16(InputPortNumber);
+                if (port < 1024) /*|| (port > 65535)*/
+                    return false;
+                else
+                    return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Input Time Out          						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 90.08.14														////////
+        ////////	//@ TODO 01.03.07															////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        //private bool TCP_SocketRecTimeoutValidity(int InputTimeout)
+        //{
+
+        //    /* Check the value of input timeout : min 2 sec - max 10 min */
+        //    if ((InputTimeout < 2000) || (InputTimeout > 600000))
+        //        return false;
+        //    else
+        //        return true;
+        //}
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Input Time Out          						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date :          													////////
+        ////////	                    														////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool TimeoutValidity(int InputTimeout)
+        {
+
+            /* Check the value of input timeout : min 2 sec - max 10 min */
+            if ((InputTimeout < 2000) || (InputTimeout > 600000))
+                return false;
+            else
+                return true;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Port Name Validity	    						 	////////
+        ////////					for Serial Commu											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date :      														////////
+        ////////	Audited By   :																////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool PortNameValidity(string InputPortName)
+        {
+            /* Check the value of input portname */
+            if (InputPortName.Length == 0)
+                return false;
+            else
+                return true;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Input Amount            						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date :      														////////
+        ////////	Audited By   :																////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool AmountValidity(string InputAmount)
+        {
+            try
+            {
+                /* check The Lenght of Amount */
+                if (InputAmount.Length == 0)
+                    return false;
+
+                if (InputAmount.Length > 12)
+                    return false;
+
+                /* Check the value for input numerci digit */
+                int a;
+                for (int i = 0; i < InputAmount.Length; i++)
+                    a = int.Parse(InputAmount[i].ToString());
+
+                /* Check the Value != NULL*/
+                Int64 Amount;
+                Amount = Convert.ToInt64(InputAmount);
+                if (Amount == 0)
+                    return false;
+
+                /* The input amount is valid */
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Input Payer Id            						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date :      														////////
+        ////////	Audited By   :																////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool PayerIDValidity(string InputPayerID)
+        {
+            try
+            {
+                /* Check the lenght Of ID Code */
+                if (InputPayerID.Length == 0)
+                    return true;
+
+                if ((InputPayerID.Length < 3) || (InputPayerID.Length > 17))
+                    return false;
+
+                /* Check the value for input numerci digit */
+                int a;
+                for (int i = 0; i < InputPayerID.Length; i++)
+                    a = int.Parse(InputPayerID[i].ToString());
+
+                for (int i = 0; i < InputPayerID.Length; i++)
+                {
+                    if (InputPayerID[i] != '0')
+                        break;
+                    if ((InputPayerID[i] == '0') && (i == InputPayerID.Length - 1))
+                        return false;
+                }
+
+                /* Input Id Code is valid */
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Input Account Id           						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date :      														////////
+        ////////	Audited By   :																////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool AccountIDValidity(string InputAccountID)
+        {
+            try
+            {
+                /* check The Lenght of Account ID */
+                if (InputAccountID.Length == 0)
+                    return false;
+
+                if (InputAccountID.Length > 20)
+                    return false;
+
+                /* Check the value for input numerci digit */
+                int a;
+                for (int i = 0; i < InputAccountID.Length; i++)
+                    a = int.Parse(InputAccountID[i].ToString());
+
+                for (int i = 0; i < InputAccountID.Length; i++)
+                {
+                    if (InputAccountID[i] != '0')
+                        break;
+                    if ((InputAccountID[i] == '0') && (i == InputAccountID.Length - 1))
+                        return false;
+                }
+
+                /* The input amount is valid */
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Input Bill Id           						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date :      														////////
+        ////////	Audited By   :																////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool BillIdValidity(string InputBillId)
+        {
+            try
+            {
+                /* Check the lenght Of Bill ID */
+                if ((InputBillId.Length < 6))
+                    return false;
+
+                /* Check the value for input numerci digit */
+                int a;
+                for (int i = 0; i < InputBillId.Length; i++)
+                    a = int.Parse(InputBillId[i].ToString());
+
+                /* Check the value != NULL */
+                Int64 BillId;
+                BillId = Convert.ToInt64(InputBillId);
+                if (BillId == 0)
+                    return false;
+
+                /* Input Bill Id is valid */
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Input Pay Id             						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date :      														////////
+        ////////	Audited By   :																////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool PayIdValidity(string InputPayId)
+        {
+            try
+            {
+                /* Check The lenght of Pay Code */
+                if ((InputPayId.Length < 6))
+                    return false;
+
+                /* Check the value for input numerci digit */
+                int a;
+                for (int i = 0; i < InputPayId.Length; i++)
+                    a = int.Parse(InputPayId[i].ToString());
+
+                /* Check the Value != NULL*/
+                Int64 PayId;
+                PayId = Convert.ToInt64(InputPayId);
+                if (PayId == 0)
+                    return false;
+
+                /* Input Pay Code is valid */
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Input Reference Number     						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 90.07.17 													////////
+        ////////	//@ TOCO 01.03.06															////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool ReferenceNumberValidity(string InputReferenceNumber)
+        {
+            try
+            {
+                /* check The Lenght of Account ID */
+                if (InputReferenceNumber.Length == 0)
+                    return false;
+
+                if (InputReferenceNumber.Length > 18)
+                    return false;
+
+                /* Check the value for input numerci digit */
+                int a;
+                for (int i = 0; i < InputReferenceNumber.Length; i++)
+                    a = int.Parse(InputReferenceNumber[i].ToString());
+
+                /* Check the Value != NULL*/
+
+                for (int i = 0; i < InputReferenceNumber.Length; i++)
+                {
+                    if (InputReferenceNumber[i] != '0')
+                        break;
+                    if ((InputReferenceNumber[i] == '0') && (i == InputReferenceNumber.Length - 1))
+                        return false;
+                }
+
+                /* The input amount is valid */
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Input Account Id           						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 90.11.13														////////
+        ////////	Audited By   :																////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool multiPayment_AccountIDValidity(string InputAccountID)
+        {
+            try
+            {
+                /* check The Lenght of Account ID */
+                if (InputAccountID.Length == 0)
+                    return false;
+
+                if (InputAccountID.Length > 10)
+                    return false;
+
+                /* Check the value for input numerci digit */
+                int a;
+                for (int i = 0; i < InputAccountID.Length; i++)
+                    a = int.Parse(InputAccountID[i].ToString());
+
+                /* Check the Value != NULL*/
+                for (int i = 0; i < InputAccountID.Length; i++)
+                {
+                    if (InputAccountID[i] != '0')
+                        break;
+                    if ((InputAccountID[i] == '0') && (i == InputAccountID.Length - 1))
+                        return false;
+                }
+
+                /* The input amount is valid */
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description:	control Input Amount            						 	////////
+        ////////					                											////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date :      														////////
+        ////////	Audited By   :																////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool multiPayment_AmountValidity(string InputAmount)
+        {
+            try
+            {
+                /* check The Lenght of Amount */
+                if (InputAmount.Length == 0)
+                    return false;
+
+                if (InputAmount.Length > 10)
+                    return false;
+
+                /* Check the value for input numerci digit */
+                int a;
+                for (int i = 0; i < InputAmount.Length; i++)
+                    a = int.Parse(InputAmount[i].ToString());
+
+                /* Check the Value != NULL*/
+                Int64 Amount;
+                Amount = Convert.ToInt64(InputAmount);
+                if (Amount == 0)
+                    return false;
+
+                /* The input amount is valid */
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Debits_Goods_And_Service									 	////////
+        ////////																				////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 90.11.12    													////////
+        ////////                                                                                ////////
+        ////////    Description  :  Check Commu Type and Parameters of commu type               ////////
+        ///////                     //@ TODO 01.03.07 add Lan Commu                             ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private Result.return_codes CheckCommuType()
+        {
+            Result.return_codes retCode = Result.return_codes.RET_OK;
+
+            //////////////////////////////////////////////////////
+            //////////          Check Commu Type        //////////
+            /////////                   AND             //////////
+            ////////            Commu Type Params       //////////
+            //////////////////////////////////////////////////////
+            String CommuType = Transaction.Connection.POSPC_CommunicationType;
+
+            if (IsPosPcCommuConfigOK(CommuType) == false)
+            {
+                //MessageBox.Show("CommuType = false");//tst  
+                return Result.return_codes.ERR_PC_INVALID_POSPC_COMMUNICATION_TYPE;
+            }
+
+            //////////////////////////////////////////////////////
+            //////////    Check TCP/IP Commu Params        ///////
+            //////////////////////////////////////////////////////
+            if (CommuType.ToUpper() == "TCP/IP".ToUpper())
+            {
+                String TCP_port = Connection.POS_IpPort.PORT.ToString();
+                //int RecTimeOut = Connection.POS_IpPort.ListenTimeout;
+
+                /* Check the input portnumber value */
+                if (TCP_SocketPortNumberValidity(TCP_port) == false)
+                {
+                    return Result.return_codes.ERR_PC_INVALID_INPUT_TCP_SOCKET_PORT;
+                }
+
+                /* Check the input timeout value */
+                //if (TCP_SocketRecTimeoutValidity(RecTimeOut) == false)
+                //{
+                //    return Result.return_codes.ERR_PC_INVALID_INPUT_TCP_SOCKET_RECEIVED_TIMEOUT;
+                //}
+            }//end of TCP/IP Commu
+            //////////////////////////////////////////////////////
+            //////////    Check Serial Commu Params        ///////
+            //////////////////////////////////////////////////////
+            else
+            {   /* SERIAL COMMU */
+
+                /* Check the input portname value */
+                if (PortNameValidity(Connection.PC_PORT.PortName) == false)
+                {
+                    return Result.return_codes.ERR_PC_INVALID_INPUT_PORTNAME;
+                }
+
+                /* Check the input timeout value */
+                if (TimeoutValidity(Connection.PC_PORT.ReadTimeout) == false)
+                {
+                    return Result.return_codes.ERR_PC_INVALID_INPUT_TIMEOUT;
+                }
+            }
+
+            return retCode;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Listening on port for PosPc Lan Commu                      	////////
+        ////////																				////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 91.03.23    													////////
+        ////////	//@ TODO 01.04.08															////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private void SerialPortClose(SerialPort POS_Serial_Port)
+        {
+            try
+            {
+                POS_Serial_Port.DiscardInBuffer();
+                POS_Serial_Port.DiscardOutBuffer();
+                POS_Serial_Port.Close();
+            }
+            catch (Exception)
+            {
+            }
+            return;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Debits_Goods_And_Service									 	////////
+        ////////																				////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 90.11.16   													////////
+        ////////																				////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public bool IS_FATAL_ERROR(Result.return_codes retCode)
+        {
+            if (
+                (retCode != Result.return_codes.ERR_POS_INVALID_INPUT_ACCOUNTID /* FH 126*/) &&
+                (retCode != Result.return_codes.ERR_POS_INVALID_INPUT_PAYERID /* FC 127 */) &&
+                (retCode != Result.return_codes.ERR_POS_INVALID_INPUT_AMOUNT /* FB 128 */) &&
+                (retCode != Result.return_codes.ERR_POS_INVALID_INPUT_REFRENCE_NUMBER /* FM 129 */) &&
+                (retCode != Result.return_codes.ERR_POS_INVALID_INPUT_BILL_ID /* FG 130 */) &&
+                (retCode != Result.return_codes.ERR_POS_INVALID_INPUT_PAYMENT_ID /* FP 131 */) &&
+                (retCode != Result.return_codes.ERR_POS_INVALID_INPUT_ADDITIONALDATA /* FI 132 */) &&
+                (retCode != Result.return_codes.ERR_POS_INVALID_MULTI_PAYMENT_AMOUNT /* FT 133 */) &&
+                (retCode != Result.return_codes.ERR_POS_UNCONFIRM_REC_DATA /* FL 134 */) &&
+                (retCode != Result.return_codes.RET_OK_RequestID)
+            )
+                return true;
+            else
+                return false;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Convert BCD Value To Decimal Value						 	////////
+        ////////																				////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 91.03.08   													////////
+        ////////                                                                                ////////
+        ////////    Description  :                                                               ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private long ConverBCDtoDecimal(byte[] BCD_Value)
+        {
+            long result = 0;
+            byte b;
+            for (int i = 0; i < BCD_Value.Length; i++)
+            {
+                b = BCD_Value[i];
+                int digit1 = b >> 4;
+                int digit2 = b & 0x0f;
+                result = (result * 100) + digit1 * 10 + digit2;
+            }
+
+            return result;
+
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Convert Byte Array to BCD Array   						 	////////
+        ////////																				////////
+        ////////	Created By   :      														////////
+        ////////	Created Date :             													////////
+        ////////                                                                                ////////
+        ////////    Description  :                                                              ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private static byte[] ByteArray2BCD(byte[] inArray)
+        {
+            int arrayLen = inArray.Length;
+
+            if (arrayLen % 2 != 0)
+                arrayLen++;
+
+            byte[] tmpArray = new byte[arrayLen];
+            if (inArray.Length % 2 != 0)
+                Array.Copy(inArray, 0, tmpArray, 1, inArray.Length);
+            else
+                Array.Copy(inArray, 0, tmpArray, 0, inArray.Length);
+            for (int j = 0; j < tmpArray.Length; j++)
+                tmpArray[j] = (byte)(tmpArray[j] & 0x0F);
+
+
+            byte[] BCDArray = new byte[arrayLen / 2];
+            for (int i = 0; i < BCDArray.Length; i++)
+            {
+                int hi = tmpArray[i * 2] << 4;
+                int lo = tmpArray[i * 2 + 1] & 0x0F;
+                if (tmpArray[i * 2] > 9 || tmpArray[i * 2 + 1] > 9 ||
+                    tmpArray[i * 2] < 0 || tmpArray[i * 2 + 1] < 0)
+                    return null;
+                BCDArray[i] = (byte)(hi | lo);
+            }
+            return BCDArray;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Convert Byte Array to BCD Array   						 	////////
+        ////////																				////////
+        ////////	Created By   :      														////////
+        ////////	Created Date :             													////////
+        ////////                                                                                ////////
+        ////////    Description  :                                                              ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private static byte[] BCD2ByteArray(byte[] inArray)
+        {
+
+
+            byte[] byteArray = new byte[inArray.Length * 2];
+            for (int i = 0; i < inArray.Length; i++)
+            {
+                int hi = inArray[i] >> 4;
+                int lo = inArray[i] & 0x0F;
+
+                if (hi > 9 || lo > 9 ||
+                    hi < 0 || lo < 0)
+                    return null;
+
+                byteArray[i * 2] = (byte)hi;
+                byteArray[i * 2 + 1] = (byte)lo;
+
+            }
+            return byteArray;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Convert Byte Array to BCD Array   						 	////////
+        ////////																				////////
+        ////////	Created By   :      														////////
+        ////////	Created Date :             													////////
+        ////////                                                                                ////////
+        ////////    Description  :                                                              ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        static byte[] Hexstr_HexBytes2Binary(byte[] inArray)
+        {
+
+            if (inArray.Length % 2 != 0)
+                return null;
+
+            byte[] byteArray = new byte[inArray.Length / 2];
+            for (int i = 0; i < inArray.Length; i++)
+            {
+                int hi = (inArray[i] & 0x0F) << 4;
+                int lo = inArray[++i] & 0x0F;
+
+                if (hi > 0xF0 || lo > 0x0F ||
+                    hi < 0 || lo < 0)
+                    return null;
+
+                byteArray[i / 2] = (byte)(hi | lo);
+            }
+
+            return byteArray;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Debits_Goods_And_Service									 	////////
+        ////////																				////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 90.10.25    													////////
+        ////////                                                                                ////////
+        ////////    Description  :  //@ TODO 01.03.07 add Lan Commu                             ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        private Result ExtractReceiveBytes(byte[] inRecData, string inTransPCode, string inTransSendAmount)
+        {
+            Result Result = new Result();
+            Result.SerialTransaction = "000000";
+            Result.TraceNumber = "0000000000000";
+            Result.TransactionDate = "0000000000";
+            Result.TransactionTime = "00000";
+            Result.PAN = "000000***0000";
+            Result.TerminalNo = "00000000";
+            Result.AccountNo = "00000000000000";
+            Result.ReasonCode = "";
+
+            string l_SerialTransaction = "000000";
+            string l_TraceNumber = "000000000000";
+            string l_TransactionDate = "0000000000";
+            string l_TransactionTime = "00000";
+            string l_BIN = "";
+            string l_PAN = "000000***0000";
+            string l_TerminalNo = "00000000";
+            string l_AccountNo = "00000000000000";
+            string l_PcId = "00000000000000";
+            string recTransResult = "";
+            string recTransAmount = "";
+            string recTransDiscountAmount = "";
+
+            Result.return_codes retCode = Result.return_codes.ERR_POS_PC_OTHER;
+
+            int RecLen = 0;
+            int i, index;
+            string LenINrecData_str = "";
+
+            byte TagID;
+            byte Len;
+            byte[] Value = null;
+            byte[] BCDValue = null;
+
+            string stringValue = "";
+
+            ushort generate_Crc16;
+
+            UInt16 UintValue = 0;
+
+            try
+            {
+                ////////////////////////////////////////////
+                //////			Received Message	////////
+                ////////////////////////////////////////////
+
+                byte[] RecData = new byte[inRecData.Length];
+                for (index = 0; index < inRecData.Length; index++)
+                    RecData[index] = inRecData[index];
+
+                ////////////////////////////////////////////
+                ////    GET Message Size IN Rec Data: 4 Byte	
+                ////////////////////////////////////////////
+                LenINrecData_str = "";
+                for (index = 0; index < 4; index++)
+                {
+                    LenINrecData_str = LenINrecData_str + Convert.ToChar(RecData[index]);
+                }
+                RecLen = Convert.ToInt32(LenINrecData_str);
+                ////////////////////////////////////////////
+                //////		Check Rec Size      	////////
+                ////////////////////////////////////////////
+                //if (sizeINrec != recData.Length)
+                if (RecLen != RecData.Length)
+                {
+                    Result.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_REC_SIZE;
+                    return Result;
+                }
+
+                ////////////////////////////////////////////
+                //////		GET Receive CRC        	////////
+                ////////////////////////////////////////////
+
+                byte[] RecCRC = new byte[2];
+                int index_crc = RecLen - 2;
+                index = 0;
+                for (i = index_crc; i < RecLen; i++)
+                {
+                    RecCRC[index] = RecData[i];
+                    index++;
+                }
+
+                ////////////////////////////////////////////
+                //////		Clculate CRC            	////
+                ////////////////////////////////////////////
+                int Len4CalculateCRC = 0;
+                byte[] Crc16_ByteArray = new byte[sizeof(ushort)];
+
+                try
+                {
+                    /* Use CRC Calss */
+                    CRCTool compCRC = new CRCTool();
+
+                    Len4CalculateCRC = RecData.Length - 4/*Len*/ - 2/*CRC*/;
+                    byte[] ByteArray4CalculateCRC = new byte[Len4CalculateCRC];
+
+                    index = 4;
+                    for (i = 0; i < Len4CalculateCRC; i++)
+                    {
+                        ByteArray4CalculateCRC[i] = RecData[index];
+                        index++;
+                    }
+                    compCRC.Init(CRCTool.CRCCode.CRC16);
+                    generate_Crc16 = 0;
+                    generate_Crc16 = (ushort)compCRC.crctablefast(ByteArray4CalculateCRC);
+                    Crc16_ByteArray = BitConverter.GetBytes(generate_Crc16/*Crc16_BigEndian*/);
+
+                }
+                catch (Exception)
+                {
+                    Result.ReturnCode = (int)Result.return_codes.ERR_PC_CALCULATE_CRC_ERROR;
+                    return Result;
+                }
+
+                ////////////////////////////////////////////
+                //////		CHECK CRC                  	////
+                ////////////////////////////////////////////
+                try
+                {
+                    if (Crc16_ByteArray.Length == RecCRC.Length)
+                    {
+                        for (i = 0; i < Crc16_ByteArray.Length; i++)
+                        {
+                            if (Crc16_ByteArray[i] == RecCRC[i])
+                                continue;
+                            else
+                            {
+                                Result.ReturnCode = (int)Result.return_codes.ERR_POS_PC_CRCERROR_INVALID_DATA;
+                                return Result;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Result.ReturnCode = (int)Result.return_codes.ERR_POS_PC_CRCERROR_INVALID_DATA;
+                        return Result;
+                    }
+                }
+                catch (Exception)
+                {
+                    Result.ReturnCode = (int)Result.return_codes.ERR_POS_PC_CRCERROR_INVALID_DATA;
+                    return Result;
+                }
+
+                ////////////////////////////////////////////
+                //////		Prepare Message 4 Extract  	////
+                ////////////////////////////////////////////
+
+                int ExtractMsgLen = RecLen - 4/*RecLen*/ - 2/*CRC*/;
+
+                byte[] Msg4Extract = new byte[ExtractMsgLen];
+                index = 4;
+                for (i = 0; i < ExtractMsgLen; i++)
+                {
+                    Msg4Extract[i] = RecData[index];
+                    index++;
+                }
+
+                ////////////////////////////////////////////
+                //////		 Extract    Message      	////
+                ////////////////////////////////////////////
+                index = 0;
+
+                while (index < Msg4Extract.Length)
+                {
+                    ////////////////////////////////////////////
+                    //////				TAG ID			////////
+                    ////////////////////////////////////////////
+
+                    TagID = 0x00;
+                    TagID = Msg4Extract[index];
+                    index++;
+
+                    switch (TagID)
+                    {
+                        case 0xC0:
+                            ////////////////////////////////////////////
+                            //////			TagID : 0xC0 		////////
+                            //////		Result : string value   ////////
+                            ////////////////////////////////////////////
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* String VALUE */
+                            stringValue = "";
+                            for (i = 0; i < Len; i++)
+                            {
+                                stringValue = stringValue + Convert.ToChar(Msg4Extract[index]);
+                                index++;
+                            }
+
+                            recTransResult = stringValue;
+                            break;
+
+                        case 0xC1:
+                            ////////////////////////////////////////////
+                            //////	        TagID : 0xC1          //////
+                            //////	 Trans Serial(RRN): BCD Value //////
+                            ////////////////////////////////////////////
+
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+
+                            /* BCD VALUE */
+                            BCDValue = new byte[Len];
+                            for (i = 0; i < Len; i++)
+                            {
+                                BCDValue[i] = Msg4Extract[index];
+                                index++;
+                            }
+                            /* Convert To Byte */
+                            Value = BCD2ByteArray(BCDValue);
+
+                            /* String VALUE */
+                            stringValue = "";
+                            UintValue = 0;
+                            for (i = 0; i < Value.Length; i++)
+                            {
+                                UintValue = Convert.ToUInt16(Value[i]);
+                                stringValue = stringValue + UintValue.ToString();
+                            }
+
+                            l_SerialTransaction = stringValue;
+                            break;
+
+                        case 0xC2:
+
+                            ////////////////////////////////////////////
+                            //////	        TagID : 0xC2        ////////
+                            //////	    Refrence ID : BCD Value ////////
+                            ////////////////////////////////////////////
+
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* BCD VALUE */
+                            BCDValue = new byte[Len];
+                            for (i = 0; i < Len; i++)
+                            {
+                                BCDValue[i] = Msg4Extract[index];
+                                index++;
+                            }
+
+                            /* Convert To Byte */
+                            Value = BCD2ByteArray(BCDValue);
+
+                            /* String VALUE */
+                            stringValue = "";
+                            UintValue = 0;
+                            for (i = 0; i < Value.Length; i++)
+                            {
+                                UintValue = Convert.ToUInt16(Value[i]);
+                                stringValue = stringValue + UintValue.ToString();
+                            }
+                            l_TraceNumber = stringValue;
+                            break;
+
+                        case 0xC3:
+                            ////////////////////////////////////////////
+                            //////	        TagID : 0xC3        ////////
+                            //////	     Date : String Value    ////////
+                            ////////////////////////////////////////////
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* String VALUE */
+                            stringValue = "";
+                            for (i = 0; i < Len; i++)
+                            {
+                                stringValue = stringValue + Convert.ToChar(Msg4Extract[index]);
+                                index++;
+                            }
+
+                            l_TransactionDate = stringValue;
+                            break;
+
+                        case 0xC4:
+                            ////////////////////////////////////////////
+                            //////	        TagID : 0xC4        ////////
+                            //////	       Time : String Value  ////////
+                            ////////////////////////////////////////////
+
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* String VALUE */
+                            stringValue = "";
+                            for (i = 0; i < Len; i++)
+                            {
+                                stringValue = stringValue + Convert.ToChar(Msg4Extract[index]);
+                                index++;
+                            }
+
+                            l_TransactionTime = stringValue;
+                            break;
+
+                        case 0xC5:
+                            /////////////////////////////////////////////////
+                            //////	        TagID : 0xC5                /////
+                            //////	Card Number(End 4 Digit) : BCD Value ////
+                            /////////////////////////////////////////////////
+
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* BCD VALUE */
+                            BCDValue = new byte[Len];
+                            for (i = 0; i < Len; i++)
+                            {
+                                BCDValue[i] = Msg4Extract[index];
+                                index++;
+                            }
+                            /* Convert To Byte */
+                            Value = BCD2ByteArray(BCDValue);
+
+                            /* String VALUE */
+                            stringValue = "";
+                            //UintValue = 0;
+                            for (i = 0; i < Value.Length; i++)
+                            {
+                                stringValue = stringValue + Value[i].ToString();
+                            }
+
+                            l_PAN = stringValue;
+                            break;
+
+                        case 0xC6:
+
+                            ////////////////////////////////////////////////////
+                            //////	        TagID : 0xC6                ////////
+                            //////	  IIN (First 6 Digit) : BCD Value   ////////
+                            ////////////////////////////////////////////////////
+
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* BCD VALUE */
+                            BCDValue = new byte[Len];
+                            for (i = 0; i < Len; i++)
+                            {
+                                BCDValue[i] = Msg4Extract[index];
+                                index++;
+                            }
+
+                            /* Convert To Byte */
+                            Value = BCD2ByteArray(BCDValue);
+
+                            /* String VALUE */
+                            stringValue = "";
+                            //UintValue = 0;
+                            for (i = 0; i < Value.Length; i++)
+                            {
+                                stringValue = stringValue + Value[i].ToString();
+                            }
+
+                            l_BIN = stringValue;
+                            break;
+
+                        case 0xC7:
+                            /////////////////////////////////////////////
+                            //////	    TagID : 0xC7             ////////
+                            //////	   Terminal ID : BCD Value   ////////
+                            ////////////////////////////////////////////
+
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* VALUE */
+                            BCDValue = new byte[Len];
+                            for (i = 0; i < Len; i++)
+                            {
+                                BCDValue[i] = Msg4Extract[index];
+                                index++;
+                            }
+
+                            /* Convert To Byte */
+                            Value = BCD2ByteArray(BCDValue);
+
+                            /* String VALUE */
+                            stringValue = "";
+                            UintValue = 0;
+                            for (i = 0; i < Value.Length; i++)
+                            {
+                                UintValue = Convert.ToUInt16(Value[i]);
+                                stringValue = stringValue + UintValue.ToString();
+                            }
+
+                            l_TerminalNo = stringValue;
+                            break;
+
+                        case 0xC8:
+                            ////////////////////////////////////////////
+                            /////	           TagID : 0xC8     ////////
+                            //////	Account Number : BCD Value  ////////
+                            ////////////////////////////////////////////
+
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* VALUE */
+                            BCDValue = new byte[Len];
+                            for (i = 0; i < Len; i++)
+                            {
+                                BCDValue[i] = Msg4Extract[index];
+                                index++;
+                            }
+
+                            /* Convert To Byte */
+                            Value = BCD2ByteArray(BCDValue);
+
+                            /* String VALUE */
+                            stringValue = "";
+                            UintValue = 0;
+                            for (i = 0; i < Value.Length; i++)
+                            {
+                                UintValue = Convert.ToUInt16(Value[i]);
+                                stringValue = stringValue + UintValue.ToString();
+                            }
+
+                            l_AccountNo = stringValue;
+                            break;
+
+                        case 0xA2:
+                            ////////////////////////////////////////////
+                            //////			TagID : 0xA2    	////////
+                            //////	  Process Code : BCD Value  ////////
+                            ////////////////////////////////////////////
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* BCD VALUE */
+                            BCDValue = new byte[Len];
+                            for (i = 0; i < Len; i++)
+                            {
+                                BCDValue[i] = Msg4Extract[index];
+                                index++;
+                            }
+
+                            /* Convert To Byte */
+                            Value = BCD2ByteArray(BCDValue);
+
+                            /* String VALUE */
+                            stringValue = "";
+                            UintValue = 0;
+                            for (i = 0; i < Value.Length; i++)
+                            {
+                                UintValue = Convert.ToUInt16(Value[i]);
+                                stringValue = stringValue + UintValue.ToString();
+                            }
+
+                            if (UInt16.Parse(inTransPCode) != UInt16.Parse(stringValue))
+                            {
+                                Result.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_REC_PROCESS_CODE;
+                                return Result;
+                            }
+                            break;
+                        case 0xA4:
+                            ////////////////////////////////////////////
+                            //////	        TagID : 0xA4        ////////
+                            //////	       PcId : String Value  ////////
+                            ////////////////////////////////////////////
+
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* String VALUE */
+                            stringValue = "";
+                            for (i = 0; i < Len; i++)
+                            {
+                                stringValue = stringValue + Convert.ToChar(Msg4Extract[index]);
+                                index++;
+                            }
+
+                            l_PcId = stringValue;
+                            break;
+
+                        case 0xE4:
+                            ////////////////////////////////////////////
+                            //////			TagID : 0xE4    	////////
+                            //////	  Process Code : BCD Value  ////////
+                            ////////////////////////////////////////////
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* BCD VALUE */
+                            BCDValue = new byte[Len];
+                            for (i = 0; i < Len; i++)
+                            {
+                                BCDValue[i] = Msg4Extract[index];
+                                index++;
+                            }
+
+                            /* Convert To Byte */
+                            Value = BCD2ByteArray(BCDValue);
+
+                            /* String VALUE */
+                            stringValue = "";
+                            UintValue = 0;
+                            for (i = 0; i < Value.Length; i++)
+                            {
+                                UintValue = Convert.ToUInt16(Value[i]);
+                                stringValue = stringValue + UintValue.ToString();
+                            }
+                            Result.ReqID = long.Parse(stringValue).ToString();
+                            break;
+                        case 0xB0:
+
+                            ////////////////////////////////////////////
+                            //////			TagID : 0xB0     	////////
+                            //////		Amount : BCD Value     	////////
+                            ////////////////////////////////////////////
+
+                            //MessageBox.Show(" ** TagID == 0xB0 ** ");
+
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* BCD VALUE */
+                            BCDValue = new byte[Len];
+                            for (i = 0; i < Len; i++)
+                            {
+                                BCDValue[i] = Msg4Extract[index];
+                                index++;
+                            }
+
+                            /* Convert To Byte */
+                            Value = BCD2ByteArray(BCDValue);
+                            stringValue = "";
+                            UintValue = 0;
+                            for (i = 0; i < Value.Length; i++)
+                            {
+                                UintValue = Convert.ToUInt16(Value[i]);
+                                stringValue = stringValue + UintValue.ToString();
+                            }
+
+                            recTransAmount = long.Parse(stringValue).ToString();/* stringValue;*/
+                            Result.TotalAmount = long.Parse(stringValue).ToString();
+                            break;
+                        case 0xCA:
+
+                            ////////////////////////////////////////////
+                            //////			TagID : 0xCA     	////////
+                            //////		DiscountAmount : BCD Value     	////////
+                            ////////////////////////////////////////////
+
+                            //MessageBox.Show(" ** TagID == 0xB0 ** ");
+
+                            /* LEN */
+                            Len = 0;
+                            Len = Msg4Extract[index];
+                            index++;
+
+                            /* BCD VALUE */
+                            BCDValue = new byte[Len];
+                            for (i = 0; i < Len; i++)
+                            {
+                                BCDValue[i] = Msg4Extract[index];
+                                index++;
+                            }
+
+                            /* Convert To Byte */
+                            Value = BCD2ByteArray(BCDValue);
+                            stringValue = "";
+                            UintValue = 0;
+                            for (i = 0; i < Value.Length; i++)
+                            {
+                                UintValue = Convert.ToUInt16(Value[i]);
+                                stringValue = stringValue + UintValue.ToString();
+                            }
+
+                            
+                            Result.DiscountAmount = long.Parse(stringValue).ToString();
+                            break;
+                    }//end switch
+                }//end while
+                Result.SerialTransaction = long.Parse(l_SerialTransaction).ToString();/*l_SerialTransaction;*/
+                Result.TraceNumber = long.Parse(l_TraceNumber).ToString();
+                Result.PcID = l_PcId;
+                Result.TransactionDate = l_TransactionDate;
+                Result.TransactionTime = l_TransactionTime;
+                Result.PAN = l_BIN + "***" + l_PAN;//long.Parse(l_PAN).ToString(); /*l_PAN;*/
+                Result.AccountNo = long.Parse(l_AccountNo).ToString(); /*l_AccountNo;*/
+                Result.TerminalNo = long.Parse(l_TerminalNo).ToString(); /*l_TerminalNo;*/
+                if (Result.ReqID.ToString().Length > 0 && inTransPCode == "ff")
+                {
+                    Result.ReturnCode = (int)Result.return_codes.RET_OK_RequestID;
+                    return Result;
+                }
+                if (recTransResult.Substring(0, 2) == "00")
+                {
+                    //if (recTransAmount != inTransSendAmount)
+                    //{
+                    //    Result.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_AMOUNT;
+                    //    return Result;
+                    //}
+                    retCode = Result.return_codes.RET_OK;
+                }
+                else if (recTransResult.Substring(0, 2) == "FE")
+                {
+                    retCode = Result.return_codes.ERR_POS_INVALID_DATA;
+                }
+                else if (recTransResult.Substring(0, 2) == "FB")
+                {
+                    retCode = Result.return_codes.ERR_POS_INVALID_INPUT_AMOUNT;
+                }
+                else if (recTransResult.Substring(0, 2) == "FT")
+                {
+                    retCode = Result.return_codes.ERR_POS_INVALID_MULTI_PAYMENT_AMOUNT;
+                }
+                else if (recTransResult.Substring(0, 2) == "FC")
+                {
+                    retCode = Result.return_codes.ERR_POS_INVALID_INPUT_PAYERID;
+                }
+                else if (recTransResult.Substring(0, 2) == "FI")
+                {
+                    retCode = Result.return_codes.ERR_POS_INVALID_INPUT_ADDITIONALDATA;
+                }
+                else if (recTransResult.Substring(0, 2) == "FL")
+                {
+                    retCode = Result.return_codes.ERR_POS_UNCONFIRM_REC_DATA;
+                }
+                else if (recTransResult.Substring(0, 2) == "FU")
+                {
+                    retCode = Result.return_codes.ERR_POS_USER_ABORT;
+                }
+                else if (recTransResult.Substring(0, 2) == "FD")
+                {
+                    retCode = Result.return_codes.ERR_POS_TO_SEND_TRANSACTION;
+                }
+                else if (recTransResult.Substring(0, 2) == "FA")
+                {
+                    retCode = Result.return_codes.ERR_POS_COMMUNICATION;
+                }
+                else if (recTransResult.Substring(0, 2) == "FF")
+                {
+                    retCode = Result.return_codes.ERR_POS_RESPONSE_RECEIVED_TOO_LATE;
+                }
+                else if (recTransResult.Substring(0, 2) == "FH")
+                {
+                    retCode = Result.return_codes.ERR_POS_INVALID_INPUT_ACCOUNTID;
+                }
+                else if (recTransResult.Substring(0, 2) == "FG")
+                {
+                    retCode = Result.return_codes.ERR_POS_INVALID_INPUT_BILL_ID;
+                }
+                else if (recTransResult.Substring(0, 2) == "FP")
+                {
+                    retCode = Result.return_codes.ERR_POS_INVALID_INPUT_PAYMENT_ID;
+                }
+                else if (recTransResult.Substring(0, 2) == "FR")
+                {
+                    retCode = Result.return_codes.ERR_POS_PC_CRCERROR_INVALID_DATA;
+                }
+                else if (recTransResult.Substring(0, 2) == "FM")
+                {
+                    retCode = Result.return_codes.ERR_POS_INVALID_INPUT_REFRENCE_NUMBER;
+                }
+                else if (recTransResult.Substring(0, 2) == "FS")
+                {
+                    retCode = Result.return_codes.ERR_POS_PC_OTHER;
+                }
+                else if (recTransResult.Substring(0, 2) == "BB")
+                {
+                    retCode = Result.return_codes.RET_POS_Busy;
+                }
+                else
+                {
+                    try
+                    {
+                        if ((Convert.ToInt16(recTransResult.Substring(0, 2)) > 0) && (Convert.ToInt16(recTransResult.Substring(0, 2)) < 100))
+                        {
+                            Result.ReasonCode = recTransResult.Substring(0, 2);
+                            retCode = Result.return_codes.ERR_POS_FAILED_TRANSACTION;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        retCode = Result.return_codes.ERR_POS_PC_OTHER;
+                    }
+                }
+                Result.ReturnCode = (int)retCode;
+                return Result;
+            }
+            catch (Exception)
+            {
+                Result.ReturnCode = (int)Result.return_codes.ERR_POS_PC_OTHER; ;
+                return Result;
+            }
+        }
+        private string ConvertUniToIransystem(string uni)
+        {
+            string TxtBoxLineOutput = "";
+            string s = "";
+            string hex, str, strout = "", strEng = "", strtmp = "";
+            int value, i = 0, j = 1, k = -1, intflag = 0, intflageng = 0;
+            char[] conchr = { 'د', 'ذ', 'ر', 'ز', 'ژ', 'و', 'ا' };
+            string[] input = { uni };
+            for (int m = 0; m < 1; m++)
+            {
+                char[] values = input[m].ToCharArray();
+                foreach (char c in values)
+                {
+                    value = Convert.ToInt32(c);
+                    if (value < 127 && value != 32)
+                    {
+                        intflag = 1;
+                        hex = String.Format("\\x{0:X}", value);
+                        switch (hex)
+                        {
+                            case "\\x30":
+                                hex = "\\x80";
+                                break;
+                            case "\\x31":
+                                hex = "\\x81";
+                                break;
+                            case "\\x32":
+                                hex = "\\x82";
+                                break;
+                            case "\\x33":
+                                hex = "\\x83";
+                                break;
+                            case "\\x34":
+                                hex = "\\x84";
+                                break;
+                            case "\\x35":
+                                hex = "\\x85";
+                                break;
+                            case "\\x36":
+                                hex = "\\x86";
+                                break;
+                            case "\\x37":
+                                hex = "\\x87";
+                                break;
+                            case "\\x38":
+                                hex = "\\x88";
+                                break;
+                            case "\\x39":
+                                hex = "\\x89";
+                                break;
+                            default:
+                                break;
+                        }
+                        strEng = strEng + hex;
+                    }
+                    else
+                    {
+                        intflag = 2;
+                        if (i != 0 && j < values.Length)
+                        {
+                            if (Convert.ToInt32(values[k]) < 127 && Convert.ToInt32(values[j]) < 127)
+                            {
+                                intflag = 1;
+                            }
+                        }
+                        if (intflag == 2)
+                        {
+                            strout = strEng + strout;
+                            strEng = "";
+                        }
+                        if (values[i] != ' ')
+                        {
+                            if (j < values.Length)
+                            {
+                                if (values[j] != ' ')
+                                {
+                                    if (k != -1)
+                                    {
+                                        if (values[k] != ' ')
+                                        {
+                                            foreach (char chr in conchr)
+                                            {
+                                                if (chr == values[k])
+                                                {
+                                                    s = "b";
+                                                    break;
+                                                }
+                                                else s = "m";
+                                                if ((values[i] == 'ا') & (values[k] == 'ل'))
+                                                { s = ""; }
+                                            }
+                                        }
+                                        else s = "b";
+                                        if ((values[i] == 'ل') & (values[j] == 'ا'))
+                                        { s = "ا"; }
+                                        if ((values[i] == 'ا') & (values[k] == 'ل'))
+                                        { s = ""; }
+                                    }
+                                    else s = "b";
+                                    if ((values[i] == 'ل') & (values[j] == 'ا'))
+                                    { s = "ا"; }
+                                }
+                                else
+                                {
+                                    s = "e";
+                                    foreach (char chr in conchr)
+                                    {
+                                        if ((chr == values[k]) || (values[k] == ' '))
+                                        { s = "nce"; }
+                                    }
+                                    if ((values[i] == 'ا') & (values[k] == 'ل'))
+                                    { s = ""; }
+                                }
+                            }
+                            else
+                            {
+                                s = "e";
+                                if (k != -1)
+                                {
+                                    foreach (char chr in conchr)
+                                    {
+                                        if ((chr == values[k]) || (values[k] == ' '))
+                                        { s = "nce"; }
+                                    }
+                                    if ((values[i] == 'ا') & (values[k] == 'ل'))
+                                    { s = ""; }
+                                }
+                                else s = "nce";
+                            }
+                        }
+                        else
+                        {
+                            s = "nce";
+
+                            if (i != 0 && j < values.Length)
+                            {
+                                if (Convert.ToInt32(values[k]) < 127 && Convert.ToInt32(values[j]) < 127)
+                                {
+                                    s = "eng";
+                                    intflageng = i;
+                                    intflag = 1;
+                                }
+                            }
+                        }
+
+                        str = c.ToString();
+                        str = str + s;
+
+                        switch (str)
+                        {
+                            case " eng":
+                                strEng = strEng + "\\x20";
+                                break;
+                            case " e":
+                                strout = "\\x20" + strout;
+                                break;
+                            case " nce":
+                                strout = "\\x20" + strout;
+                                break;
+                            case " m":
+                                strout = "\\x20" + strout;
+                                break;
+                            case " b":
+                                strout = "\\x20" + strout;
+                                break;
+                            case "،e":
+                                strout = "\\x8a" + strout;
+                                break;
+                            case "،nce":
+                                strout = "\\x8a" + strout;
+                                break;
+                            case "،m":
+                                strout = "\\x8a" + strout;
+                                break;
+                            case "،b":
+                                strout = "\\x8a" + strout;
+                                break;
+                            case "-e":
+                                strout = "\\x8b" + strout;
+                                break;
+                            case "-nce":
+                                strout = "\\x8b" + strout;
+                                break;
+                            case "-m":
+                                strout = "\\x8b" + strout;
+                                break;
+                            case "-b":
+                                strout = "\\x8b" + strout;
+                                break;
+                            case "؟e":
+                                strout = "\\x8c" + strout;
+                                break;
+                            case "؟nce":
+                                strout = "\\x8c" + strout;
+                                break;
+                            case "؟m":
+                                strout = "\\x8c" + strout;
+                                break;
+                            case "؟b":
+                                strout = "\\x8c" + strout;
+                                break;
+                            case "آe":
+                                strout = "\\x8d" + strout;
+                                break;
+                            case "آnce":
+                                strout = "\\x8d" + strout;
+                                break;
+                            case "آm":
+                                strout = "\\x8d" + strout;
+                                break;
+                            case "آb":
+                                strout = "\\x8d" + strout;
+                                break;
+                            case "ئe":
+                                strout = "\\x8e" + strout;
+                                break;
+                            case "ئnce":
+                                strout = "\\x8e" + strout;
+                                break;
+                            case "ئm":
+                                strout = "\\x8e" + strout;
+                                break;
+                            case "ئb":
+                                strout = "\\x8e" + strout;
+                                break;
+                            case "ءe":
+                                strout = "\\x8f" + strout;
+                                break;
+                            case "ءnce":
+                                strout = "\\x8f" + strout;
+                                break;
+                            case "ءm":
+                                strout = "\\x8f" + strout;
+                                break;
+                            case "ءb":
+                                strout = "\\x8f" + strout;
+                                break;
+                            case "اe":
+                                strout = "\\x91" + strout;
+                                break;
+                            case "اnce":
+                                strout = "\\x90" + strout;
+                                break;
+                            case "اm":
+                                strout = "\\x91" + strout;
+                                break;
+                            case "اb":
+                                strout = "\\x90" + strout;
+                                break;
+                            case "بe":
+                                strout = "\\x92" + strout;
+                                break;
+                            case "بnce":
+                                strout = "\\x92" + strout;
+                                break;
+                            case "بm":
+                                strout = "\\x93" + strout;
+                                break;
+                            case "بb":
+                                strout = "\\x93" + strout;
+                                break;
+                            case "پe":
+                                strout = "\\x94" + strout;
+                                break;
+                            case "پnce":
+                                strout = "\\x94" + strout;
+                                break;
+                            case "پm":
+                                strout = "\\x95" + strout;
+                                break;
+                            case "پb":
+                                strout = "\\x95" + strout;
+                                break;
+                            case "تe":
+                                strout = "\\x96" + strout;
+                                break;
+                            case "تnce":
+                                strout = "\\x96" + strout;
+                                break;
+                            case "تm":
+                                strout = "\\x97" + strout;
+                                break;
+                            case "تb":
+                                strout = "\\x97" + strout;
+                                break;
+                            case "ثe":
+                                strout = "\\x98" + strout;
+                                break;
+                            case "ثnce":
+                                strout = "\\x98" + strout;
+                                break;
+                            case "ثm":
+                                strout = "\\x99" + strout;
+                                break;
+                            case "ثb":
+                                strout = "\\x99" + strout;
+                                break;
+                            case "جe":
+                                strout = "\\x9a" + strout;
+                                break;
+                            case "جnce":
+                                strout = "\\x9a" + strout;
+                                break;
+                            case "جm":
+                                strout = "\\x9b" + strout;
+                                break;
+                            case "جb":
+                                strout = "\\x9b" + strout;
+                                break;
+                            case "چe":
+                                strout = "\\x9c" + strout;
+                                break;
+                            case "چnce":
+                                strout = "\\x9c" + strout;
+                                break;
+                            case "چm":
+                                strout = "\\x9d" + strout;
+                                break;
+                            case "چb":
+                                strout = "\\x9d" + strout;
+                                break;
+                            case "حe":
+                                strout = "\\x9e" + strout;
+                                break;
+                            case "حnce":
+                                strout = "\\x9e" + strout;
+                                break;
+                            case "حm":
+                                strout = "\\x9f" + strout;
+                                break;
+                            case "حb":
+                                strout = "\\x9f" + strout;
+                                break;
+                            case "خe":
+                                strout = "\\xa0" + strout;
+                                break;
+                            case "خnce":
+                                strout = "\\xa0" + strout;
+                                break;
+                            case "خm":
+                                strout = "\\xa1" + strout;
+                                break;
+                            case "خb":
+                                strout = "\\xa1" + strout;
+                                break;
+                            case "دnce":
+                                strout = "\\xa2" + strout;
+                                break;
+                            case "دe":
+                                strout = "\\xa2" + strout;
+                                break;
+                            case "دm":
+                                strout = "\\xa2" + strout;
+                                break;
+                            case "دb":
+                                strout = "\\xa2" + strout;
+                                break;
+                            case "ذe":
+                                strout = "\\xa3" + strout;
+                                break;
+                            case "ذnce":
+                                strout = "\\xa3" + strout;
+                                break;
+                            case "ذm":
+                                strout = "\\xa3" + strout;
+                                break;
+                            case "ذb":
+                                strout = "\\xa3" + strout;
+                                break;
+                            case "رe":
+                                strout = "\\xa4" + strout;
+                                break;
+                            case "رnce":
+                                strout = "\\xa4" + strout;
+                                break;
+                            case "رm":
+                                strout = "\\xa4" + strout;
+                                break;
+                            case "رb":
+                                strout = "\\xa4" + strout;
+                                break;
+                            case "زe":
+                                strout = "\\xa5" + strout;
+                                break;
+                            case "زnce":
+                                strout = "\\xa5" + strout;
+                                break;
+                            case "زm":
+                                strout = "\\xa5" + strout;
+                                break;
+                            case "زb":
+                                strout = "\\xa5" + strout;
+                                break;
+                            case "ژe":
+                                strout = "\\xa6" + strout;
+                                break;
+                            case "ژnce":
+                                strout = "\\xa6" + strout;
+                                break;
+                            case "ژm":
+                                strout = "\\xa6" + strout;
+                                break;
+                            case "ژb":
+                                strout = "\\xa6" + strout;
+                                break;
+                            case "سe":
+                                strout = "\\xa7" + strout;
+                                break;
+                            case "سnce":
+                                strout = "\\xa7" + strout;
+                                break;
+                            case "سm":
+                                strout = "\\xa8" + strout;
+                                break;
+                            case "سb":
+                                strout = "\\xa8" + strout;
+                                break;
+                            case "شe":
+                                strout = "\\xa9" + strout;
+                                break;
+                            case "شnce":
+                                strout = "\\xa9" + strout;
+                                break;
+                            case "شm":
+                                strout = "\\xaa" + strout;
+                                break;
+                            case "شb":
+                                strout = "\\xaa" + strout;
+                                break;
+                            case "صe":
+                                strout = "\\xab" + strout;
+                                break;
+                            case "صnce":
+                                strout = "\\xab" + strout;
+                                break;
+                            case "صm":
+                                strout = "\\xac" + strout;
+                                break;
+                            case "صb":
+                                strout = "\\xac" + strout;
+                                break;
+                            case "ضe":
+                                strout = "\\xad" + strout;
+                                break;
+                            case "ضnce":
+                                strout = "\\xad" + strout;
+                                break;
+                            case "ضm":
+                                strout = "\\xae" + strout;
+                                break;
+                            case "ضb":
+                                strout = "\\xae" + strout;
+                                break;
+                            case "طe":
+                                strout = "\\xaf" + strout;
+                                break;
+                            case "طnce":
+                                strout = "\\xaf" + strout;
+                                break;
+                            case "طm":
+                                strout = "\\xaf" + strout;
+                                break;
+                            case "طb":
+                                strout = "\\xaf" + strout;
+                                break;
+                            case "ظe":
+                                strout = "\\xe0" + strout;
+                                break;
+                            case "ظnce":
+                                strout = "\\xe0" + strout;
+                                break;
+                            case "ظm":
+                                strout = "\\xe0" + strout;
+                                break;
+                            case "ظb":
+                                strout = "\\xe0" + strout;
+                                break;
+                            case "عnce":
+                                strout = "\\xe1" + strout;
+                                break;
+                            case "عe":
+                                strout = "\\xe2" + strout;
+                                break;
+                            case "عm":
+                                strout = "\\xe3" + strout;
+                                break;
+                            case "عb":
+                                strout = "\\xe4" + strout;
+                                break;
+                            case "غnce":
+                                strout = "\\xe5" + strout;
+                                break;
+                            case "غe":
+                                strout = "\\xe6" + strout;
+                                break;
+                            case "غm":
+                                strout = "\\xe7" + strout;
+                                break;
+                            case "غb":
+                                strout = "\\xe8" + strout;
+                                break;
+                            case "فe":
+                                strout = "\\xe9" + strout;
+                                break;
+                            case "فnce":
+                                strout = "\\xe9" + strout;
+                                break;
+                            case "فm":
+                                strout = "\\xea" + strout;
+                                break;
+                            case "فb":
+                                strout = "\\xea" + strout;
+                                break;
+                            case "قe":
+                                strout = "\\xeb" + strout;
+                                break;
+                            case "قnce":
+                                strout = "\\xeb" + strout;
+                                break;
+                            case "قm":
+                                strout = "\\xec" + strout;
+                                break;
+                            case "قb":
+                                strout = "\\xec" + strout;
+                                break;
+                            case "کe":
+                                strout = "\\xed" + strout;
+                                break;
+                            case "کnce":
+                                strout = "\\xed" + strout;
+                                break;
+                            case "کm":
+                                strout = "\\xee" + strout;
+                                break;
+                            case "کb":
+                                strout = "\\xee" + strout;
+                                break;
+                            case "گe":
+                                strout = "\\xef" + strout;
+                                break;
+                            case "گnce":
+                                strout = "\\xef" + strout;
+                                break;
+                            case "گm":
+                                strout = "\\xf0" + strout;
+                                break;
+                            case "گb":
+                                strout = "\\xf0" + strout;
+                                break;
+                            case "لe":
+                                strout = "\\xf1" + strout;
+                                break;
+                            case "لnce":
+                                strout = "\\xf1" + strout;
+                                break;
+                            case "لا":
+                                strout = "\\xf2" + strout;
+                                break;
+                            case "لm":
+                                strout = "\\xf3" + strout;
+                                break;
+                            case "لb":
+                                strout = "\\xf3" + strout;
+                                break;
+                            case "مe":
+                                strout = "\\xf4" + strout;
+                                break;
+                            case "مnce":
+                                strout = "\\xf4" + strout;
+                                break;
+                            case "مm":
+                                strout = "\\xf5" + strout;
+                                break;
+                            case "مb":
+                                strout = "\\xf5" + strout;
+                                break;
+                            case "نe":
+                                strout = "\\xf6" + strout;
+                                break;
+                            case "نnce":
+                                strout = "\\xf6" + strout;
+                                break;
+                            case "نm":
+                                strout = "\\xf7" + strout;
+                                break;
+                            case "نb":
+                                strout = "\\xf7" + strout;
+                                break;
+                            case "وe":
+                                strout = "\\xf8" + strout;
+                                break;
+                            case "وnce":
+                                strout = "\\xf8" + strout;
+                                break;
+                            case "وm":
+                                strout = "\\xf8" + strout;
+                                break;
+                            case "وb":
+                                strout = "\\xf8" + strout;
+                                break;
+                            case "هe":
+                                strout = "\\xf9" + strout;
+                                break;
+                            case "هnce":
+                                strout = "\\xf9" + strout;
+                                break;
+                            case "هm":
+                                strout = "\\xfa" + strout;
+                                break;
+                            case "هb":
+                                strout = "\\xfb" + strout;
+                                break;
+                            case "یe":
+                                strout = "\\xfc" + strout;
+                                break;
+                            case "یnce":
+                                strout = "\\xfd" + strout;
+                                break;
+                            case "یm":
+                                strout = "\\xfe" + strout;
+                                break;
+                            case "یb":
+                                strout = "\\xfe" + strout;
+                                break;
+                            default:
+                                break;
+                        }
+                        str = "";
+                        s = "";
+                    }
+                    i++;
+                    j++;
+                    k++;
+                    if (intflag == 2)
+                    {
+                        if (intflageng != 0 && (intflageng + 1) < values.Length)
+                        {
+                            if (Convert.ToInt32(values[intflageng - 1]) < 127 && Convert.ToInt32(values[intflageng + 1]) < 127)
+                            {
+                                strout = strout + strEng;
+                            }
+                        }
+                        else
+                        {
+                            strout = strEng + strout;
+                            strEng = "";
+                        }
+
+                    }
+                    if (i == values.Length)
+                    {
+                        strout = strEng + strout;
+                        strEng = "";
+                    }
+                }
+                if (m > 0)
+                {
+                    strtmp = strtmp + "\\n";
+                }
+                if (input[m] != "")
+                {
+                    strout = strtmp + strout;
+                    strtmp = "";
+                }
+
+                TxtBoxLineOutput = TxtBoxLineOutput + strout;
+                strout = "";
+                i = 0;
+                j = 1;
+                k = -1;
+
+            }
+            return TxtBoxLineOutput;
+        }
+        private Result CheckTransInfo(TransInfo trans)
+        {
+            Result retTrans = new Result();
+            //////////////////////////////////////////////////////
+            //////////          Check Commu Type        //////////
+            /////////                   AND             //////////
+            ////////            Commu Type Params       //////////
+            //////////////////////////////////////////////////////
+            string CommuType = Transaction.Connection.POSPC_CommunicationType;
+            Result.return_codes retCheck = CheckCommuType();
+            if (retCheck != Result.return_codes.RET_OK)
+            {
+                retTrans.ReturnCode = (int)retCheck;
+                return retTrans;
+            }
+
+            //////////////////////////////////////////////////////
+            //////////          Check Amount Value        ////////
+            //////////////////////////////////////////////////////
+            /* Check the input amount value : 0 < Len <= 12 */
+            if (trans.ProcessCode == "05")
+            {
+                if (trans.BillID.Length == 18)
+                    trans.Amount = trans.PayID.Substring(0, trans.PayID.Length - 8);
+                else
+                    trans.Amount = trans.PayID.Substring(0, trans.PayID.Length - 5);
+
+                if (trans.BillID.Length <= 13)
+                    trans.Amount = string.Concat(trans.Amount, "000");
+            }
+            if (trans.ProcessCode == "01" || trans.ProcessCode == "02" || trans.ProcessCode == "05" || trans.ProcessCode == "04")//sale ,payment ,billpayment
+            {
+                if (AmountValidity(trans.Amount) == false)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_AMOUNT;
+                    return retTrans;
+                }
+            }
+            //////////////////////////////////////////////////////
+            //////////         Check PayerID Value        ////////
+            //////////////////////////////////////////////////////
+            /* Check the input PayerID value : 3 <= Len <= 17 */
+            if (trans.ProcessCode == "01" || trans.ProcessCode == "02")
+            {
+                if (PayerIDValidity(trans.PayerID) == false)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_PAYERID;
+                    return retTrans;
+                }
+            }
+            //////////////////////////////////////////////////////
+            //////////          Check AccountID Value      ////////
+            //////////////////////////////////////////////////////
+            /* Check the input AccountID value */
+            if (trans.ProcessCode == "02")
+            {
+                if (AccountIDValidity(trans.AccountID) == false)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_ACCOUNTID;
+                    return retTrans;
+                }
+            }
+            if (trans.ProcessCode == "05")
+            {
+                //////////////////////////////////////////////////////
+                //////////          Check BillID Value        ////////
+                //////////////////////////////////////////////////////
+                /* Check the input bill id value */
+                if (BillIdValidity(trans.BillID) == false)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_BILLID;
+                    return retTrans;
+                }
+
+                //////////////////////////////////////////////////////
+                //////////          Check PayID Value        ////////
+                //////////////////////////////////////////////////////
+                /* Check the input pay code value */
+                if (PayIdValidity(trans.PayID) == false)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_PAYID;
+                    return retTrans;
+                }
+            }
+            //////////////////////////////////////////////////////
+            //////////  Check additional Message Value      ////////
+            //////////////////////////////////////////////////////
+            if (trans.MerchantadditionalData.Length != 0)
+            {
+                if (trans.MerchantadditionalData.Length > 100)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_MERCHANT_FIELD;
+                    return retTrans;
+                }
+            }
+            //////////////////////////////////////////////////////
+            //////////  Check Merchant Message Value      ////////
+            //////////////////////////////////////////////////////
+            if (trans.MerchantMsg.Length != 0)
+            {
+                /* Control Message Size */
+                if (trans.MerchantMsg.Length > 160)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_MERCHANT_MESSAGE;
+                    return retTrans;
+                }
+
+            }
+            retTrans.ReturnCode = (int)Result.return_codes.RET_OK;
+            return retTrans;
+        }
+        private Result RunTransaction(Connection connect, TransInfo trans)
+        {
+            UInt64 sumOfAmounts = 0;
+            string accId = "";
+            string amount = "";
+            string payerId = "";
+            string addData = "";
+            byte[] Feild59HexBytes = null;
+            byte[] ByteArray = new byte[1024];
+            byte[] SendBytes = null;
+            byte[] value = null;
+            byte[] BCDValue = null;
+            int index, i, j;
+            int ByteArray_Len = 0;
+            int SendBytes_Len = 0;
+            string strSendLen = "";
+            Result retTrans = new Result();
+
+            retTrans = CheckTransInfo(trans);
+            if (retTrans.ReturnCode != (int)Result.return_codes.RET_OK)
+                return retTrans;
+            ///////////////////////////////////////////////////////
+            //////////        Prepare message               ///////
+            /////////      //@ TODO 01.04.08 91.03.06       ///////
+            /////////      /* TAG - LEN - VALUE */          ///////
+            //////////////////////////////////////////////////////          
+
+
+            //////////////////////////////////////////////////////////
+            /////// MAX_PARAM_LEN   255 byte for value      //////////
+            /////// byte  8  bit	0 to 255         1byte  //////////
+            /////// short 16 bit 	-32768 to 32767  2byte  //////////
+            //////////////////////////////////////////////////////////
+            try
+            {
+                index = 0;
+
+                /////////////////////////////////////////
+                ///////         TAG ID : 0xA0       /////
+                ///////   Dll Type - string value   /////
+                /////////////////////////////////////////
+                value = null;
+                value = System.Text.ASCIIEncoding.ASCII.GetBytes(Globals.dllType);
+                /* TAG ID */
+                ByteArray[index] = 0xA0;
+                index = index + 1;
+                /* Len */
+                ByteArray[index] = (byte)(value.Length);
+                index = index + 1;
+                /* String Value */
+                for (i = 0; i < value.Length; i++)
+                {
+                    ByteArray[index] = value[i];
+                    index++;
+                }
+                /////////////////////////////////////////////
+                ///////           TAG ID : 0xA1         /////
+                ///////   Dll Version - numeric value   /////
+                /////////////////////////////////////////////
+                value = null;
+                value = System.Text.ASCIIEncoding.ASCII.GetBytes(Globals.dllVersion);
+                BCDValue = null;
+                BCDValue = ByteArray2BCD(value);
+                /* TAG ID */
+                ByteArray[index] = 0xA1;
+                index = index + 1;
+                /* Len */
+                ByteArray[index] = (byte)(BCDValue.Length);
+                index = index + 1;
+                /* Value */
+                for (i = 0; i < BCDValue.Length; i++)
+                {
+                    ByteArray[index] = BCDValue[i];
+                    index++;
+                }
+                /////////////////////////////////////////////
+                ///////         TAG ID : 0xA2           /////
+                ///////   Process Code - numeric value  /////
+                /////////////////////////////////////////////
+                value = null;
+                value = System.Text.ASCIIEncoding.ASCII.GetBytes(trans.ProcessCode);
+                BCDValue = null;
+                BCDValue = ByteArray2BCD(value);
+                /* TAG ID */
+                ByteArray[index] = 0xA2;
+                index = index + 1;
+                /* Len */
+                ByteArray[index] = (byte)(BCDValue.Length);
+                index = index + 1;
+                /* Value */
+                for (i = 0; i < BCDValue.Length; i++)
+                {
+                    ByteArray[index] = BCDValue[i];
+                    index++;
+                }
+                //////////////////////////////////////////////
+                //////         TAG ID : 0xA4            //////
+                ////   PC ID - string value   //////
+                //////////////////////////////////////////////               
+                value = null;
+                value = System.Text.ASCIIEncoding.ASCII.GetBytes(trans.PcID);
+                /* TAG ID */
+                ByteArray[index] = 0xA4;
+                index = index + 1;
+                /* Len */
+                ushort len = (ushort)value.Length;
+                ByteArray[index] = (byte)(len);
+                index = index + 1;
+
+                /* String Value */
+                for (i = 0; i < value.Length; i++)
+                {
+                    ByteArray[index] = value[i];
+                    index++;
+                }
+                if (trans.ProcessCode == "01" || trans.ProcessCode == "02" || trans.ProcessCode == "05" || trans.ProcessCode == "04" || trans.ProcessCode == "11" || trans.ProcessCode == "12" || trans.ProcessCode == "13")
+                {
+                    /////////////////////////////////////////////
+                    ///////         TAG ID : 0xB0           /////
+                    ///////     Amount - numeric value      /////
+                    /////////////////////////////////////////////
+
+                    value = null;
+                    value = System.Text.ASCIIEncoding.ASCII.GetBytes(trans.Amount);
+                    BCDValue = null;
+                    BCDValue = ByteArray2BCD(value);
+                    /* TAG ID */
+                    ByteArray[index] = 0xB0;
+                    index = index + 1;
+                    /* Len */
+                    ByteArray[index] = (byte)(BCDValue.Length);
+                    index = index + 1;
+                    /* Value */
+                    for (i = 0; i < BCDValue.Length; i++)
+                    {
+                        ByteArray[index] = BCDValue[i];
+                        index++;
+                    }
+                }
+                /////////////////////////////////////////////
+                ///////         TAG ID : 0xB1           /////
+                ///////     PayerID - numeric value     /////
+                /////////////////////////////////////////////
+                if (trans.ProcessCode == "01" || trans.ProcessCode == "02" || trans.ProcessCode == "12" || trans.ProcessCode == "13")
+                {
+                    if (trans.PayerID.Length != 0)
+                    {
+                        value = null;
+                        value = System.Text.ASCIIEncoding.ASCII.GetBytes(trans.PayerID);
+                        BCDValue = null;
+                        BCDValue = ByteArray2BCD(value);
+                        /* TAG ID */
+                        ByteArray[index] = 0xB1;
+                        index = index + 1;
+                        /* Len */
+                        ByteArray[index] = (byte)(BCDValue.Length);
+                        index = index + 1;
+                        /* Value */
+                        for (i = 0; i < BCDValue.Length; i++)
+                        {
+                            ByteArray[index] = BCDValue[i];
+                            index++;
+                        }
+                    }//end of payrid
+                }
+
+                /////////////////////////////////////////////
+                ///////         TAG ID : 0xB2           /////
+                ///////     AccountID - numeric value   /////
+                /////////////////////////////////////////////
+                if (trans.ProcessCode == "02" || trans.ProcessCode == "12" || trans.ProcessCode == "13")
+                {
+                    value = null;
+                    value = System.Text.ASCIIEncoding.ASCII.GetBytes(trans.AccountID);
+                    BCDValue = null;
+                    BCDValue = ByteArray2BCD(value);
+                    /* TAG ID */
+                    ByteArray[index] = 0xB2;
+                    index = index + 1;
+                    /* Len */
+                    ByteArray[index] = (byte)(BCDValue.Length);
+                    index = index + 1;
+                    /* Value */
+                    for (i = 0; i < BCDValue.Length; i++)
+                    {
+                        ByteArray[index] = BCDValue[i];
+                        index++;
+                    }
+                }
+                if (trans.ProcessCode == "05")
+                {
+                    /////////////////////////////////////////////
+                    ///////         TAG ID : 0xB3           /////
+                    ///////     BillID - numeric value     /////
+                    /////////////////////////////////////////////
+                    value = null;
+                    value = System.Text.ASCIIEncoding.ASCII.GetBytes(trans.BillID);
+                    BCDValue = null;
+                    BCDValue = ByteArray2BCD(value);
+                    /* TAG ID */
+                    ByteArray[index] = 0xB3;
+                    index = index + 1;
+                    /* Len */
+                    ByteArray[index] = (byte)(BCDValue.Length);
+                    index = index + 1;
+                    /* Value */
+                    for (i = 0; i < BCDValue.Length; i++)
+                    {
+                        ByteArray[index] = BCDValue[i];
+                        index++;
+                    }
+
+                    /////////////////////////////////////////////
+                    ///////         TAG ID : 0xB4           /////
+                    ///////     PayID - numeric value       /////
+                    /////////////////////////////////////////////
+                    value = null;
+                    value = System.Text.ASCIIEncoding.ASCII.GetBytes(trans.PayID);
+                    BCDValue = null;
+                    BCDValue = ByteArray2BCD(value);
+                    /* TAG ID */
+                    ByteArray[index] = 0xB4;
+                    index = index + 1;
+                    /* Len */
+                    ByteArray[index] = (byte)(BCDValue.Length);
+                    index = index + 1;
+                    /* Value */
+                    for (i = 0; i < BCDValue.Length; i++)
+                    {
+                        ByteArray[index] = BCDValue[i];
+                        index++;
+                    }
+                }
+
+                if (trans.ProcessCode == "06")
+                {
+
+                    byte[] FAHexBytes = null;
+                    byte[] encodedBytes = Encoding.UTF8.GetBytes(trans.ReqIDuestMsgFa);
+                    FAHexBytes = new byte[encodedBytes.Length];
+                    Array.Copy(encodedBytes, FAHexBytes, encodedBytes.Length);
+
+                    byte[] EnHexBytes = null;
+                    byte[] encodedBytes2 = Encoding.UTF8.GetBytes(trans.ReqIDuestMsgEn);
+                    EnHexBytes = new byte[encodedBytes2.Length];
+                    Array.Copy(encodedBytes2, EnHexBytes, encodedBytes2.Length);
+                    /////////////////////////////////////////
+                    ///////         TAG ID : 0xE1       /////
+                    /////////////////////////////////////////
+                    value = null;
+                    value = System.Text.ASCIIEncoding.ASCII.GetBytes("1");
+
+                    /* TAG ID */
+                    ByteArray[index] = 0xE1;
+                    index = index + 1;
+
+                    /* Len */
+                    ByteArray[index] = (byte)(value.Length);
+                    index = index + 1;
+
+                    /* String Value */
+                    for (i = 0; i < value.Length; i++)
+                    {
+                        ByteArray[index] = value[i];
+                        index++;
+                    }
+
+                    /////////////////////////////////////////////
+                    ///////           TAG ID : 0xE2         /////
+                    ///////   Dll Version - numeric value   /////
+                    /////////////////////////////////////////////
+                    /* TAG ID */
+                    ByteArray[index] = 0xE2;
+                    index = index + 1;
+                    /* Len */
+                    ByteArray[index] = (byte)(FAHexBytes.Length);
+                    index = index + 1;
+                    /* Value */
+                    for (i = 0; i < FAHexBytes.Length; i++)
+                    {
+                        ByteArray[index] = FAHexBytes[i];
+                        index++;
+                    }
+
+                    /////////////////////////////////////////////
+                    ///////         TAG ID : 0xE3           /////
+                    ///////   Process Code - numeric value  /////
+                    /////////////////////////////////////////////
+
+                    /* TAG ID */
+                    ByteArray[index] = 0xE3;
+                    index = index + 1;
+                    /* Len */
+                    ByteArray[index] = (byte)(EnHexBytes.Length);
+                    index = index + 1;
+                    /* Value */
+                    for (i = 0; i < EnHexBytes.Length; i++)
+                    {
+                        ByteArray[index] = EnHexBytes[i];
+                        index++;
+                    }
+                }
+                if (trans.ProcessCode == "04")
+                {
+
+                    if ((trans.RequestList.Length == 0) || (trans.RequestList.Length > 10))
+                    {
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_MULTI_PAYMENT_REQUEST_LIST;
+                        return retTrans;
+                    }
+
+                    /* prepare addData */
+                    for (i = 0; i < trans.RequestList.Length; i++)
+                    {
+                        if (trans.RequestList[i].AccountID == null)
+                        {
+                            break;
+                        }
+                        /* ----------- Account ID -------------- */
+                        accId = trans.RequestList[i].AccountID;
+                        if (multiPayment_AccountIDValidity(accId) == false)
+                        {
+                            retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_ACCOUNTID;
+                            return retTrans;
+                        }
+                        /* --------------- Amount -------------- */
+                        amount = trans.RequestList[i].Amount;
+
+                        if (multiPayment_AmountValidity(amount) == false)
+                        {
+                            retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_AMOUNT;
+                            return retTrans;
+                        }
+                        /* calculate sum of amounts */
+                        sumOfAmounts = ulong.Parse(amount) + sumOfAmounts;
+                        /* --------------- Payer Id -------------- */
+                        payerId = trans.RequestList[i].PayerID;
+
+                        if (PayerIDValidity(payerId) == false)
+                        {
+                            retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_PAYERID;
+                            return retTrans;
+                        }
+                        addData = addData + (trans.RequestList[i].AccountID + ',' + trans.RequestList[i].Amount + ',' + trans.RequestList[i].PayerID + ';');
+                    }
+                    if (sumOfAmounts != ulong.Parse(trans.Amount))
+                    {
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_MULTI_PAYMENT_AMOUNT;
+                        return retTrans;
+                    }
+                    if ((addData.Length <= 0) || (addData.Length > 400))
+                    {
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_MULTI_PAYMENT_REQUEST_LIST;
+                        return retTrans;
+                    }
+                    //////////////////////////////////////////////
+                    //////         TAG ID : 0xB7            //////
+                    ////   Additional Data - string value   //////
+                    //////////////////////////////////////////////               
+
+                    value = null;
+                    value = System.Text.ASCIIEncoding.ASCII.GetBytes(addData);
+                    /* TAG ID */
+                    ByteArray[index] = 0xB7;
+                    index = index + 1;
+                    /* Len */
+                    len = (ushort)value.Length;
+                    if (len < 255)
+                    {
+                        ByteArray[index] = (byte)(len);
+                        index = index + 1;
+                    }
+                    else
+                    {
+                        /* len =< 255 <= 400 */
+                        ByteArray[index] = 255;
+                        index = index + 1;
+                        /* ********** Prepare Byte array of Len ********** */
+                        byte[] Len_ByteArray = new byte[sizeof(ushort)];
+                        Len_ByteArray = BitConverter.GetBytes(len);
+                        for (i = 0; i < Len_ByteArray.Length; i++)
+                        {
+                            ByteArray[index] = Len_ByteArray[i];
+                            index++;
+                        }
+                    }
+
+                    /* String Value */
+                    for (i = 0; i < value.Length; i++)
+                    {
+                        ByteArray[index] = value[i];
+                        index++;
+                    }
+                    //////////////////////////////////////////////
+                    //////         TAG ID : 0xB8            //////
+                    //////     Print Detail  - byte value   //////
+                    //////   //@ TODO 01.04.09              //////
+                    //////////////////////////////////////////////               
+                    /* TAG ID */
+                    ByteArray[index] = 0xB8;
+                    index = index + 1;
+                    /* Len */
+                    ByteArray[index] = sizeof(byte);
+                    index = index + 1;
+                    ByteArray[index] = trans.PrintDetail;
+                    index++;
+                }
+                ///////////////////////////////////////////////////
+                ///////         TAG ID : 0xB6                 /////
+                ///////     Merchant Msg - hex string value   /////
+                ///////////////////////////////////////////////////
+                if (trans.MerchantMsg.Length != 0)
+                {
+                    string MerchantMsg = ConvertUniToIransystem(trans.MerchantMsg);
+                    byte[] msgHexBytes = null;
+                    string HesxString = MerchantMsg.ToUpper();
+                    string HesxString_1 = HesxString.Replace(":", "");
+                    string HesxString_2 = HesxString_1.Replace("0x", "");
+                    string HesxString_3 = HesxString_2.Replace("\\x", "");
+                    string HesxString_4 = HesxString_3.Replace("\\X", "");
+                    if ((HesxString_4.Length % 2) == 0)
+                    {
+                        int NumberChars = HesxString_4.Length;
+                        msgHexBytes = new byte[NumberChars / 2];
+                        for (i = 0; i < NumberChars; i += 2)
+                            msgHexBytes[i / 2] = Convert.ToByte(HesxString_4.Substring(i, 2), 16);
+                        /* Control Message Size */
+                        if (msgHexBytes.Length > 160)
+                        {
+                            retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_MERCHANT_MESSAGE;
+                            return retTrans;
+                        }
+                    }//end of len hex string % 2 == 0
+                    else
+                    {
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_INPUT_MERCHANT_MESSAGE;
+                        return retTrans;
+                    }
+                    /* TAG ID */
+                    ByteArray[index] = 0xB6;
+                    index = index + 1;
+                    /* Len */
+                    ByteArray[index] = (byte)(msgHexBytes.Length);
+                    index = index + 1;
+                    /* Value */
+                    for (i = 0; i < msgHexBytes.Length; i++)
+                    {
+                        ByteArray[index] = msgHexBytes[i];
+                        index++;
+                    }
+                }
+                ///////////////////////////////////////////////////
+                ///////         TAG ID : 0xB9                 /////
+                ///////     Merchant Msg 59 - hex string value   /////
+                ///////////////////////////////////////////////////
+
+                if (trans.MerchantadditionalData.Length != 0)
+                {
+                    /* TAG ID */
+                    ByteArray[index] = 0xB9;
+                    index = index + 1;
+                    /* Len */
+                    Feild59HexBytes = Encoding.UTF8.GetBytes(trans.MerchantadditionalData);
+                    ByteArray[index] = (byte)(Feild59HexBytes.Length);
+                    index = index + 1;
+                    /* Value */
+                    for (i = 0; i < Feild59HexBytes.Length; i++)
+                    {
+                        ByteArray[index] = Feild59HexBytes[i];
+                        index++;
+                    }
+                }//end of msg
+
+                /////////////////////////////////////////
+                ///////     Generate CRC        /////////
+                /////////////////////////////////////////
+
+                try
+                {
+
+                    /* ********** Use CRC Calss ************* */
+                    CRCTool compCRC = new CRCTool();
+
+                    /* ********** Prepare Byte Array of data for calculate CRC ********** */
+                    byte[] CRC_ByteArray = new byte[index];
+                    for (i = 0; i < index; i++)
+                    {
+                        CRC_ByteArray[i] = ByteArray[i];
+                    }
+                    /* ********** Calculate CRC ********** */
+                    compCRC.Init(CRCTool.CRCCode.CRC16);
+                    ushort generate_Crc16 = (ushort)compCRC.crctablefast(CRC_ByteArray);
+                    /* ********** Prepare Byte array of Calculate CRC ********** */
+                    byte[] Crc16_ByteArray = new byte[sizeof(ushort)];
+                    Crc16_ByteArray = BitConverter.GetBytes(generate_Crc16);
+                    for (i = 0; i < Crc16_ByteArray.Length; i++)
+                    {
+                        ByteArray[index] = Crc16_ByteArray[i];
+                        index++;
+                    }
+                }
+                catch (Exception)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_CALCULATE_CRC_ERROR;
+                    return retTrans;
+                }
+
+                /////////////////////////////////////////
+                ///////          Msg Len         ////////
+                /////////////////////////////////////////
+
+                ByteArray_Len = index;
+                SendBytes_Len = ByteArray_Len + 4;
+
+                SendBytes = new byte[SendBytes_Len];
+
+                strSendLen = "";
+                strSendLen = (SendBytes_Len.ToString()).PadLeft(4, '0');
+                /* first 4 byte set for Msg Len */
+                value = null;
+                value = System.Text.ASCIIEncoding.ASCII.GetBytes(strSendLen);
+
+                for (index = 0; index < value.Length; index++)
+                {
+                    SendBytes[index] = value[index];
+                }
+                /* next data from index 4 */
+                j = 0;
+                for (i = index; i < SendBytes_Len; i++)
+                {
+                    SendBytes[i] = ByteArray[j];
+                    j++;
+                }
+            }
+            catch (Exception)
+            {
+                retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PREPARE_TLV_MSG_FAILED;
+                return retTrans;
+            }
+
+
+            //////////////////////////////////////////////////////
+            //////////   Send & Rec message on TCP Port       ////
+            //////////////////////////////////////////////////////  
+            if (Transaction.Connection.POSPC_CommunicationType.ToUpper() == "TCP/IP".ToUpper())
+            {
+                //////////////////////////////////////////////////////
+                //////////      Send message on TCP Port       ///////
+                //////////////////////////////////////////////////////  
+                try
+                {
+                    synchronousClient.StartClient(connect.POS_IP, connect.POS_PORTtcp);
+                    try
+                    {
+                        synchronousClient.SendClient(SendBytes);
+                    }
+                    catch (Exception ex)
+                    {
+                        string str = ex.Message.ToString();
+                        synchronousClient.ShutDown();
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_TCP_SOCKET_SEND_MSG_FAILED;
+                        return retTrans;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string str = "";
+                    str = ex.Message.ToString();
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_TCP_SOCKET_FAILED;
+                    return retTrans;
+                }
+
+                /////////////////////////////////////////////////
+                ///////         Receive Response        /////////
+                /////////////////////////////////////////////////
+                try
+                {
+                    byte[] RecBytes = new byte[1024];
+                    int ReceiveLen = 0;
+                    ReceiveLen = synchronousClient.GetClient(RecBytes);
+                    //@ TODO 01.04.09
+                    if (ReceiveLen == 0)
+                    {
+                        synchronousClient.ShutDown();
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_TCP_SOCKET_RECEIVED_MSG_FAILED;
+                        return retTrans;
+                    }
+
+                    //add in new protocol
+                    byte[] RecData = new byte[ReceiveLen];
+                    for (i = 0; i < ReceiveLen; i++)
+                    {
+                        RecData[i] = RecBytes[i];
+                    }
+                    //end  
+
+                    ////////////////////////////////////////////////////
+                    //// NEW Extract Recevied Bytes         ////////////
+                    ////////////////////////////////////////////////////
+                    retTrans = ExtractReceiveBytes(RecData, trans.ProcessCode, trans.Amount);
+                }
+                catch (Exception /*ex*/)
+                {
+                    synchronousClient.ShutDown();
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_TCP_SOCKET_RECEIVED_MSG_FAILED;
+                    return retTrans;
+                }
+            }//end of TCP Commu 
+            else
+            {   /* SERIAL COMMU */
+
+                /* initialize Serial Port */
+                SerialPort POS_Serial_Port = new SerialPort(Connection.PC_PORT.PortName, Connection.PC_PORT.BaudRate, Connection.PC_PORT.Parity, Connection.PC_PORT.DataBits, Connection.PC_PORT.StopBits);
+
+                POS_Serial_Port.Handshake = Handshake.None;
+                POS_Serial_Port.WriteTimeout = 15000;
+                POS_Serial_Port.ReadTimeout = Connection.PC_PORT.ReadTimeout; //miliseconds
+
+                /////////////////////////////////////////////////
+                ///////         Open Serial Port        /////////
+                /////////////////////////////////////////////////
+                try
+                {
+                    SerialPortClose(POS_Serial_Port);
+                    POS_Serial_Port.Open();
+                }
+                catch (InvalidOperationException)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PORT_OPEN_FAILED;
+                    return retTrans;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_PORT_PARAMETERS;
+                    return retTrans;
+                }
+                catch (ArgumentException)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_PORT_NAME;
+                    return retTrans;
+                }
+                catch (System.IO.IOException)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_PORT_STATE;
+                    return retTrans;
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PORT_ACCESS_FAILED;
+                    return retTrans;
+                }
+
+                //////////////////////////////////////////////////////
+                //////////     Send message on Serial Port       /////
+                //////////////////////////////////////////////////////  
+                try
+                {
+                    POS_Serial_Port.Write(SendBytes, 0, SendBytes.Length);
+                }
+                catch (ArgumentNullException)
+                {
+                    SerialPortClose(POS_Serial_Port);
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_NULL_STR_TO_WRITE_IN_PORT;
+                    return retTrans;
+                }
+                catch (InvalidOperationException)
+                {
+                    SerialPortClose(POS_Serial_Port);
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PORT_OPEN_FAILED;
+                    return retTrans;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    SerialPortClose(POS_Serial_Port);
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_PORT_PARAMETERS;
+                    return retTrans;
+                }
+                catch (ArgumentException)
+                {
+                    SerialPortClose(POS_Serial_Port);
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_PORT_NAME;
+                    return retTrans;
+                }
+                catch (TimeoutException)
+                {
+                    SerialPortClose(POS_Serial_Port);
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PORT_TIMEOUT_FOR_SEND;
+                    return retTrans;
+                }
+
+                //////////////////////////////////////////////////////
+                //////////     Receive message on Serial Port       /////
+                ////////////////////////////////////////////////////// 
+                try
+                {
+                    int ReadLen = 0;
+
+                    TimeSpan timeout = new TimeSpan(0, 0, 0, 0, POS_Serial_Port.ReadTimeout);
+                    DateTime start = DateTime.Now;
+
+                    int peRDlen = 0;
+
+                    while (DateTime.Now < start + timeout)
+                    {
+                        try
+                        {
+                            peRDlen = ReadLen;
+
+                            Thread.Sleep(20);
+
+                            ReadLen = POS_Serial_Port.BytesToRead;
+
+                            if ((ReadLen == peRDlen) && (ReadLen != 0))
+                                break;
+                        }
+                        catch (IOException)
+                        {
+                            SerialPortClose(POS_Serial_Port);
+                            retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PORT_EXCEPTION_FOR_REC;
+                            return retTrans;
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            SerialPortClose(POS_Serial_Port);
+                            retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PORT_EXCEPTION_FOR_REC;
+                            return retTrans;
+                        }
+                    } //end while          
+                    if (ReadLen == 0)
+                    {
+                        SerialPortClose(POS_Serial_Port);
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PORT_TIMEOUT_FOR_REC;
+                        return retTrans;
+                    }
+
+                    byte[] RecData = new byte[ReadLen];
+                    int nbrDataRead = 0;
+
+                    try
+                    {
+                        nbrDataRead = POS_Serial_Port.Read(RecData, 0, ReadLen);
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        SerialPortClose(POS_Serial_Port);
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_NULL_STR_IN_READ_PORT;
+                        return retTrans;
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        SerialPortClose(POS_Serial_Port);
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PORT_EXCEPTION_FOR_REC;
+                        return retTrans;
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        SerialPortClose(POS_Serial_Port);
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_PORT_PARAMETERS;
+                        return retTrans;
+                    }
+                    catch (ArgumentException)
+                    {
+                        SerialPortClose(POS_Serial_Port);
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_INVALID_PORT_NAME;
+                        return retTrans;
+                    }
+                    catch (TimeoutException)
+                    {
+                        SerialPortClose(POS_Serial_Port);
+                        retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PORT_TIMEOUT_FOR_REC;
+                        return retTrans;
+                    }
+
+                    /* Close The PORT */
+                    SerialPortClose(POS_Serial_Port);
+
+                    ////////////////////////////////////////////////////
+                    //// NEW Extract Recevied Bytes         ////////////
+                    ////////////////////////////////////////////////////
+                    retTrans = ExtractReceiveBytes(RecData, trans.ProcessCode, trans.Amount);
+                }
+                catch (Exception)
+                {
+                    SerialPortClose(POS_Serial_Port);
+                    retTrans.ReturnCode = (int)Result.return_codes.ERR_PC_PORT_EXCEPTION_FOR_REC;
+                    return retTrans;
+                }
+            }
+            if (Transaction.Connection.POSPC_CommunicationType.ToUpper() == "TCP/IP".ToUpper())
+            {
+                if (IS_FATAL_ERROR((Result.return_codes)retTrans.ReturnCode) == true)
+                {
+                    synchronousClient.ShutDown();
+                }
+                else
+                {
+                    /* TCP Socket IS Open */
+                    ;
+                }
+            }
+            return retTrans;
+
+        }
+        public Result ID_Request(string PcID, string ReqIDuestMsgFa, string ReqIDuestMsgEn)
+        {
+            if (PcID.Length == 0 || string.IsNullOrEmpty(PcID))
+                PcID = "1";
+            TransInfo trans = new TransInfo();
+            trans.PcID = PcID;
+            trans.ReqIDuestMsgFa = ReqIDuestMsgFa;
+            trans.ReqIDuestMsgEn = ReqIDuestMsgEn;
+            return RunTransaction(connectInfo, trans);
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Debits_Goods_And_Service									 	////////
+        ////////																				////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date :          													////////
+        ////////                                                                                ////////
+        ////////	Audited By   : T.Barati	   90.10.25 										////////
+        ////////    Description  :  //@ TODO 01.03.07 add Lan Commu                             ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public Result Debits_Goods_And_Service(string PcID, string Amount, string PayerID, string MerchantMsg, string MerchantadditionalData)
+        {
+            if (PcID.Length == 0 || string.IsNullOrEmpty(PcID))
+                PcID = "1";
+            TransInfo trans = new TransInfo();
+            trans.PcID = PcID;
+            trans.Amount = Amount;
+            trans.PayerID = PayerID;
+            trans.ProcessCode = "01";
+            trans.MerchantMsg = MerchantMsg;
+            trans.MerchantadditionalData = MerchantadditionalData;
+            return RunTransaction(connectInfo, trans);
+        }
+        public Result EsfahanCitizenCharge(string PcID, string Amount, string MerchantMsg, string MerchantadditionalData)
+        {
+            if (PcID.Length == 0 || string.IsNullOrEmpty(PcID))
+                PcID = "1";
+            TransInfo trans = new TransInfo();
+            trans.PcID = PcID;
+            trans.Amount = Amount;
+            trans.ProcessCode = "11";
+            trans.MerchantMsg = MerchantMsg;
+            trans.MerchantadditionalData = MerchantadditionalData;
+            return RunTransaction(connectInfo, trans);
+        }
+        public Result EsfahanResellerCharge(string PcID, string CardType, string Amount, string PayerID, string AccountID, string MerchantMsg, string MerchantadditionalData)
+        {
+            if (PcID.Length == 0 || string.IsNullOrEmpty(PcID))
+                PcID = "1";
+            TransInfo trans = new TransInfo();
+            trans.PcID = PcID;
+            trans.Amount = Amount;
+            trans.PayerID = PayerID;
+            trans.AccountID = AccountID;
+            if (CardType == "0")
+                trans.ProcessCode = "12";
+            else
+                trans.ProcessCode = "13";
+            trans.MerchantMsg = MerchantMsg;
+            trans.MerchantadditionalData = MerchantadditionalData;
+            return RunTransaction(connectInfo, trans);
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Bill_Payment_Service 										 	////////
+        ////////																				////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 87.07.03														////////
+        ////////																				////////
+        ////////	Audited By   : T.Barati	   90.08.14 										////////
+        ////////    Description  :  //@ TODO 01.03.07 add Lan Commu                             ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Bill_Payment_Service 										 	////////
+        ////////																				////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 87.07.03														////////
+        ////////																				////////
+        ////////	Audited By   : T.Barati	   90.08.14 										////////
+        ////////    Description  :  //@ TODO 01.03.07 add Lan Commu                             ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public Result Bill_Payment_Service(string PcID, string BillID, string PayID, string MerchantMsg, string MerchantadditionalData)
+        {
+            if (PcID.Length == 0 || string.IsNullOrEmpty(PcID))
+                PcID = "1";
+            TransInfo trans = new TransInfo();
+            trans.PcID = PcID;
+            trans.BillID = BillID;
+            trans.PayID = PayID;
+            trans.ProcessCode = "05";
+            if (trans.BillID.Length == 18)
+                trans.Amount = trans.PayID.Substring(0, trans.PayID.Length - 8);
+            else
+                trans.Amount = trans.PayID.Substring(0, trans.PayID.Length - 5);
+
+            if (trans.BillID.Length <= 13)
+                trans.Amount = string.Concat(trans.Amount, "000");
+            trans.MerchantMsg = MerchantMsg;
+            trans.MerchantadditionalData = MerchantadditionalData;
+            return RunTransaction(connectInfo, trans);
+        }// End of Bill Payment Function
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Debits_Goods_And_Service									 	////////
+        ////////																				////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 89.12.14    													////////
+        ////////																				////////
+        ////////	Audited By   : T.Barati	   90.08.14 										////////
+        ////////    Description  :  //@ TODO 01.03.07 add Lan Commu                             ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public Result Payment(string PcID, string Amount, string PayerID, string AccountID, string MerchantadditionalData)
+        {
+            if (PcID.Length == 0 || string.IsNullOrEmpty(PcID))
+                PcID = "1";
+            TransInfo trans = new TransInfo();
+            trans.PcID = PcID;
+            trans.Amount = Amount;
+            trans.PayerID = PayerID;
+            trans.AccountID = AccountID;
+            trans.MerchantMsg = "";
+            trans.ProcessCode = "02";
+            trans.MerchantadditionalData = MerchantadditionalData;
+            return RunTransaction(connectInfo, trans);
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////	@Description: Debits_Goods_And_Service									 	////////
+        ////////																				////////
+        ////////	Created By   : T.Barati														////////
+        ////////	Created Date : 91.08.23    													////////
+        ////////
+        ////////	Audited By   :                       										////////
+        ////////    Description  :  //@ TODO 01.04.09   Add PrintDetail Flag                    ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        public Result MultiPayment(string PcID, string TotalAmount, MultiPaymentReqDataSet[] RequestList, byte PrintDetail, string MerchantadditionalData)
+        {
+            if (PcID.Length == 0 || string.IsNullOrEmpty(PcID))
+                PcID = "1";
+            TransInfo trans = new TransInfo();
+            trans.PcID = PcID;
+            trans.Amount = TotalAmount;
+            trans.PrintDetail = PrintDetail;
+            trans.RequestList = RequestList;
+            trans.MerchantMsg = "";
+            trans.ProcessCode = "04";
+            trans.MerchantadditionalData = MerchantadditionalData;
+            return RunTransaction(connectInfo, trans);
+        }
+    }// End of Transaction Class
+}//End of nameSpace
+

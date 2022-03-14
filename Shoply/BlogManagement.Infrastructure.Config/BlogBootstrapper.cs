@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using _01_Shoplyquery.Contracts.Article;
 using _01_Shoplyquery.Query;
+using _01_Shoplyquery.Contracts.ArticleCategory;
 
 namespace BlogManagement.Infrastructure.Config
 {
@@ -25,6 +26,7 @@ namespace BlogManagement.Infrastructure.Config
             services.AddTransient<IArticleApplication, ArticleApplication>();
 
             services.AddTransient<IArticleQuery, ArticleQuery>();
+            services.AddTransient<IArticleCategoryQuery, ArticleCategoryQuery>();
 
             services.AddDbContext<BlogContext>(x => x.UseSqlServer(connectionString));
         }
