@@ -68,7 +68,7 @@
             <div class="col-md-12">
                 <div class="form-group no-margin">
                     <label asp-for="@Model.command.ShortDescription" class="control-label">توضیحات کوتاه</label>
-                    <textarea class="form-control autogrow textEditor" asp-for="@Model.command.ShortDescription"
+                    <textarea class="form-control autogrow" asp-for="@Model.command.ShortDescription"
                               style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;" onchange="fillField('ShortDescription', 'MetaDescription')"></textarea>
                     <span asp-validation-for="@Model.command.ShortDescription" class="error"></span>
                 </div>

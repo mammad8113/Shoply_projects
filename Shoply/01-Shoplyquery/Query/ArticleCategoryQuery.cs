@@ -67,7 +67,7 @@ namespace _01_Shoplyquery.Query
 
         private static List<ArticleQueryModel> MappArticle(List<Article> articles)
         {
-            return articles.Select(x => new ArticleQueryModel
+            return articles.Where(x=>!x.IsRemove).Select(x => new ArticleQueryModel
             {
                 Id = x.Id,
                 Title = x.Title,

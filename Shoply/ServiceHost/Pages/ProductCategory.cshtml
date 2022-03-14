@@ -1,7 +1,9 @@
 ﻿@page "{id}"
 @model ServiceHost.Pages.ProductCategoryModel
 @{
-    ViewData["Title"] = $"{Model.category.Name}|گروه محصولی";
+    ViewData["Title"] = @Model.category.Name;
+    ViewData["Keywords"] = @Model.category.Keywords;
+    ViewData["MetaDescription"] = @Model.category.MetaDescription;
 }
 <div class="breadcrumb-area section-space--half">
     <div class="container wide">
@@ -12,7 +14,7 @@
                     <img src="~/Upload/@Model.category.Picture" />
                     <!--=======  breadcrumb content  =======-->
                     <div class="breadcrumb-content">
-                        <h2 class="breadcrumb-content__title">@Model.category.Name</h2>
+                        <h1 class="breadcrumb-content__title">@Model.category.Name</h1>
                         <ul class="breadcrumb-content__page-map">
                             <li><a asp-page="./Index">صفحه اصلی</a></li>
                             <li class="active">@Model.category.Name</li>
@@ -90,7 +92,7 @@
                                                         </div>
                                                     }
                                                     <a asp-page="/Product" asp-route-id="@product.Slug">
-                                                        <img  src="~/Upload/@product.Picture" class="img-fluid"
+                                                        <img src="~/Upload/@product.Picture" class="img-fluid"
                                                          alt="@product.PictureAlt" title="@product.PictureTitle">
 
                                                     </a>

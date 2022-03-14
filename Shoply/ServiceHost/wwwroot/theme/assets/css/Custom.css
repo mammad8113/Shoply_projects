@@ -113,7 +113,10 @@ body {
 .pagination-area__right .pagination-section {
     text-align: left;
 }
-
+.pagination-area__right .pagination-section li {
+    display:inline-block;
+    margin-right:10px;
+}
 .single-grid-product__image .hover-icons {
     justify-content: center;
 }

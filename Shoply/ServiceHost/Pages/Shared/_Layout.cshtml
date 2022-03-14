@@ -4,7 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    @if (ViewData["Title"] != null)
+    {
+        <title>@ViewData["Title"]_فروشکاه شاپلی</title>
+    }
+    else
+    {
+        <title>فروشکاه شاپلی</title>
+    }
+    <meta name="keywords" content="@ViewData["Keywords"]" />
+    <meta name="keywords" content="@ViewData["MetaDescription"]" />
+
     <link href="~/theme/assets/css/vendors.css" rel="stylesheet">
     <link href="~/theme/assets/css/style.css" rel="stylesheet">
     <link href="~/theme/assets/css/Custom.css" rel="stylesheet">

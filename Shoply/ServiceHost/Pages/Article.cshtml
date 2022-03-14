@@ -1,7 +1,9 @@
 ﻿@page
 @model ServiceHost.Pages.ArticleModel
 @{
-    ViewData["Title"] = "صفحه مقاله";
+     ViewData["Title"] = @Model.Article.Title;
+    ViewData["Keywords"] = @Model.Article.KeyWords;
+    ViewData["MetaDescription"] = @Model.Article.MetaDescription;
 }
 <div class="breadcrumb-area section-space--half">
     <div class="container wide">
@@ -9,7 +11,7 @@
             <div class="col-lg-12">
                 <div class="breadcrumb-wrapper breadcrumb-bg">
                     <div class="breadcrumb-content">
-                        <h2 class="breadcrumb-content__title">@Model.Article.Title</h2>
+                        <h1 class="breadcrumb-content__title">@Model.Article.Title</h1>
                         <ul class="breadcrumb-content__page-map">
                             <li>
                                 <a asp-page="./Index">صفحه اصلی</a>
@@ -287,14 +289,14 @@
                                             {
                                                 <div class="single-block d-flex">
                                                     <div class="image">
-                                                        <a href="blog-post-image-format.html">
+                                                        <a asp-page="./Article" asp-route-id="@article.Slug">
                                                             <img src="~/Upload/@article.Picture"
                                                              class="img-fluid" alt="@article.PictureAlt" title="@article.PictureTitle">
                                                         </a>
                                                     </div>
                                                     <div class="content">
                                                         <p>
-                                                            <a href="blog-post-image-format.html">
+                                                            <a asp-page="./Article" asp-route-id="@article.Slug">
                                                                 @article.Title
                                                             </a> <span>@article.PublishDate</span>
                                                         </p>
