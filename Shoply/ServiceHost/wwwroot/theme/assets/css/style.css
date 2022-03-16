@@ -6324,10 +6324,16 @@ span.required {
     .blog-single-post-container .single-blog-post-media {
         position: relative;
         margin-bottom: 50px;
+        height:500px;
+        max-height:500px;
+    }
+    .blog-single-post-container .single-blog-post-media div {
+       height:100%;
     }
 
         .blog-single-post-container .single-blog-post-media .image img {
             width: 100%;
+            height:100%;
         }
 
         .blog-single-post-container .single-blog-post-media .blog-image-gallery .single-image img {

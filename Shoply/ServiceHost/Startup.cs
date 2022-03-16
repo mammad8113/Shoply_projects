@@ -1,5 +1,6 @@
 using _01_framwork.Applicatin;
 using BlogManagement.Infrastructure.Config;
+using CommentManagement.Infrastructure.Config;
 using DiscountManagement.Infrastructure.Config;
 using InventoryManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Builder;
@@ -31,14 +32,15 @@ namespace ServiceHost
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("ShoplyDb");
-            ShopManagementConfiguration.Configur(services,connectionString );
+            ShopManagementConfiguration.Configur(services, connectionString);
             DiscountManagementBootstraper.Configur(services, connectionString);
             InventoryManagementBootstraper.Configur(services, connectionString);
             BlogBootstrapper.Configur(services, connectionString);
+            CommenManagementtBootstraper.Configur(services, connectionString);
 
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 
-            services.AddTransient<IFileUploader,FileUploader>();
+            services.AddTransient<IFileUploader, FileUploader>();
             services.AddRazorPages();
         }
 

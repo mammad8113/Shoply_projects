@@ -59,7 +59,7 @@ namespace _01_Shoplyquery.Query
                 ArticleCount = x.Articles.Count,
                 Articles = MappArticle(x.Articles)
             }).FirstOrDefault(x => x.Slug == slug);
-
+            
             category.KeyWordsList = category.KeyWords.Split(",").ToList();
 
             return category;

@@ -1,9 +1,9 @@
 ﻿using _0_Framework.Application;
 using _01_Shoplyquery.Contracts.Product;
+using CommentManagement.Infrastructure.EfCore;
 using DiscountManagement.Infrastructure;
 using InventoryManagement.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using ShopManagement.Domain.Comment.Agg;
 using ShopManagement.Domain.ProductPicture.Agg;
 using ShopManagement.Infrastructure.EfCore;
 using System;
@@ -19,12 +19,13 @@ namespace _01_Shoplyquery.Contracts.Slide
         private readonly ShopContext shopContext;
         private readonly DiscountContext discountContext;
         private readonly InventoryContext inventoryContext;
-
-        public ProductQuery(InventoryContext inventoryContext, ShopContext shopContext, DiscountContext discountContext)
+        private readonly CommentContext commentContext;
+        public ProductQuery(InventoryContext inventoryContext, ShopContext shopContext, DiscountContext discountContext, CommentContext commentContext)
         {
             this.inventoryContext = inventoryContext;
             this.shopContext = shopContext;
             this.discountContext = discountContext;
+            this.commentContext = commentContext;
         }
 
         public ProductQueryModel GetDetals(string slug)
@@ -36,7 +37,7 @@ namespace _01_Shoplyquery.Contracts.Slide
 
             var product = shopContext.Products.Where(x => !x.IsRemoved).Include(x => x.ProductCategory)
                 .Include(x => x.ProductPictures)
-                .Include(x => x.Comments)
+
                 .Select(x => new ProductQueryModel
                 {
                     Id = x.Id,
@@ -54,7 +55,7 @@ namespace _01_Shoplyquery.Contracts.Slide
                     KeyWords = x.KeyWords,
                     IsRemoved = x.IsRemoved,
                     Pictures = MapPictures(x.ProductPictures),
-                    Comments = MapComments(x.Comments),
+
                 }).FirstOrDefault(x => x.Slug == slug);
 
             var productInventory = Inventory.FirstOrDefault(x => x.ProductId == product.Id);
@@ -76,19 +77,20 @@ namespace _01_Shoplyquery.Contracts.Slide
                     product.PricewithDicount = (price - discountAmount).ToMoney();
                 }
             }
+
+            product.Comments = commentContext.Comments.Where(x => x.IsConfirm && !x.IsCanceld && x.Type == CommentType.Product && x.OwnerRecordId == product.Id)
+                .Select(x => new CommentQueryModel
+                {
+                    Id = x.Id,
+                    Email = x.Email,
+                    Name = x.Name,
+                    Message = x.Message,
+                }).OrderByDescending(x => x.Id).ToList();
+
             return product;
         }
 
-        private static List<CommentQueryModel> MapComments(List<Comment> comments)
-        {
-            return comments.Where(x => x.IsConfirm && !x.IsCanceld).Select(x => new CommentQueryModel
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Message = x.Message,
-                Email = x.Email,
-            }).OrderByDescending(x => x.Id).ToList();
-        }
+
 
         private static List<ProductPictureQueryModel> MapPictures(List<ProductPicture> productPictures)
         {
@@ -149,6 +151,8 @@ namespace _01_Shoplyquery.Contracts.Slide
                     }
                 }
             }
+
+
 
             return products;
 

@@ -1,7 +1,8 @@
 using _01_Shoplyquery.Contracts.Product;
+using CommentManagement.Application.Contracts.Comment;
+using CommentManagement.Infrastructure.EfCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ShopManagement.Application.Contracts.Comment;
 
 namespace ServiceHost.Pages
 {
@@ -10,6 +11,7 @@ namespace ServiceHost.Pages
         public ProductQueryModel Product { get; set; }
         private readonly IProductQuery productQuery;
         private readonly ICommentApplication commentApplication;
+
 
         public ProductModel(IProductQuery productQuery, ICommentApplication commentApplication)
         {
@@ -23,6 +25,7 @@ namespace ServiceHost.Pages
         }
         public IActionResult OnPost(AddComment command,string productSlug)
         {
+            command.type = CommentType.Product;
            var result= commentApplication.Add(command);
             return RedirectToPage("./Product", new { id = productSlug });
         }
