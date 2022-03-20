@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _01_framwork.Domain
 {
-    public interface IRepository<TKey,T> where T : EntityBase<TKey>
+    public interface IRepository<TKey, T> where T : EntityBase<TKey>
     {
         /// <summary>
         /// create entity
@@ -15,6 +15,7 @@ namespace _01_framwork.Domain
         /// <param name="entity"></param>
         void Create(T entity);
         T Get(TKey id);
+        T GetBy(Expression<Func<T, bool>> expression);
         List<T> GetAll();
         bool Exist(Expression<Func<T, bool>> expression);
         void Save();

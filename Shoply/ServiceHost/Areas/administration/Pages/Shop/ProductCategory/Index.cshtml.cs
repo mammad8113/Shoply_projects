@@ -1,10 +1,13 @@
+using _01_framwork.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShopManagement.Application.Contracts.ProductCategory;
 using System.Collections.Generic;
 
-namespace ServiceHost.Areas.administration.Pages.Shop.ProductCategory
+namespace ServiceHost.Areas.administration.Pages.Shop.ProductCategory  
 {
+    [Authorize(Roles = Rols.Administrator + "," + Rols.ContentUploader)]
     public class IndexModel : PageModel
     {
         private readonly IProductCategoryApplication productCategoryApplication;

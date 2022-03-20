@@ -38,6 +38,11 @@ namespace _01_framwork.Infrastructure
             return dbContext.Set<T>().ToList();
         }
 
+        public T GetBy(Expression<Func<T, bool>> expression)
+        {
+          return  dbContext.Set<T>().FirstOrDefault(expression);
+        }
+
         public void Save()
         {
             dbContext.SaveChanges();

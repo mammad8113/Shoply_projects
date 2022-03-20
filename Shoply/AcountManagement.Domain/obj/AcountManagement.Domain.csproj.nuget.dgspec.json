@@ -1,0 +1,203 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Domain\\AcountManagement.Domain.csproj": {}
+  },
+  "projects": {
+    "D:\\Shoply_Project\\Code\\Shoply\\01_framwork\\01_framwork.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Shoply_Project\\Code\\Shoply\\01_framwork\\01_framwork.csproj",
+        "projectName": "01_framwork",
+        "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\01_framwork\\01_framwork.csproj",
+        "packagesPath": "C:\\Users\\Albaloo.Co\\.nuget\\packages\\",
+        "outputPath": "D:\\Shoply_Project\\Code\\Shoply\\01_framwork\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Albaloo.Co\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.Cookies": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.14, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Application.Contracts\\AcountManagement.Application.Contracts.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Application.Contracts\\AcountManagement.Application.Contracts.csproj",
+        "projectName": "AcountManagement.Application.Contracts",
+        "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Application.Contracts\\AcountManagement.Application.Contracts.csproj",
+        "packagesPath": "C:\\Users\\Albaloo.Co\\.nuget\\packages\\",
+        "outputPath": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Application.Contracts\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Albaloo.Co\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\Shoply_Project\\Code\\Shoply\\01_framwork\\01_framwork.csproj": {
+                "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\01_framwork\\01_framwork.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Domain\\AcountManagement.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Domain\\AcountManagement.Domain.csproj",
+        "projectName": "AcountManagement.Domain",
+        "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Domain\\AcountManagement.Domain.csproj",
+        "packagesPath": "C:\\Users\\Albaloo.Co\\.nuget\\packages\\",
+        "outputPath": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Albaloo.Co\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\Shoply_Project\\Code\\Shoply\\01_framwork\\01_framwork.csproj": {
+                "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\01_framwork\\01_framwork.csproj"
+              },
+              "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Application.Contracts\\AcountManagement.Application.Contracts.csproj": {
+                "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Application.Contracts\\AcountManagement.Application.Contracts.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

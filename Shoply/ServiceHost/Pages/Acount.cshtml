@@ -1,0 +1,109 @@
+﻿@page
+@model ServiceHost.Pages.AcountModel
+@{
+    ViewData["Title"] = "ورود _ ثبت نام";
+
+}
+<div class="breadcrumb-area section-space--half">
+    <div class="container wide">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-wrapper breadcrumb-bg">
+                    <div class="breadcrumb-content">
+                        <h2 class="breadcrumb-content__title">ورود_ثبت نام</h2>
+                        <ul class="breadcrumb-content__page-map">
+                            <li><a href="index.html">صفحه اصلی</a></li>
+                            <li class="active">ورود_ثبت نام</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-wrapper">
+                    <div class="page-content-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6">
+                                @if (Model.LoginMessage != null)
+                                {
+                                    <div class="alert alert-danger">@Model.LoginMessage</div>
+                                }
+
+                                <form method="post" asp-page-handler="Login">
+                                    <div class="login-form">
+                                        <h4 class="login-title">ورود</h4>
+                                        <div class="row">
+                                            <div class="col-md-12 col-12">
+                                                <label id="UserName">نام کاربری</label>
+                                                <input type="text" name="UserName" id="UserName" placeholder="نام کاربری">
+                                            </div>
+                                            <div class="col-12">
+                                                <label id="Password">رمز عبور</label>
+                                                <input type="password" name="Password" id="Password" placeholder="رمز عبور">
+                                            </div>
+                                            <div class="col-sm-6 text-left text-sm-right">
+                                                <a href="#" class="forget-pass-link"> رمز عبور خود را فراموش کرده اید؟</a>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="submit" class="register-button">ورود</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+                                 
+                                 @if (!string.IsNullOrWhiteSpace( Model.registerMessage ))
+                                {
+                                    <p class="alert alert-danger">@Model.registerMessage</p>
+                                }
+
+                                <form method="post" asp-page-handler="Register">
+
+                                    <div class="login-form">
+                                        <h4 class="login-title">ثبت نام</h4>
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label id="Fullname">نام کامل</label>
+                                                <input type="text" name="Fullname" id="Fullname" placeholder="نام کامل">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">
+                                                <label id="Username">نام کاربری</label>
+                                                <input type="text" id="Username" name="Username" placeholder="نام کاربری">
+                                            </div>
+                                            <div class="col-md-12 mb-20">
+                                                <label id="Mobile">موبایل</label>
+                                                <input type="text" id="Mobile" name="Mobile" placeholder="موبایل">
+                                            </div>
+                                            <div class="col-md-6 mb-20">
+                                                <label id=" Password">رمز عبور</label>
+                                                <input type="password" id="Password" name="Password" placeholder="رمز عبور">
+                                            </div>
+                                            <div class="col-md-6 mb-20">
+                                                <label id="RePassword">تکرار رمز عبور</label>
+                                                <input type="password" id="RePassword" name="RePassword" placeholder="تکرار رمز عبور">
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" class="register-button mt-0">ثبت نام</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

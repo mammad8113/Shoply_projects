@@ -1,5 +1,7 @@
 ﻿@using _01_Shoplyquery
+@using _01_framwork.Applicatin
 @model MenuModel
+@inject IAuthHelper AuthHelper
 @{
 
 }
@@ -215,12 +217,18 @@
                                         <div class="single-settings-block">
                                             <h4 class="title">حساب کاربری </h4>
                                             <ul>
+                                                @if(AuthHelper.IsAuthenticated()){
                                                 <li>
-                                                    <a href="#">ورود</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">ثبت نام</a>
-                                                </li>
+                                                    <a asp-page="/Acount" asp-page-handler="Logout">خروج</a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                      <li>
+                                                    <a asp-page="/Acount">ورود</a>
+                                                    </li>
+                                                }
+
                                             </ul>
                                         </div>
                                         @*<div class="single-settings-block">
