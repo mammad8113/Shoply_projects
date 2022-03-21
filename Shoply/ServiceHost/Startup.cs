@@ -50,7 +50,7 @@ namespace ServiceHost
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddTransient<IFileUploader, FileUploader>();
-
+        
 
 
             services.Configure<CookiePolicyOptions>(options =>

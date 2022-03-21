@@ -1072,8 +1072,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
+              "D:\\Shoply_Project\\Code\\Shoply\\BlogManagement.Domain\\BlogManagement.Domain.csproj": {
+                "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\BlogManagement.Domain\\BlogManagement.Domain.csproj"
+              },
               "D:\\Shoply_Project\\Code\\Shoply\\CommentManagement.Domain\\CommentManagement.Domain.csproj": {
                 "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\CommentManagement.Domain\\CommentManagement.Domain.csproj"
+              },
+              "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Domain\\ShopManagement.Domain.csproj": {
+                "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Domain\\ShopManagement.Domain.csproj"
               }
             }
           }

@@ -57,7 +57,7 @@ namespace _01_Shoplyquery.Query
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    Email = x.Email,
+                    Mobile=x.Mobile,
                     Message = x.Message,
                     ParentId = x.ParentId,
                     Children=MappChild(x.Children),
@@ -84,7 +84,7 @@ namespace _01_Shoplyquery.Query
                 Id=x.Id,
                 Name=x.Name,
                 Message=x.Message,
-                Email=x.Email,
+                Mobile=x.Mobile,
             }).OrderByDescending(x=>x.Id).ToList();
         }
 

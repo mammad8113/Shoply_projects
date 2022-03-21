@@ -1271,6 +1271,23 @@
           "01_framwork.dll": {}
         }
       },
+      "BlogManagement.Applicatio.Contracts/1.0.0": {
+        "dependencies": {
+          "01_framwork": "1.0.0"
+        },
+        "runtime": {
+          "BlogManagement.Applicatio.Contracts.dll": {}
+        }
+      },
+      "BlogManagement.Domain/1.0.0": {
+        "dependencies": {
+          "01_framwork": "1.0.0",
+          "BlogManagement.Applicatio.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "BlogManagement.Domain.dll": {}
+        }
+      },
       "CommentManagement.Application/1.0.0": {
         "dependencies": {
           "CommentManagement.Application.Contracts": "1.0.0",
@@ -1299,12 +1316,32 @@
       },
       "CommentManagement.Infrastructure.EfCore/1.0.0": {
         "dependencies": {
+          "BlogManagement.Domain": "1.0.0",
           "CommentManagement.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.13",
-          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13"
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13",
+          "ShopManagement.Domain": "1.0.0"
         },
         "runtime": {
           "CommentManagement.Infrastructure.EfCore.dll": {}
+        }
+      },
+      "ShopManagement.Application.Contracts/1.0.0": {
+        "dependencies": {
+          "01_framwork": "1.0.0",
+          "Microsoft.AspNetCore.Http.Features": "5.0.14"
+        },
+        "runtime": {
+          "ShopManagement.Application.Contracts.dll": {}
+        }
+      },
+      "ShopManagement.Domain/1.0.0": {
+        "dependencies": {
+          "01_framwork": "1.0.0",
+          "ShopManagement.Application.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "ShopManagement.Domain.dll": {}
         }
       }
     }
@@ -2132,6 +2169,16 @@
       "serviceable": false,
       "sha512": ""
     },
+    "BlogManagement.Applicatio.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BlogManagement.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "CommentManagement.Application/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -2148,6 +2195,16 @@
       "sha512": ""
     },
     "CommentManagement.Infrastructure.EfCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ShopManagement.Application.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ShopManagement.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

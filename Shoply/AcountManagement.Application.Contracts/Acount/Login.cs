@@ -10,5 +10,6 @@ namespace AcountManagement.Application.Contracts.Acount
     {
         public string UserName { get; set; }
         public string Password { get; set; }
+        
     }
 }

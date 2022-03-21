@@ -17,7 +17,7 @@ namespace CommentManagement.Infrastructure.EfCore.Mapping
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name).HasMaxLength(500).IsRequired();
-            builder.Property(x => x.Email).HasMaxLength(1000).IsRequired();
+            builder.Property(x => x.Mobile).HasMaxLength(16).IsRequired();
             builder.Property(x => x.Message).HasMaxLength(1500).IsRequired();
 
         }

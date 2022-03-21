@@ -1729,6 +1729,33 @@
           "bin/placeholder/01_framwork.dll": {}
         }
       },
+      "BlogManagement.Applicatio.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "01_framwork": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BlogManagement.Applicatio.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlogManagement.Applicatio.Contracts.dll": {}
+        }
+      },
+      "BlogManagement.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "01_framwork": "1.0.0",
+          "BlogManagement.Applicatio.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BlogManagement.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlogManagement.Domain.dll": {}
+        }
+      },
       "CommentManagement.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -1774,15 +1801,45 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "BlogManagement.Domain": "1.0.0",
           "CommentManagement.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.13",
-          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13"
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13",
+          "ShopManagement.Domain": "1.0.0"
         },
         "compile": {
           "bin/placeholder/CommentManagement.Infrastructure.EfCore.dll": {}
         },
         "runtime": {
           "bin/placeholder/CommentManagement.Infrastructure.EfCore.dll": {}
+        }
+      },
+      "ShopManagement.Application.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "01_framwork": "1.0.0",
+          "Microsoft.AspNetCore.Http.Features": "5.0.14"
+        },
+        "compile": {
+          "bin/placeholder/ShopManagement.Application.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ShopManagement.Application.Contracts.dll": {}
+        }
+      },
+      "ShopManagement.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "01_framwork": "1.0.0",
+          "ShopManagement.Application.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ShopManagement.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ShopManagement.Domain.dll": {}
         }
       }
     }
@@ -6132,6 +6189,16 @@
       "path": "../01_framwork/01_framwork.csproj",
       "msbuildProject": "../01_framwork/01_framwork.csproj"
     },
+    "BlogManagement.Applicatio.Contracts/1.0.0": {
+      "type": "project",
+      "path": "../BlogManagement.Applicatio.Contracts/BlogManagement.Applicatio.Contracts.csproj",
+      "msbuildProject": "../BlogManagement.Applicatio.Contracts/BlogManagement.Applicatio.Contracts.csproj"
+    },
+    "BlogManagement.Domain/1.0.0": {
+      "type": "project",
+      "path": "../BlogManagement.Domain/BlogManagement.Domain.csproj",
+      "msbuildProject": "../BlogManagement.Domain/BlogManagement.Domain.csproj"
+    },
     "CommentManagement.Application/1.0.0": {
       "type": "project",
       "path": "../CommentManagement.Application/CommentManagement.Application.csproj",
@@ -6151,6 +6218,16 @@
       "type": "project",
       "path": "../CommentManagement.Infrastructure.EfCore/CommentManagement.Infrastructure.EfCore.csproj",
       "msbuildProject": "../CommentManagement.Infrastructure.EfCore/CommentManagement.Infrastructure.EfCore.csproj"
+    },
+    "ShopManagement.Application.Contracts/1.0.0": {
+      "type": "project",
+      "path": "../ShopManagement.Application.Contracts/ShopManagement.Application.Contracts.csproj",
+      "msbuildProject": "../ShopManagement.Application.Contracts/ShopManagement.Application.Contracts.csproj"
+    },
+    "ShopManagement.Domain/1.0.0": {
+      "type": "project",
+      "path": "../ShopManagement.Domain/ShopManagement.Domain.csproj",
+      "msbuildProject": "../ShopManagement.Domain/ShopManagement.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {

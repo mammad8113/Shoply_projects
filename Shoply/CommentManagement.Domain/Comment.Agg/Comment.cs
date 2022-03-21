@@ -11,8 +11,7 @@ namespace CommentManagement.Domain.Comment.Agg
     {
         public string Name { get; private set; }
         public string Message { get; private set; }
-        public string Email { get; private set; }
-        public string Website { get; private set; }
+        public string Mobile { get; private set; }
         public bool IsCanceld { get; private set; }
         public bool IsConfirm { get; private set; }
         public long OwnerRecordId { get; private set; }
@@ -25,12 +24,11 @@ namespace CommentManagement.Domain.Comment.Agg
         protected Comment()
         {
         }
-        public Comment(string name, string message, string email, string webSite, long ownerRecordId, int type, long? parentId)
+        public Comment(string name, string message,string mobile , long ownerRecordId, int type, long? parentId)
         {
             Name = name;
             Message = message;
-            Email = email;
-            Website = webSite;
+           Mobile = mobile;
             OwnerRecordId = ownerRecordId;
             Type = type;
             ParentId = parentId;

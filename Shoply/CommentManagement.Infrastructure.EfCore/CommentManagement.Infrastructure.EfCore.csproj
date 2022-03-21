@@ -13,7 +13,9 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\BlogManagement.Domain\BlogManagement.Domain.csproj" />
 		<ProjectReference Include="..\CommentManagement.Domain\CommentManagement.Domain.csproj" />
+		<ProjectReference Include="..\ShopManagement.Domain\ShopManagement.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -10,8 +10,7 @@ namespace CommentManagement.Application.Contracts.Comment
     {
         public string Name { get; set; }
         public string Message { get; set; }
-        public string Email { get; set; }
-        public string Website { get; set; }
+        public string Mobile { get; set; }
         public long OwnerRecordId { get; set; }
         public int type { get; set; }
         public long? ParentId { get; set; }

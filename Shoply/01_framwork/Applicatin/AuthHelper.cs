@@ -42,22 +42,34 @@ namespace _01_framwork.Applicatin
             var permissions = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "Permissions")
                 ?.Value;
             if (permissions != null)
-            return JsonConvert.DeserializeObject<List<int>>(permissions);
+                return JsonConvert.DeserializeObject<List<int>>(permissions);
 
             return new List<int>();
         }
 
         public long CurrentAccountId()
         {
-            return IsAuthenticated()
-                ? long.Parse(_contextAccessor.HttpContext.User.Claims.First(x => x.Type == "AccountId")?.Value)
-                : 0;
+            if (IsAuthenticated())
+            {
+                var id = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "AccountId")?.Value;
+                return int.Parse(id);
+            }
+
+            return 0;
         }
 
         public string CurrentAccountMobile()
         {
+            if (IsAuthenticated())
+                return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type ==ClaimTypes.MobilePhone)?.Value;
+
+            return null;
+        }
+
+        public string CurrentAccountName()
+        {
             return IsAuthenticated()
-                ? _contextAccessor.HttpContext.User.Claims.First(x => x.Type == "Mobile")?.Value
+                ? _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value
                 : "";
         }
 
@@ -93,9 +105,9 @@ namespace _01_framwork.Applicatin
             var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),
-            
+
             };
-          
+
 
             _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),

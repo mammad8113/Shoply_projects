@@ -1,5 +1,7 @@
 ﻿@page "{id}"
+@using _01_framwork.Applicatin
 @model ServiceHost.Pages.ArticleModel
+@inject IAuthHelper authHelper
 @{
     ViewData["Title"] = @Model.Article.Title;
     ViewData["Keywords"] = @Model.Article.KeyWords;
@@ -139,8 +141,8 @@
                                                             @comment.Message
                                                         </p>
                                                         <p>
-                                                       <span>تعداد پاسخ ها:</span>@comment.Children.Count 
-                                                          </p>                                                
+                                                            <span>تعداد پاسخ ها:</span>@comment.Children.Count
+                                                        </p>
                                                     </div>
                                                 </div>
                                             }
@@ -156,45 +158,36 @@
                                             </p>
 
                                             <!--=======  comment form  =======-->
-
-                                            <div class="comment-form">
-                                                <form method="post">
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <div class="form-group">
-                                                                <label>نظر شما:</label>
-                                                                <textarea name="Message" id="Message"></textarea>
+                                            @if (authHelper.IsAuthenticated())
+                                            {
+                                                <div class="comment-form">
+                                                    <form method="post">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                    <label>نظر شما:</label>
+                                                                    <textarea name="Message" id="Message"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" name="Name" id="Name" value="@authHelper.CurrentAccountName()">
+                                                            <input type="hidden" name="Mobile" id="Mobile" value="@authHelper.CurrentAccountMobile()">
+                                                            @*<input type="text" name="Website" id="Website">*@
+                                                            <input type="hidden" id="OwnerRecordId" name="OwnerRecordId" value="@Model.Article.Id" />
+                                                            <input type="hidden" id="ArticleSlug" name="ArticleSlug" value="@Model.Article.Slug" />
+                                                            <input type="hidden" id="ParentId" name="ParentId" value="" />
+                                                            <div class="col-lg-12">
+                                                                <button type="submit" class="comment-btn" name="submit">
+                                                                    ارسال
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label>نام <span class="required">*</span></label>
-                                                                <input type="text" name="Name" id="Name">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label>ایمیل <span class="required">*</span></label>
-                                                                <input type="text" name="Email" id="Email">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label>وبسایت</label>
-                                                                <input type="text" name="Website" id="Website">
-                                                            </div>
-                                                        </div>
-                                                        <input type="hidden" id="OwnerRecordId" name="OwnerRecordId" value="@Model.Article.Id" />
-                                                        <input type="hidden" id="ArticleSlug" name="ArticleSlug" value="@Model.Article.Slug" />
-                                                        <input type="hidden" id="ParentId" name="ParentId" value="" />
-                                                        <div class="col-lg-12">
-                                                            <button type="submit" class="comment-btn" name="submit">
-                                                                ارسال
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                                    </form>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <p><a asp-page="./Acount"  >لطفا ورود یا ثبت نام کنید</a></p>
+                                            }
                                         </div>
                                     </div>
                                 </div>

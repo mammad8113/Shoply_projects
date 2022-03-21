@@ -2185,9 +2185,11 @@
       },
       "CommentManagement.Infrastructure.EfCore/1.0.0": {
         "dependencies": {
+          "BlogManagement.Domain": "1.0.0",
           "CommentManagement.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.15",
-          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.15"
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.15",
+          "ShopManagement.Domain": "1.0.0"
         },
         "runtime": {
           "CommentManagement.Infrastructure.EfCore.dll": {}

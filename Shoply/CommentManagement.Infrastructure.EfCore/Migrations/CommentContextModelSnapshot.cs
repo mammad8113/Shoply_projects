@@ -29,11 +29,6 @@ namespace CommentManagement.Infrastructure.EfCore.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
                     b.Property<bool>("IsCanceld")
                         .HasColumnType("bit");
 
@@ -44,6 +39,11 @@ namespace CommentManagement.Infrastructure.EfCore.Migrations
                         .IsRequired()
                         .HasMaxLength(1500)
                         .HasColumnType("nvarchar(1500)");
+
+                    b.Property<string>("Mobile")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -58,9 +58,6 @@ namespace CommentManagement.Infrastructure.EfCore.Migrations
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
-
-                    b.Property<string>("Website")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

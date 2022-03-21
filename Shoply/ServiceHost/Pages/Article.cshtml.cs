@@ -26,8 +26,8 @@ namespace ServiceHost.Pages
             this.articleCategoryQuery = articleCategoryQuery;
             this.commentApplication = commentApplication;
         }
-
-        public async void OnGet(string id)
+     
+        public  void OnGet(string id)
         {
             Article = articleQuery.GetArticleDetals(id);
             latestArticles = articleQuery.LatestArticles();

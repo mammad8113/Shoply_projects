@@ -1819,9 +1819,11 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "BlogManagement.Domain": "1.0.0",
           "CommentManagement.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.13",
-          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13"
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13",
+          "ShopManagement.Domain": "1.0.0"
         },
         "compile": {
           "bin/placeholder/CommentManagement.Infrastructure.EfCore.dll": {}

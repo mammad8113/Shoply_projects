@@ -82,7 +82,7 @@ namespace _01_Shoplyquery.Contracts.Slide
                 .Select(x => new CommentQueryModel
                 {
                     Id = x.Id,
-                    Email = x.Email,
+                    Mobile = x.Mobile,
                     Name = x.Name,
                     Message = x.Message,
                 }).OrderByDescending(x => x.Id).ToList();
