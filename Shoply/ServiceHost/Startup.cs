@@ -71,18 +71,20 @@ namespace ServiceHost
             {
                 option.AddPolicy("AdminArea", builder => builder.RequireRole(Rols.Administrator, Rols.ContentUploader));
                 option.AddPolicy("Acounts", builder => builder.RequireRole(Rols.Administrator));
-                option.AddPolicy("Inventory", builder => builder.RequireRole(Rols.Administrator));
+                //option.AddPolicy("Inventory", builder => builder.RequireRole(Rols.Administrator));
                 option.AddPolicy("ColleagueDiscount", builder => builder.RequireRole(Rols.Administrator));
             });
 
-            services.AddRazorPages().AddRazorPagesOptions(options =>
-            {
-                options.Conventions.AuthorizeAreaFolder("Administration", "/", "AdminArea");
-                options.Conventions.AuthorizeAreaFolder("Administration", "/Acounts", "Acounts");
-                options.Conventions.AuthorizeAreaFolder("Administration", "/Inventory", "Inventory");
-                options.Conventions.AuthorizeAreaPage("Administration", "/Discount/ColleagueDiscount/Index", "ColleagueDiscount");
+            services.AddRazorPages()
+               .AddMvcOptions(option => option.Filters.Add<PageFilter>())
+               .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizeAreaFolder("Administration", "/", "AdminArea");
+                    options.Conventions.AuthorizeAreaFolder("Administration", "/Acounts", "Acounts");
+                    //options.Conventions.AuthorizeAreaFolder("Administration", "/Inventory", "Inventory");
+                    options.Conventions.AuthorizeAreaPage("Administration", "/Discount/ColleagueDiscount/Index", "ColleagueDiscount");
 
-            });
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
 ﻿@page
+@using InventoryManagement.Infrastructure.Configuration.Permissions
 @model ServiceHost.Areas.administration.Pages.Inventory.IndexModel
 
 @{
@@ -10,7 +11,7 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد انبار جدید</a>
+            <a permission="@(int)InventoryPermission.CreateInventory" class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد انبار جدید</a>
         </p>
     </div>
 </div>
@@ -85,17 +86,17 @@
                                             }
                                         </th>
                                         <td>
-                                            <a href="#showmodal=@Url.Page("./Index", "Edit",new{id=discount.Id})" class="btn btn-warning pull-right m-rl-5">
+                                            <a permission="@(int)InventoryPermission.EditInventory" href="#showmodal=@Url.Page("./Index", "Edit",new{id=discount.Id})" class="btn btn-warning pull-right m-rl-5">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
-                                            <a href="#showmodal=@Url.Page("./Index", "Increase",new{id=discount.Id})" class="btn btn-success pull-right m-rl-5">
+                                            <a permission="@(int)InventoryPermission.Increase" href="#showmodal=@Url.Page("./Index", "Increase",new{id=discount.Id})" class="btn btn-success pull-right m-rl-5">
                                                 <i class="fa fa-plus"></i> افزایش موجودی
                                             </a>
-                                            <a href="#showmodal=@Url.Page("./Index", "Reduce",new{id=discount.Id})" class="btn btn-danger pull-right m-rl-5">
+                                            <a permission="@(int)InventoryPermission.Reduce" href="#showmodal=@Url.Page("./Index", "Reduce",new{id=discount.Id})" class="btn btn-danger pull-right m-rl-5">
                                                 <i class="fa fa-minus"></i> کاهش موجودی
                                             </a>
 
-                                            <a href="#showmodal=@Url.Page("./Index", "Log",new{id=discount.Id})" class="btn btn-primary pull-right m-rl-5">
+                                            <a permission="@(int)InventoryPermission.Operation" href="#showmodal=@Url.Page("./Index", "Log",new{id=discount.Id})" class="btn btn-primary pull-right m-rl-5">
                                                 <i class="fa fa-recycle "></i> مشاهده گردش انبار
                                             </a>
                                         </td>

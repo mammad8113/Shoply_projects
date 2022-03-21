@@ -1,4 +1,5 @@
-﻿using _01_Shoplyquery.Contracts.Product;
+﻿using _01_framwork.Infrastructure;
+using _01_Shoplyquery.Contracts.Product;
 using _01_Shoplyquery.Contracts.ProductCategory;
 using _01_Shoplyquery.Contracts.Slide;
 using _01_Shoplyquery.Query;
@@ -19,6 +20,7 @@ using ShopManagement.Domain.ProductPicture.Agg;
 using ShopManagement.Domain.Slide.Agg;
 using ShopManagement.Infrastructure.EfCore;
 using ShopManagement.Infrastructure.EfCore.Repository;
+using ShopManagment.Infrastructure.Config.Permissions;
 using System;
 
 namespace ShopManagment.Imfrastructure.Config
@@ -39,7 +41,8 @@ namespace ShopManagment.Imfrastructure.Config
             services.AddTransient<IProductPictureRepository, ProductPictureRepository>();
             services.AddTransient<IProductPictureApplication, ProductPictureApplication>();
 
-     
+
+            services.AddTransient<IPermissionsExposer, ShopPermissionExposer>();
             
             services.AddTransient<ISlideApplication, SlideApplication>();
             services.AddTransient<ISlideRepository, SlideRepository>();

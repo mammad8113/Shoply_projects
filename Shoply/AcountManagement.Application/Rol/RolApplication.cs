@@ -24,7 +24,7 @@ namespace AcountManagement.Application.Rol
             if (rolRepository.Exist(x => x.Name == command.Name))
                 return operation.Faild(ApplicationMessage.DoblicatedMessage);
 
-            var rol = new Domain.Rol.Agg.Rol(command.Name);
+            var rol = new Domain.Rol.Agg.Rol(command.Name, new List<Permission>());
 
             rolRepository.Create(rol);
             rolRepository.Save();
@@ -41,14 +41,18 @@ namespace AcountManagement.Application.Rol
             if (rolRepository.Exist(x => x.Name == command.Name && x.Id != command.Id))
                 return operation.Faild(ApplicationMessage.DoblicatedMessage);
 
-            rol.Edit(command.Name);
+            var permissions = new List<Permission>();
+
+            command.Permissions.ForEach(code => permissions.Add(new Permission(code)));
+
+            rol.Edit(command.Name, permissions);
             rolRepository.Save();
             return operation.Success();
         }
 
         public List<RolViewModel> GetAll()
         {
-          return  rolRepository.GetAll();
+            return rolRepository.GetAll();
         }
 
         public EditRol GetDetals(long id)

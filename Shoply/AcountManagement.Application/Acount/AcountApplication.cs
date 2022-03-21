@@ -1,6 +1,7 @@
 ﻿using _01_framwork.Applicatin;
 using AcountManagement.Application.Contracts.Acount;
 using AcountManagement.Domain.Acount.Agg;
+using AcountManagement.Domain.Rol.Agg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,15 @@ namespace AcountManagement.Application.Acount
         private readonly IPasswordHasher passwordHasher;
         private readonly IFileUploader fileUploader;
         private readonly IAuthHelper authHelper;
-        public AcountApplication(IAcountRepository acountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader, IAuthHelper authHelper)
+        private readonly IRolRepository rolRepository;
+        public AcountApplication(IAcountRepository acountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader, IAuthHelper authHelper,
+            IRolRepository rolRepository)
         {
             this.acountRepository = acountRepository;
             this.passwordHasher = passwordHasher;
             this.fileUploader = fileUploader;
             this.authHelper = authHelper;
+            this.rolRepository = rolRepository;
         }
 
         public OperationResult ChangPassword(ChangPassword command)
@@ -66,7 +70,9 @@ namespace AcountManagement.Application.Acount
 
             if (command.RolId == 0)
             {
-                var Auth = new AuthViewModel(acount.Id, acount.Fullname, acount.Username, acount.RolId, acount.Password, acount.Mobile);
+                var permissions = rolRepository.Get(acount.RolId).Permissions.Select(x => x.Code).ToList();
+
+                var Auth = new AuthViewModel(acount.Id, acount.Fullname, acount.Username, acount.RolId, acount.Password, acount.Mobile,permissions);
                 authHelper.Signin(Auth);
             }
 
@@ -125,7 +131,9 @@ namespace AcountManagement.Application.Acount
             if (!Verified)
                 return operation.Faild(ApplicationMessage.NotFoundUser);
 
-            var Auth = new AuthViewModel(acount.Id, acount.Fullname, acount.Username, acount.RolId, acount.Password, acount.Mobile);
+            var permissions = rolRepository.Get(acount.RolId).Permissions.Select(x => x.Code).ToList();
+
+            var Auth = new AuthViewModel(acount.Id, acount.Fullname, acount.Username, acount.RolId, acount.Password, acount.Mobile, permissions);
 
             authHelper.Signin(Auth);
             return operation.Success();

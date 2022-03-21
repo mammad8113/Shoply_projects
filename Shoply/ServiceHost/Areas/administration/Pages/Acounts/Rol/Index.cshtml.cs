@@ -23,37 +23,6 @@ namespace ServiceHost.Areas.administration.Pages.Acounts.Rol
         {
             Rols = rolApplication.GetAll();
         }
-        public IActionResult OnGetCreate()
-        {
-            var command = new CreateRol();
-            return Partial("./Create", command);
-        }
-        public JsonResult OnPostCreate(EditRol command)
-        {
-            var result = rolApplication.Create(command);
-            return new JsonResult(result);
-        }
-        public IActionResult OnGetEdit(long id)
-        {
-            var product = rolApplication.GetDetals(id);
-            return Partial("./Edit", product);
-        }
-
-        public JsonResult OnPostEdit(EditRol command)
-        {
-            var result = rolApplication.Edit(command);
-            return new JsonResult(result);
-        }
-
-        public IActionResult OnGetChangPassword(long id)
-        {
-            var command = new ChangPassword()
-            {
-                Id = id
-            };
-
-            return Partial("./ChangPassword", command);
-        }
-
+    
     }
 }

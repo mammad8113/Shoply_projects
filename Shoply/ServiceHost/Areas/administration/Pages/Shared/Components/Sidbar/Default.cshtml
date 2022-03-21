@@ -1,4 +1,5 @@
 ﻿@using AcountManagement.Application.Contracts.Acount
+@using InventoryManagement.Infrastructure.Configuration.Permissions
 @using _01_framwork.Applicatin
 @using _01_framwork.Infrastructure
 @model AcountViewModel
@@ -31,7 +32,7 @@
                 <li>
                     <a asp-page="/Index" asp-area="Administration" class="waves-effect active"><i class="md md-home"></i><span> داشبورد </span></a>
                 </li>
-               
+
                 @if (authHelper.CurrentAccountRole() == Rols.Administrator || authHelper.CurrentAccountRole() == Rols.ContentUploader)
                 {
                     <li class="has_sub">
@@ -70,10 +71,11 @@
 
                         </ul>
                     </li>
-                     <li>
-                    <a asp-page="/Inventory/Index" class="waves-effect active"><i class="md md-home"></i><span> انبار </span></a>
-                </li>
+
                 }
+                <li>
+                    <a permission="@(int)InventoryPermission.ListInventory" asp-page="/Inventory/Index" class="waves-effect active"><i class="md md-home"></i><span> انبار </span></a>
+                </li>
                 <li>
                     <a asp-page="/Comment/Index" class="waves-effect active"><i class="md md-home"></i><span> کامنت ها </span></a>
                 </li>

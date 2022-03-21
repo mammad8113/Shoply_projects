@@ -1,8 +1,10 @@
 using _01_framwork.Applicatin;
+using _01_framwork.Infrastructure;
 using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using DiscountManagement.Application.Contracts.CustomerDiscount;
 using InventoryManagement.Application.Contracts.Inventory;
 using InventoryManagement.Domain.Inventory.Agg;
+using InventoryManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,7 +27,7 @@ namespace ServiceHost.Areas.administration.Pages.Inventory
             this.productApplication = productApplication;
             this.inventoryApplication = inventoryApplication;
         }
-
+        [NeddsPermission((int)InventoryPermission.ListInventory)]
         public void OnGet(InventorySearchModel searchModel)
         {
             Inventories = inventoryApplication.Search(searchModel);

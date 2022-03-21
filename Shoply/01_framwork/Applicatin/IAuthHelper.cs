@@ -13,5 +13,6 @@ namespace _01_framwork.Applicatin
         bool IsAuthenticated();
         string CurrentAccountRole();
         long CurrentAccountId();
+        List<int> GetPermissions();
     }
 }

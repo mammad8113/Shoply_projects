@@ -10,7 +10,7 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد مقام جدید</a>
+            <a class="btn btn-success btn-lg" asp-page="./Create">ایجاد مقام جدید</a>
         </p>
     </div>
 </div>
@@ -42,7 +42,7 @@
                                         <td>@acount.Name</td>
                                         <td>@acount.CreationDate</td>
                                         <td>
-                                            <a href="#showmodal=@Url.Page("./Index", "Edit",new{id=acount.Id})" class="btn btn-warning pull-right m-rl-5">
+                                            <a asp-page="./Edit" asp-route-id="@acount.Id" class="btn btn-warning pull-right m-rl-5">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                         </td>

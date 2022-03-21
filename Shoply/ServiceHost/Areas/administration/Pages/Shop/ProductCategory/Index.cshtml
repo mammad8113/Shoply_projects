@@ -1,4 +1,5 @@
 ﻿@page
+@using ShopManagment.Infrastructure.Config.Permissions
 @model ServiceHost.Areas.administration.Pages.Shop.ProductCategory.IndexModel
 
 @{
@@ -10,21 +11,21 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد گروه محصول جدید</a>
+            <a permission="@(int)ShopPermission.CreateProductCategory" class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد گروه محصول جدید</a>
         </p>
     </div>
 </div>
 
-<div class="row">
+<div permission="@(int)ShopPermission.SearchProductCategory" class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">جستجو در گروه محصولات</h3>
             </div>
-            <div class="panel-body">
-                <form class="form-inline" role="form" method="get">
-                    <div class="form-group">
-                        <label asp-for="SearchModel.Name" class="sr-only"></label>
+            <div  class="panel-body">
+                <form  class="form-inline" role="form" method="get">
+                    <div  class="form-group">
+                        <label  asp-for="SearchModel.Name" class="sr-only"></label>
                         <input asp-for="SearchModel.Name" class="form-control" placeholder="نام گروه محصولی">
                     </div>
                     <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>

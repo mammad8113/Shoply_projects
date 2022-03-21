@@ -39,9 +39,12 @@ namespace _01_framwork.Applicatin
             if (!IsAuthenticated())
                 return new List<int>();
 
-            var permissions = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "permissions")
+            var permissions = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "Permissions")
                 ?.Value;
+            if (permissions != null)
             return JsonConvert.DeserializeObject<List<int>>(permissions);
+
+            return new List<int>();
         }
 
         public long CurrentAccountId()
@@ -67,14 +70,13 @@ namespace _01_framwork.Applicatin
 
         public bool IsAuthenticated()
         {
-            //return _contextAccessor.HttpContext.User.Identity.IsAuthenticated;
-            var claims = _contextAccessor.HttpContext.User.Claims.ToList();
-
-            return claims.Count > 0;
+            return _contextAccessor.HttpContext.User.Identity.IsAuthenticated;
+            //var claims = _contextAccessor.HttpContext.User.Claims.ToList();
         }
 
         public void Signin(AuthViewModel account)
         {
+            var permissin = JsonConvert.SerializeObject(account.Permissions);
 
             var claims = new List<Claim>
             {
@@ -82,7 +84,8 @@ namespace _01_framwork.Applicatin
                 new Claim(ClaimTypes.Name, account.Fullname),
                 new Claim(ClaimTypes.Role, account.RolId.ToString()),
                 new Claim(ClaimTypes.MobilePhone, account.Mobil),
-                new Claim("Username", account.Username), // Or Use ClaimTypes.NameIdentifier
+                new Claim("Username", account.Username),
+                new Claim("Permissions",permissin)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

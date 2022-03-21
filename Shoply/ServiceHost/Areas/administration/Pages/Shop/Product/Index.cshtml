@@ -1,4 +1,5 @@
 ﻿@page
+@using ShopManagment.Infrastructure.Config.Permissions
 @model ServiceHost.Areas.administration.Pages.Shop.Product.IndexModel
 
 @{
@@ -10,7 +11,7 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد محصول جدید</a>
+            <a permission="@(int)ShopPermission.CreateProduct" class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد محصول جدید</a>
         </p>
     </div>
 </div>
@@ -94,18 +95,18 @@
                                         <td>@product.ShortDescription</td>
                                         <td>@product.CreationDate</td>
                                         <td>
-                                            <a href="#showmodal=@Url.Page("./Index", "Edit",new{id=product.Id})" class="btn btn-warning pull-right m-rl-5">
+                                            <a permission="@(int)ShopPermission.EditProduct" href="#showmodal=@Url.Page("./Index", "Edit",new{id=product.Id})" class="btn btn-warning pull-right m-rl-5">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                             @if (product.IsRemove)
                                             {
-                                                <a asp-page="./Index" asp-page-handler="Activate" asp-route-id="@product.Id" class="btn btn-success">
+                                                <a permission="@(int)ShopPermission.ActivateProduct" asp-page="./Index" asp-page-handler="Activate" asp-route-id="@product.Id" class="btn btn-success">
                                                     فعال
                                                 </a>
                                             }
                                             else
                                             {
-                                                <a class="btn btn-danger " asp-page="./Index" asp-page-handler="Remove" asp-route-id="@product.Id">
+                                                <a permission="@(int)ShopPermission.RemoveProduct" class="btn btn-danger " asp-page="./Index" asp-page-handler="Remove" asp-route-id="@product.Id">
                                                     غیرفعال
                                                 </a>
                                             }

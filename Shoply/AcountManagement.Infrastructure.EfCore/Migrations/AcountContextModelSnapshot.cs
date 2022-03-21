@@ -92,6 +92,36 @@ namespace AcountManagement.Infrastructure.EfCore.Migrations
 
             modelBuilder.Entity("AcountManagement.Domain.Rol.Agg.Rol", b =>
                 {
+                    b.OwnsMany("AcountManagement.Domain.Rol.Agg.Permission", "Permissions", b1 =>
+                        {
+                            b1.Property<long>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("bigint")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<int>("Code")
+                                .HasColumnType("int");
+
+                            b1.Property<long>("RolId")
+                                .HasColumnType("bigint");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("RolId");
+
+                            b1.ToTable("Permissions");
+
+                            b1.WithOwner("Rol")
+                                .HasForeignKey("RolId");
+
+                            b1.Navigation("Rol");
+                        });
+
+                    b.Navigation("Permissions");
+                });
+
+            modelBuilder.Entity("AcountManagement.Domain.Rol.Agg.Rol", b =>
+                {
                     b.Navigation("Acounts");
                 });
 #pragma warning restore 612, 618

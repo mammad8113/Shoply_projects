@@ -1,4 +1,6 @@
-﻿namespace _01_framwork.Applicatin
+﻿using System.Collections.Generic;
+
+namespace _01_framwork.Applicatin
 {
     public class AuthViewModel
     {
@@ -9,12 +11,13 @@
         public long Role { get; set; }
         public string Mobil { get; set; }
         public string Password { get; set; }
+        public List<int> Permissions { get; set; }
 
         public AuthViewModel()
         {
         }
 
-        public AuthViewModel(long id, string fullname, string username, long rolId, string password,string mobil)
+        public AuthViewModel(long id, string fullname, string username, long rolId, string password,string mobil,List<int> permissions)
         {
             Id = id;
             Fullname = fullname;
@@ -22,6 +25,7 @@
             RolId = rolId;
             Password = password;
             Mobil = mobil;
+            Permissions = permissions;
         }
     }
 }
