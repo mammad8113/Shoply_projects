@@ -4,6 +4,7 @@
     ViewData["Title"] = @Model.Product.Name;
     ViewData["Keywords"] = @Model.Product.KeyWords;
     ViewData["MetaDescription"] = @Model.Product.MetaDescription;
+    var price = Model.Product.HasDiscount ? Model.Product.DoublePricewithDicount : Model.Product.DoublePrice;
 }
 <div class="breadcrumb-area section-space--half">
     <div class="container wide">
@@ -164,20 +165,20 @@
                                         <div class="product-countdown" data-countdown="@Model.Product.EndDate"></div>
                                     }
 
-                                    <div class="product-actions">
-                                        <div class="quantity-selection">
-                                            <label>تعداد</label>
-                                            <input type="number" value="1" min="1">
+                                    @if (Model.Product.InStock)
+                                    {
+                                        <div class="product-actions">
+                                            <div class="quantity-selection">
+                                                <label>تعداد</label>
+                                                <input type="number" value="1" min="1" id="ProductCount">
+                                            </div>
+                                            <div class="product-buttons">
+                                                <a class="cart-btn" onclick="AddToCart('@Model.Product.Id','@Model.Product.Name','@Model.Product.DoublePrice','@Model.Product.Picture')">
+                                                    <i class="ion-bag"></i> افزودن به سبد خرید
+                                                </a>
+                                            </div>
                                         </div>
-
-                                        <div class="product-buttons">
-                                            <a class="cart-btn" href="#">
-                                                <i class="ion-bag"></i> افزودن به سبد خرید
-                                            </a>
-                                        </div>
-
-                                    </div>
-
+                                    }
                                     <div class="social-share-buttons mt-20">
                                         <h5>به اشتراک گذاشتن</h5>
                                         <ul>
@@ -310,7 +311,7 @@
                                                                     </div>*@
                                                             </div>
                                                             <p>
-                                                               @Html.Raw(comment.Message)
+                                                                @Html.Raw(comment.Message)
                                                             </p>
                                                         </div>
                                                     }
@@ -330,7 +331,7 @@
                                                             </div>
                                                             <div class="col-12 form-group">
                                                                 <label for="your-review">نظر :</label>
-                                                                <textarea  name="Message" id="Message" placeholder="نظر خود را وارد کنید..."></textarea>
+                                                                <textarea name="Message" id="Message" placeholder="نظر خود را وارد کنید..."></textarea>
                                                             </div>
                                                             <input type="hidden" id="OwnerRecordId" name="OwnerRecordId" value="@Model.Product.Id" />
                                                             <input type="hidden" id="productSlug" name="productSlug" value="@Model.Product.Slug" />

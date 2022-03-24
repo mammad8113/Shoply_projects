@@ -1,4 +1,5 @@
 ﻿using _01_framwork.Infrastructure;
+using _01_Shoplyquery.Contracts.Cart;
 using _01_Shoplyquery.Contracts.Product;
 using _01_Shoplyquery.Contracts.ProductCategory;
 using _01_Shoplyquery.Contracts.Slide;
@@ -43,10 +44,11 @@ namespace ShopManagment.Imfrastructure.Config
 
 
             services.AddTransient<IPermissionsExposer, ShopPermissionExposer>();
-            
+
             services.AddTransient<ISlideApplication, SlideApplication>();
             services.AddTransient<ISlideRepository, SlideRepository>();
             services.AddTransient<ISlidequery, SlideQuey>();
+            services.AddTransient<ICartCalculatorService, CartCalculatorService>();
 
 
 

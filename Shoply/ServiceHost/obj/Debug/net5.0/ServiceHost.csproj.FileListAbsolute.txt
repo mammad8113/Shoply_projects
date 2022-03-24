@@ -270,3 +270,9 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administr
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Acount.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shared\Components\Sidbar\Default.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\AccessDenied.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\Microsoft.Extensions.PlatformAbstractions.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\Nancy.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\Cart.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\CheckOut.cshtml.g.cs

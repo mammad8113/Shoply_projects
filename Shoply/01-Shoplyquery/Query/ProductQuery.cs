@@ -4,6 +4,7 @@ using CommentManagement.Infrastructure.EfCore;
 using DiscountManagement.Infrastructure;
 using InventoryManagement.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Domain.Order;
 using ShopManagement.Domain.ProductPicture.Agg;
 using ShopManagement.Infrastructure.EfCore;
 using System;
@@ -37,7 +38,6 @@ namespace _01_Shoplyquery.Contracts.Slide
 
             var product = shopContext.Products.Where(x => !x.IsRemoved).Include(x => x.ProductCategory)
                 .Include(x => x.ProductPictures)
-
                 .Select(x => new ProductQueryModel
                 {
                     Id = x.Id,
@@ -63,6 +63,7 @@ namespace _01_Shoplyquery.Contracts.Slide
             {
                 var price = productInventory.UnitPrice;
                 product.Price = price.ToMoney();
+                product.DoublePrice = price;
                 product.InStock = productInventory.InStock;
 
                 var productDiscount = Discount.FirstOrDefault(x => x.ProductId == product.Id);
@@ -75,6 +76,7 @@ namespace _01_Shoplyquery.Contracts.Slide
                     product.HasDiscount = discountRate > 0;
                     var discountAmount = Math.Round((price * discountRate) / 100);
                     product.PricewithDicount = (price - discountAmount).ToMoney();
+                    product.DoublePricewithDicount = price - discountAmount;
                 }
             }
 
@@ -214,6 +216,20 @@ namespace _01_Shoplyquery.Contracts.Slide
             var KeyWords = keyWord.Split(",").ToList();
 
             return KeyWords;
+        }
+
+        public List<CartItem> CheckInstock(List<CartItem> cartItems)
+        {
+            var inventory = inventoryContext.Inventories.ToList();
+
+            foreach (var cart in cartItems.Where(cart => inventory.Any(x => x.ProductId == cart.Id && x.InStock)))
+            {
+                var itemInventory = inventory.FirstOrDefault(x => x.ProductId == cart.Id);
+
+                cart.InStock = itemInventory.CalculatorCurrentCount() >= cart.Count;
+            }
+
+            return cartItems;
         }
     }
 }

@@ -16,7 +16,6 @@
 	var $html = $('html');
 	var $body = $('body');
 
-
 	windows.on('scroll', function () {
 		var scroll = windows.scrollTop();
 		var headerHeight = sticky.height();

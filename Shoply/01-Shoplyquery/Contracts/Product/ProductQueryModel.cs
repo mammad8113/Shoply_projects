@@ -14,9 +14,11 @@ namespace _01_Shoplyquery.Contracts.Product
         public string PictureAlt { get; set; }
         public string PictureTitle { get; set; }
         public string Price { get; set; }
+        public double DoublePrice { get; set; }
         public bool InStock { get; set; }
         public string ShortDescription { get; set; }
         public string PricewithDicount { get; set; }
+        public double DoublePricewithDicount { get; set; }
         public int DiscountRate { get; set; }
         public string Category { get; set; }
         public string CategorySlug { get; set; }

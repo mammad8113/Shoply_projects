@@ -11,9 +11,7 @@ namespace ServiceHost.Areas.administration.Pages.Blog.Article
         private readonly IArticleApplication articleApplication;
         private readonly IArticleCategoryApplication articleCategoryApplication;
         public SelectList ArticleCategories { get; set; }
-        /// <summary>
-        /// Edit Article
-        /// </summary>
+        
         public EditArticle command { get; set; }
         public EditModel(IArticleApplication articleApplication, IArticleCategoryApplication articleCategoryApplication)
         {
