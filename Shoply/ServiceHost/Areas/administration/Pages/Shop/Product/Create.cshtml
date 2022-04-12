@@ -33,14 +33,15 @@
 
         </div>
         <div class="row">
-           
+
             <div class="col-md-12">
                 <div class="form-group">
-                    <label asp-for="ProductCategoryId" class="control-label">دسته بندی</label>
-                    <select class="form-control" asp-for="ProductCategoryId" asp-items='new SelectList(Model.ProductCategories,"Id","Name")'>
-                        <option value="0">گروه محصولی</option>
-                    </select>
+                    @*<label asp-for="ProductCategoryId" class="control-label">دسته بندی</label>*@
+                    <input asp-for="ProductCategoryId" type="hidden" value="" />
                     <span asp-validation-for="ProductCategoryId" class="error"></span>
+                    <button type="button" id="btncategory" class="btn btn-primary" onclick="showCategoryModal()">
+                       انتخاب دسته بندی
+                    </button>
                 </div>
             </div>
         </div>
@@ -122,3 +123,29 @@
         <button type="submit" class="btn btn-info waves-effect waves-light">ایجاد</button>
     </div>
 </form>
+
+
+<div id="CategoryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content"  style="width:400px;margin:100px 100px 0 0;background-color:lightskyblue;">
+            <div class="modal-header">
+                <button type="button" class="close" id="HiddenCategoryModal" onclick="hideCategoryModal()">×</button>
+                <h4 class="modal-title">انتخاب دسته بندی</h4>
+
+            </div>
+            <div class="modal-body">
+                <div id="WrapperBack">
+                  
+                </div>
+                <div id="productCategories">
+                    @foreach (var item in Model.ProductCategories)
+                    {
+                        <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
+                            <a onclick='SetCategory(@item.Id,"@item.Name",@null)'>@item.Name</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

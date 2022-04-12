@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nancy.Json;
+using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.Order;
 using System;
 using System.Collections.Generic;

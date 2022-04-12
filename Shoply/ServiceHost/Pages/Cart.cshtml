@@ -30,62 +30,66 @@
             <div class="col-lg-12">
                 <!--=======  page wrapper  =======-->
                 <div class="page-wrapper">
-                    @foreach (var item in Model.CartItems.Where(x=>!x.InStock))
-                   {
-                       <div class="alert alert-warning"><i class="fa fa-warning"></i> کالای <strong>@item.Name</strong> به تعداد درخواستی شما در انبار موجود نیست </div>
-                   }
-                    <div class="page-content-wrapper">
-                            <div class="cart-table table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="pro-thumbnail">عکس</th>
-                                            <th class="pro-title">نام محصول</th>
-                                            <th class="pro-price">قیمت واحد</th>
-                                            <th class="pro-quantity">تعداد</th>
-                                            <th class="pro-subtotal">قیمت کل</th>
-                                            <th class="pro-remove">حذف</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in @Model.CartItems)
-                                        {
-                                            <tr>
-                                                <td class="pro-thumbnail">
-                                                    <a href="single-product.html">
-                                                        <img src="~/Upload/@item.picture" class="img-fluid">
-                                                    </a>
-                                                </td>
-                                                <td class="pro-title">
-                                                    <a href="single-product.html">@item.Name</a>
-                                                </td>
-                                                <td class="pro-price">
-                                                    <span>@item.UserUnitprice تومان</span>
-                                                </td>
-                                                <td class="pro-quantity">
-                                                    <div class="quantity-selection">
-                                                        <input type="number" value="@item.Count" min="1" onchange="ChangItemCount('@item.Id','totalPrice-@item.Id',this.value)">
-                                                    </div>
-                                                </td>
-                                                <td class="pro-subtotal">
-                                                    <span id="totalPrice-@item.Id">@item.TotalPrice.ToMoney() تومان</span>
-                                                </td>
-                                                <td class="pro-remove">
-                                                    <a asp-page-handler="Remove" asp-route-id="@item.Id" >
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        }
-
-                                    </tbody>
-                                </table>
+                    <div id="productStockWarnings">
+                        @foreach (var item in Model.CartItems.Where(x => !x.InStock))
+                        {
+                            <div class="alert alert-warning" id="@item.Id">
+                                <i class="fa fa-warning"></i> کالای <strong>@item.Name</strong> به تعداد درخواستی شما در انبار موجود نیست
                             </div>
+                        }
+                    </div>
+                    <div class="page-content-wrapper">
+                        <div class="cart-table table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="pro-thumbnail">عکس</th>
+                                        <th class="pro-title">نام محصول</th>
+                                        <th class="pro-price">قیمت واحد</th>
+                                        <th class="pro-quantity">تعداد</th>
+                                        <th class="pro-subtotal">قیمت کل</th>
+                                        <th class="pro-remove">حذف</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in @Model.CartItems)
+                                    {
+                                        <tr>
+                                            <td class="pro-thumbnail">
+                                                <a href="single-product.html">
+                                                    <img src="~/Upload/@item.picture" class="img-fluid">
+                                                </a>
+                                            </td>
+                                            <td class="pro-title">
+                                                <a href="single-product.html">@item.Name</a>
+                                            </td>
+                                            <td class="pro-price">
+                                                <span>@item.UserUnitprice تومان</span>
+                                            </td>
+                                            <td class="pro-quantity">
+                                                <div class="quantity-selection">
+                                                    <input type="number" value="@item.Count" min="1" onchange="ChangItemCount('@item.Id','totalPrice-@item.Id',this.value)">
+                                                </div>
+                                            </td>
+                                            <td class="pro-subtotal">
+                                                <span id="totalPrice-@item.Id">@item.TotalPrice.ToMoney() تومان</span>
+                                            </td>
+                                            <td class="pro-remove">
+                                                <a asp-page-handler="Remove" asp-route-id="@item.Id">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="row">
                             <div class="col-lg-6 col-12 d-flex">
                                 <div class="cart-summary">
                                     <div class="cart-summary-button">
-                                     
+
                                         <a asp-page-handler="checkOut" class="checkout-btn">تکمیل فرایند خرید</a>
                                     </div>
                                 </div>

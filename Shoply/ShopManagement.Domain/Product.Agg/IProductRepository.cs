@@ -12,7 +12,7 @@ namespace ShopManagement.Domain.Product.Agg
     {
         EditProduct GetDetals(long id);
         Product GetProductWithCategory(long id);
-        List<ProductViewModel> Search(ProductSearchModel searchModel);
+        List<ProductViewModel> Search(CategorySearchModel searchModel);
         public List<ProductViewModel> GetProducts();
 
     }

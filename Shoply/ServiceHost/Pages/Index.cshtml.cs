@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using _01_framwork.Applicatin.Email;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,15 +11,16 @@ namespace ServiceHost.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IEmailService emailService;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IEmailService emailService)
         {
-            _logger = logger;
+            this.emailService = emailService;
         }
 
         public void OnGet()
         {
+            //emailService.SendEmail("salam", "salam salam", "nazarym175@gmail.com");
         }
     }
 }

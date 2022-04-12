@@ -65,6 +65,13 @@ namespace _01_framwork.Applicatin
 
             return null;
         }
+        public string CurrentAccountImage()
+        {
+            if (IsAuthenticated())
+                return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.MobilePhone)?.Value;
+
+            return null;
+        }
 
         public string CurrentAccountName()
         {

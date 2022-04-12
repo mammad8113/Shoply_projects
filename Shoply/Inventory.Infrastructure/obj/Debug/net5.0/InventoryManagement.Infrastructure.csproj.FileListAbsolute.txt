@@ -26,3 +26,9 @@ D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\obj\Debug\net5.0\Inventor
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\obj\Debug\net5.0\ref\InventoryManagement.Infrastructure.dll
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\obj\Debug\net5.0\InventoryManagement.Infrastructure.pdb
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\obj\Debug\net5.0\InventoryManagement.Infrastructure.genruntimeconfig.cache
+D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Debug\net5.0\AcountManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Debug\net5.0\AcountManagement.Domain.dll
+D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Debug\net5.0\AcountManagement.Infrastructure.EfCore.dll
+D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Debug\net5.0\AcountManagement.Infrastructure.EfCore.pdb
+D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Debug\net5.0\AcountManagement.Application.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Debug\net5.0\AcountManagement.Domain.pdb

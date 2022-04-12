@@ -38,7 +38,8 @@ namespace ShopManagement.Application.Contracts.ProductCategory
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string Slug { get; set; }
-  
-        public List<ProductCategoryViewModel> GetAll { get; set; } = new List<ProductCategoryViewModel>();
+
+        public long? ParentId { get; set; }
+        public List<ProductCategoryViewModel> Parents { get; set; } = new List<ProductCategoryViewModel>();
     }
 }

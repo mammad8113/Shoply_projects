@@ -14,7 +14,7 @@ namespace ShopManagement.Application.Contracts.Product
         OperationResult Remove(long id);
         OperationResult Activate(long id);
         EditProduct GetDetals(long id);
-        List<ProductViewModel> Search(ProductSearchModel searchModel);
+        List<ProductViewModel> Search(CategorySearchModel searchModel);
         public List<ProductViewModel> GetProducts();
     }
 }

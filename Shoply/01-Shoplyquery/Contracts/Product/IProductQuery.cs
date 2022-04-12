@@ -1,4 +1,5 @@
-﻿using ShopManagement.Domain.Order;
+﻿using ShopManagement.Application.Contracts.Order;
+using ShopManagement.Domain.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;

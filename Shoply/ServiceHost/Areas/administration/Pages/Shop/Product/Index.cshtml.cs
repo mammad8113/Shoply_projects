@@ -15,31 +15,33 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Product
         private readonly IProductApplication productApplication;
         private readonly IProductCategoryApplication productCategoryApplication;
         public List<ProductViewModel> Products { get; set; }
-        public ProductSearchModel SearchModel { get; set; }
+        public CategorySearchModel SearchModel { get; set; }
         public SelectList productCategories { get; set; }
+        public List<ProductCategoryViewModel> ProductCategories { get; set; }
         public IndexModel(IProductApplication productApplication, IProductCategoryApplication productCategoryApplication)
         {
             this.productApplication = productApplication;
             this.productCategoryApplication = productCategoryApplication;
         }
 
-
         [NeddsPermission((int)ShopPermission.ListProducts)]
-        public void OnGet(ProductSearchModel searchModel)
+        public void OnGet(CategorySearchModel searchModel,long ProductCategoryId)
         {
+            searchModel.ProductCategoryId = ProductCategoryId;
             Products = productApplication.Search(searchModel);
+            ProductCategories = productCategoryApplication.GetProductCategories();
             productCategories = new SelectList(productCategoryApplication.GetProductCategories(0), "Id", "Name");
         }
         [NeddsPermission((int)ShopPermission.CreateProduct)]
         public IActionResult OnGetCreate()
         {
             var command = new CreateProduct();
-            command.ProductCategories = productCategoryApplication.GetProductCategories(0);
+            command.ProductCategories = productCategoryApplication.GetProductCategories();
 
             return Partial("./Create", command);
         }
 
-        [NeddsPermission((int) ShopPermission.CreateProduct)]
+        [NeddsPermission((int)ShopPermission.CreateProduct)]
         public JsonResult OnPostCreate(CreateProduct command)
         {
             var result = productApplication.Create(command);

@@ -13,12 +13,12 @@ namespace ServiceHost.Areas.administration.Pages.Acounts.Acount
     public class IndexModel : PageModel
     {
 
-        private readonly IAcountApplication acountApplication;
+        private readonly AcountManagement.Application.Contracts.Acount.IAcountApplication acountApplication;
         private readonly IRolApplication rolApplication;
         public List<AcountViewModel> Acounts { get; set; }
         public AcountSearchModel SearchModel { get; set; }
         public SelectList RolList { get; set; }
-        public IndexModel(IAcountApplication acountApplication, IRolApplication rolApplication)
+        public IndexModel(AcountManagement.Application.Contracts.Acount.IAcountApplication acountApplication, IRolApplication rolApplication)
         {
             this.acountApplication = acountApplication;
             this.rolApplication = rolApplication;
@@ -27,7 +27,7 @@ namespace ServiceHost.Areas.administration.Pages.Acounts.Acount
         public void OnGet(AcountSearchModel searchModel)
         {
             Acounts = acountApplication.Search(searchModel);
-            RolList = new SelectList(rolApplication.GetAll(), "Name", "Id");
+            RolList = new SelectList(rolApplication.GetAll(), "Id", "Name");
         }
         public IActionResult OnGetCreate()
         {

@@ -1,5 +1,6 @@
 ﻿using _01_framwork.Applicatin;
 using InventoryManagement.Domain.Inventory.Agg;
+using ShopManagement.Application.Contracts.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace InventoryManagement.Application.Contracts.Inventory
         EditInventory GetDetals(long id);
         List<InventoryViewModel> Search(InventorySearchModel inventorySearchModel);
         List<InventoryOperationViewModel> GetOperation(long id);
+        public Chart GetChart();
     }
 }

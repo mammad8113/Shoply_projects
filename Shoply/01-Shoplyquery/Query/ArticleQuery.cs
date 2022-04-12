@@ -57,16 +57,16 @@ namespace _01_Shoplyquery.Query
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    Mobile=x.Mobile,
+                    Mobile = x.Mobile,
                     Message = x.Message,
                     ParentId = x.ParentId,
-                    Children=MappChild(x.Children),
+                    Image = x.Image,
+                    Children = MappChild(x.Children),
                     CreationDate = x.CreationDate.ToFarsi()
                 }).OrderByDescending(x => x.Id).ToList();
 
             if (comments != null)
                 article.Comments = comments;
-
 
             foreach (var comment in comments)
             {
@@ -79,13 +79,13 @@ namespace _01_Shoplyquery.Query
 
         private static List<CommentQueryModel> MappChild(List<Comment> children)
         {
-            return children.Select(x=> new CommentQueryModel
+            return children.Select(x => new CommentQueryModel
             {
-                Id=x.Id,
-                Name=x.Name,
-                Message=x.Message,
-                Mobile=x.Mobile,
-            }).OrderByDescending(x=>x.Id).ToList();
+                Id = x.Id,
+                Name = x.Name,
+                Message = x.Message,
+                Mobile = x.Mobile,
+            }).OrderByDescending(x => x.Id).ToList();
         }
 
         public List<ArticleQueryModel> LatestArticles()

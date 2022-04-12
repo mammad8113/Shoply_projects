@@ -1,9 +1,11 @@
 ﻿using _0_Framework.Application;
 using _01_Shoplyquery.Contracts.Product;
+using _01_Shoplyquery.Contracts.ProductCategory;
 using CommentManagement.Infrastructure.EfCore;
 using DiscountManagement.Infrastructure;
 using InventoryManagement.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.Order;
 using ShopManagement.Domain.ProductPicture.Agg;
 using ShopManagement.Infrastructure.EfCore;
@@ -46,7 +48,8 @@ namespace _01_Shoplyquery.Contracts.Slide
                     PictureAlt = x.PictureAlt,
                     PictureTitle = x.PictureTitle,
                     Slug = x.Slug,
-                    Category = x.ProductCategory.Name,
+                    Category =x.ProductCategory.Name,
+                   CategoryId=x.ProductCategoryId,
                     CategorySlug = x.ProductCategory.Slug,
                     ShortDescription = x.ShortDescription,
                     Description = x.Description,
@@ -54,6 +57,7 @@ namespace _01_Shoplyquery.Contracts.Slide
                     Code = x.Code,
                     KeyWords = x.KeyWords,
                     IsRemoved = x.IsRemoved,
+                    
                     Pictures = MapPictures(x.ProductPictures),
 
                 }).FirstOrDefault(x => x.Slug == slug);
@@ -92,7 +96,7 @@ namespace _01_Shoplyquery.Contracts.Slide
             return product;
         }
 
-
+    
 
         private static List<ProductPictureQueryModel> MapPictures(List<ProductPicture> productPictures)
         {

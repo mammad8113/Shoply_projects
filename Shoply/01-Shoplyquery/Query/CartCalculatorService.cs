@@ -2,6 +2,7 @@
 using _01_framwork.Infrastructure;
 using _01_Shoplyquery.Contracts.Cart;
 using DiscountManagement.Infrastructure;
+using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.Order;
 using System;
 using System.Collections.Generic;

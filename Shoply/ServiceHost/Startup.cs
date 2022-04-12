@@ -1,10 +1,15 @@
+using _0_Framework.Application.ZarinPal;
 using _01_framwork.Applicatin;
+using _01_framwork.Applicatin.Email;
+using _01_framwork.Applicatin.Sms;
+using _01_framwork.Applicatin.ZarinPal;
 using _01_framwork.Infrastructure;
 using AcountManagement.Infrastructure.Configuration;
 using BlogManagement.Infrastructure.Config;
 using CommentManagement.Infrastructure.Config;
 using DiscountManagement.Infrastructure.Config;
 using InventoryManagement.Infrastructure.Configuration;
+using InventoryManagement.Presentation.Api;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +18,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShopManagement.Presentation.Api;
 using ShopManagment.Imfrastructure.Config;
 using System;
 using System.Collections.Generic;
@@ -44,13 +50,13 @@ namespace ServiceHost
             CommenManagementtBootstraper.Configur(services, connectionString);
             AcountManagementBootstarpper.Configur(services, connectionString);
 
-
-
             services.AddTransient<IAuthHelper, AuthHelper>();
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddTransient<IFileUploader, FileUploader>();
-        
+            services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
+            services.AddTransient<ISmsService, SmsService>();
+            services.AddTransient<IEmailService, EmailService>();
 
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -75,11 +81,20 @@ namespace ServiceHost
 
             services.AddAuthorization(option =>
             {
-                option.AddPolicy("AdminArea", builder => builder.RequireRole(Rols.Administrator, Rols.ContentUploader));
+                option.AddPolicy("AdminArea", builder => builder.RequireRole(Rols.Administrator, Rols.ContentUploader, Rols.SaleManager));
                 option.AddPolicy("Acounts", builder => builder.RequireRole(Rols.Administrator));
-                //option.AddPolicy("Inventory", builder => builder.RequireRole(Rols.Administrator));
-                option.AddPolicy("ColleagueDiscount", builder => builder.RequireRole(Rols.Administrator));
+                option.AddPolicy("Inventory", builder => builder.RequireRole(Rols.Administrator, Rols.SaleManager,Rols.ContentUploader));
+                option.AddPolicy("ColleagueDiscount", builder => builder.RequireRole(Rols.Administrator, Rols.SaleManager));
+                option.AddPolicy("Order", builder => builder.RequireRole(Rols.Administrator, Rols.SaleManager));
             });
+
+            services.AddCors(options => options.AddPolicy("MyPolicy", builder =>
+            {
+                //builder.WithOrigins("https://localhost:5001")
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
 
             services.AddRazorPages()
                .AddMvcOptions(option => option.Filters.Add<PageFilter>())
@@ -87,10 +102,12 @@ namespace ServiceHost
                 {
                     options.Conventions.AuthorizeAreaFolder("Administration", "/", "AdminArea");
                     options.Conventions.AuthorizeAreaFolder("Administration", "/Acounts", "Acounts");
-                    //options.Conventions.AuthorizeAreaFolder("Administration", "/Inventory", "Inventory");
+                    options.Conventions.AuthorizeAreaFolder("Administration", "/Inventory", "Inventory");
+                    options.Conventions.AuthorizeAreaFolder("Administration", "/Shop/Order", "Order");
                     options.Conventions.AuthorizeAreaPage("Administration", "/Discount/ColleagueDiscount/Index", "ColleagueDiscount");
-
-                });
+                })
+               .AddApplicationPart(typeof(ProductController).Assembly)
+               .AddApplicationPart(typeof(InventoryController).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -116,11 +133,11 @@ namespace ServiceHost
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors("MyPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllers();
             });
         }
     }

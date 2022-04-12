@@ -40,8 +40,8 @@ namespace ShopManagement.Application.ProductCategorys
                 var picturePath = command.Slug;
                 var picture = fileUploader.Upload(command.Picture, picturePath);
                 ProductCategory productCategory = new ProductCategory(command.Name, command.Description, picture,
-                     command.PictureAlt, command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation);
-                var category = productCategoryRepository.Get(productCategory.Parent);
+                     command.PictureAlt, command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation,command.ParentId);
+            
                 productCategoryRepository.Create(productCategory);
                 productCategoryRepository.Save();
                 return operation.Success();
@@ -61,13 +61,13 @@ namespace ShopManagement.Application.ProductCategorys
             string pathPicture = command.Slug;
             var picture = fileUploader.Upload(command.Picture, pathPicture);
             var operation = productCategory.Edit(command.Name, command.Description, picture, command.PictureAlt,
-                   command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation);
+                   command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation,command.ParentId);
             productCategoryRepository.Save();
             return operation;
 
         }
 
-        public EditProductCategory GetDetals(int id)
+        public EditProductCategory GetDetals(long id)
         {
             return productCategoryRepository.GetDetals(id);
         }
@@ -75,6 +75,11 @@ namespace ShopManagement.Application.ProductCategorys
         public List<ProductCategoryViewModel> GetProductCategories(long id)
         {
             return productCategoryRepository.GetProductCategories(id);
+        }
+
+        public List<ProductCategoryViewModel> GetProductCategories()
+        {
+            return productCategoryRepository.GetProductCategories();
         }
 
         public void Removed(long id)

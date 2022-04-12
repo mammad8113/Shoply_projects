@@ -19,6 +19,10 @@ namespace _01_Shoplyquery.Contracts.ProductCategory
         public string Keywords { get; set; }
         public string MetaDescription { get; set; }
         public string Slug { get; set; }
+        public long? ParentId { get; set; }
+        public string Parent { get; set; }
+        public List<string> Parents { get; set; }
+        public List<ProductCategoryQueryModel> Children { get; set; }
         public List<ProductQueryModel> Products { get; set; }=new List<ProductQueryModel>();
     }
 }

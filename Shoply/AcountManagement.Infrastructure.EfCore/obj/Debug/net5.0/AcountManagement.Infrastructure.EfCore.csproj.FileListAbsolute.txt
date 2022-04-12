@@ -20,3 +20,5 @@ D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\obj\Debug\n
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\obj\Debug\net5.0\ref\AcountManagement.Infrastructure.EfCore.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\obj\Debug\net5.0\AcountManagement.Infrastructure.EfCore.pdb
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\obj\Debug\net5.0\AcountManagement.Infrastructure.EfCore.genruntimeconfig.cache
+D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\bin\Debug\net5.0\ShopManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\bin\Debug\net5.0\ShopManagement.Application.Contracts.pdb

@@ -16,12 +16,13 @@ namespace ShopManagement.Domain.ProductCategory
         public string Picture { get; private set; }
         public string PictureAlt { get; private set; }
         public string PictureTitle { get; private set; }
-        public int Level { get; set; }
-        public long Parent { get; set; }
         public bool IsRemoved { get; private set; }
         public string Keywords { get; private set; }
         public string MetaDescription { get; private set; }
         public string Slug { get; private set; }
+        public long? ParentId { get; set; }
+        public ProductCategory Parent { get; set; }
+        public List<ProductCategory> Children { get; set; }
         public List<Domain.Product.Agg.Product> Products { get; set; }
 
         protected ProductCategory()
@@ -30,9 +31,8 @@ namespace ShopManagement.Domain.ProductCategory
         }
         public ProductCategory(string name, string description, string picture,
             string pictureAlt, string pictureTitle,
-            string keywords, string metaDescription, string slug, IValidationProducatCategory validation, long parent = 0)
+            string keywords, string metaDescription, string slug, IValidationProducatCategory validation, long? parentId)
         {
-
             CheckNull(name, description, picture, pictureAlt, pictureTitle,
                keywords, metaDescription, slug);
             validation.Doblicated(x => x.Name == name && x.Picture == picture);
@@ -45,12 +45,12 @@ namespace ShopManagement.Domain.ProductCategory
             MetaDescription = metaDescription;
             Slug = slug;
             IsRemoved = false;
-            Level = 0;
-            Parent = parent;
+            ParentId = parentId;
+
         }
         public OperationResult Edit(string name, string description, string picture,
             string pictureAlt, string pictureTitle,
-            string keywords, string metaDescription, string slug, IValidationProducatCategory validation, long parent = 0)
+            string keywords, string metaDescription, string slug, IValidationProducatCategory validation, long? parentId)
         {
             OperationResult operation = new OperationResult();
             try
@@ -59,15 +59,15 @@ namespace ShopManagement.Domain.ProductCategory
                 validation.Doblicated(x => x.Name == name && x.Picture == picture && x.Id != x.Id);
                 Name = name;
                 Description = description;
-                if(!string.IsNullOrEmpty(picture))
-                Picture = picture;
+                if (!string.IsNullOrEmpty(picture))
+                    Picture = picture;
 
                 PictureAlt = pictureAlt;
                 PictureTitle = pictureTitle;
                 Keywords = keywords;
                 MetaDescription = metaDescription;
                 Slug = slug;
-                Parent = parent;
+                ParentId = parentId;
                 return operation.Success();
             }
             catch (Exception e)

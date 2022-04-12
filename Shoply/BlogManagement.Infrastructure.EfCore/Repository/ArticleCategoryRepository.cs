@@ -1,4 +1,5 @@
-﻿using _01_framwork.Infrastructure;
+﻿using _0_Framework.Application;
+using _01_framwork.Infrastructure;
 using BlogManagement.Application.Contracts.ArticleCategory;
 using BlogManagement.Domain.ArticleCategory.Agg;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +51,7 @@ namespace BlogManagement.Infrastructure.EfCore.Repository
                 ShowOrder = x.ShowOrder,
                 Slug = x.Slug,
                 Picture = x.Picture,
-                CreationDate = x.CreationDate.ToShamsi(),
+                CreationDate = x.CreationDate.ToFarsi(),
                 ArticleCount = x.Articles.Count,
             });
 
@@ -77,7 +78,7 @@ namespace BlogManagement.Infrastructure.EfCore.Repository
                 ShowOrder = x.ShowOrder,
                 Slug = x.Slug,
                 Picture = x.Picture,
-                CreationDate = x.CreationDate.ToShamsi()
+                CreationDate = x.CreationDate.ToFarsi()
 
             }).OrderByDescending(x => x.Id).ToList();
         }

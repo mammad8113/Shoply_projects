@@ -2,6 +2,7 @@
 using InventoryManagement.Application.Contracts.Inventory;
 using InventoryManagement.Domain.Inventory.Agg;
 using InventoryManagement.Infrastructure.Repository;
+using ShopManagement.Application.Contracts.Order;
 using System;
 using System.Collections.Generic;
 
@@ -10,9 +11,11 @@ namespace InventoryManagement.Application
     public class InevntoryApplication : IInventoryApplication
     {
         private readonly IInventoryRepository inventoryRepository;
-        public InevntoryApplication(IInventoryRepository inventoryRepository)
+        private readonly IAuthHelper authHelper;
+        public InevntoryApplication(IInventoryRepository inventoryRepository, IAuthHelper authHelper)
         {
             this.inventoryRepository = inventoryRepository;
+            this.authHelper = authHelper;
         }
 
         public OperationResult Create(CreateInventory command)
@@ -31,11 +34,12 @@ namespace InventoryManagement.Application
         public OperationResult Reduce(DecreaseInventory command)
         {
             var result = new OperationResult();
+
             var inventory = inventoryRepository.Get(command.InventoryId);
             if (inventory is null)
                 return result.Faild(ApplicationMessage.NullMessage);
 
-            const long operatorId = 1;
+            var operatorId = authHelper.CurrentAccountId();
 
             inventory.Reduce(command.Count, operatorId, command.Description, 0);
             inventoryRepository.Save();
@@ -46,7 +50,8 @@ namespace InventoryManagement.Application
         {
             var result = new OperationResult();
 
-            const long operatorId = 1;
+            var operatorId = authHelper.CurrentAccountId();
+
             foreach (var item in command)
             {
                 var inventory = inventoryRepository.GetBy(item.ProductId);
@@ -88,7 +93,7 @@ namespace InventoryManagement.Application
             if (inventory is null)
                 return result.Faild(ApplicationMessage.NullMessage);
 
-            const long operatorId = 1;
+            var operatorId = authHelper.CurrentAccountId();
 
             inventory.Increase(command.Count, operatorId, command.Description);
             inventoryRepository.Save();
@@ -103,6 +108,11 @@ namespace InventoryManagement.Application
         public List<InventoryOperationViewModel> GetOperation(long id)
         {
             return inventoryRepository.GetOperation(id);
+        }
+
+        public Chart GetChart()
+        {
+          return  inventoryRepository.GetChart();
         }
     }
 }

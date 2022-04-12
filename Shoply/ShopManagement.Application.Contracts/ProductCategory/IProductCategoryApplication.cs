@@ -13,8 +13,9 @@ namespace ShopManagement.Application.Contracts.ProductCategory
         OperationResult Edit(EditProductCategory command);
         void Removed(long id);
         void Activate(long id);
-        EditProductCategory GetDetals(int id);
+        EditProductCategory GetDetals(long id);
         List<ProductCategoryViewModel> Search(ProductCategorySearchModel search);
+        public List<ProductCategoryViewModel> GetProductCategories();
         List<ProductCategoryViewModel> GetProductCategories(long id);
 
     }

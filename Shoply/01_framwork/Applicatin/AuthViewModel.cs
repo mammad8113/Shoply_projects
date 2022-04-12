@@ -11,13 +11,14 @@ namespace _01_framwork.Applicatin
         public long Role { get; set; }
         public string Mobil { get; set; }
         public string Password { get; set; }
+        public string DateLogin { get; set; }
         public List<int> Permissions { get; set; }
 
         public AuthViewModel()
         {
         }
 
-        public AuthViewModel(long id, string fullname, string username, long rolId, string password,string mobil,List<int> permissions)
+        public AuthViewModel(long id, string fullname, string username, long rolId, string password,string mobil, string dateLogin, List<int> permissions)
         {
             Id = id;
             Fullname = fullname;
@@ -25,6 +26,7 @@ namespace _01_framwork.Applicatin
             RolId = rolId;
             Password = password;
             Mobil = mobil;
+            DateLogin = dateLogin;
             Permissions = permissions;
         }
     }

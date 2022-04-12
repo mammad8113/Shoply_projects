@@ -14,7 +14,9 @@ namespace ShopManagement.Domain.ProductCategory.Agg
     {
         EditProductCategory GetDetals(long id);
         List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel);
-        List<ProductCategoryViewModel> GetProductCategories(long id);
+        List<ProductCategoryViewModel> GetProductCategories(long parentId);
+        List<ProductCategoryViewModel> GetProductCategories();
+
         string GetSlug(long id);
     }
 }

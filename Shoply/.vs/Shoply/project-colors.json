@@ -175,7 +175,27 @@
       "ProjectGuid": "eac0c52d-4650-492d-9ab9-fc0b9f209c54",
       "DisplayName": "AcountManagement.Infrastructure.Configuration",
       "ColorIndex": 1
+    },
+    "3bfcd721-68b6-48fc-9ea8-f1204e5e22d2": {
+      "ProjectGuid": "3bfcd721-68b6-48fc-9ea8-f1204e5e22d2",
+      "DisplayName": "ShopManagement.Infrastructure.Services.Acl",
+      "ColorIndex": 2
+    },
+    "5060587e-f61e-4d26-9693-7f7b7bd7f415": {
+      "ProjectGuid": "5060587e-f61e-4d26-9693-7f7b7bd7f415",
+      "DisplayName": "ShopManagement.Presentation.Api",
+      "ColorIndex": 3
+    },
+    "cac57459-426a-40cb-8483-8ea3fb24625e": {
+      "ProjectGuid": "cac57459-426a-40cb-8483-8ea3fb24625e",
+      "DisplayName": "InventoryManagement.Presentation.Api",
+      "ColorIndex": 4
+    },
+    "052d5742-bcd0-43ea-bb5a-575eead3ac8f": {
+      "ProjectGuid": "052d5742-bcd0-43ea-bb5a-575eead3ac8f",
+      "DisplayName": "ShopManagement.Infrastructure.Services.AcountAcl",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 6
 }

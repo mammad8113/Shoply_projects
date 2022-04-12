@@ -9,10 +9,11 @@ namespace _01_framwork.Infrastructure
 {
     public static class Convertor
     {
-        public static string ToShamsi(this DateTime date)
+        public static DateTime ToShamsi(this DateTime date)
         {
             PersianCalendar pc = new PersianCalendar();
-            return pc.GetYear(date)+ "/" + pc.GetMonth(date).ToString("00") + "/" + pc.GetDayOfMonth(date).ToString("00");
+            var datetime = new DateTime(pc.GetYear(date), pc.GetMonth(date), pc.GetDayOfMonth(date));
+            return datetime;
         }
     }
 }

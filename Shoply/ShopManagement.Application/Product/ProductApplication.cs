@@ -100,7 +100,7 @@ namespace ShopManagement.Application.Producta
             return result.Success();
         }
 
-        public List<ProductViewModel> Search(ProductSearchModel searchModel)
+        public List<ProductViewModel> Search(CategorySearchModel searchModel)
         {
             return productRepository.Search(searchModel);
         }

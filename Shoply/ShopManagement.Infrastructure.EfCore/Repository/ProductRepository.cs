@@ -1,4 +1,5 @@
-﻿using _01_framwork.Infrastructure;
+﻿using _0_Framework.Application;
+using _01_framwork.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Domain.Product.Agg;
@@ -12,11 +13,14 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
 {
     public class ProductRepository : BaseRepository<long, Product>, IProductRepository
     {
+        public static List<long> parentsId { get; set; }
+
         private readonly ShopContext _shopContext;
 
         public ProductRepository(ShopContext shopContext) : base(shopContext)
         {
             _shopContext = shopContext;
+            parentsId = new List<long>();
         }
 
         public EditProduct GetDetals(long id)
@@ -38,8 +42,25 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
 
             }).FirstOrDefault(x => x.Id == id);
         }
+        public List<long> GetParent(long id)
+        {
+            var categories = _shopContext.ProductCategories.Where(x => !x.IsRemoved).Include(x => x.Parent).Select(x => new { x.Id, x.Parent, x.ParentId,x.Children })
+            .FirstOrDefault(x => x.Id == id)?.Children;
 
-        public List<ProductViewModel> Search(ProductSearchModel searchModel)
+            parentsId.Add(id);
+            if (categories != null&& categories.Any())
+            {
+                foreach (var category in categories)
+                {
+                    parentsId.Add(category.Id);
+
+                        GetParent(category.Id);
+                }
+            }
+            return parentsId;
+        }
+
+        public List<ProductViewModel> Search(CategorySearchModel searchModel)
         {
             var query = _shopContext.Products.Include(x => x.ProductCategory).Select(x => new ProductViewModel
             {
@@ -49,7 +70,7 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
                 ShortDescription = x.ShortDescription,
                 Code = x.Code,
                 IsRemove = x.IsRemoved,
-                CreationDate = x.CreationDate.ToShamsi(),
+                CreationDate = x.CreationDate.ToFarsi(),
                 ProductCategory = x.ProductCategory.Name,
                 ProductCategoryId = x.ProductCategoryId,
 
@@ -62,8 +83,10 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
                 query = query.Where(x => x.Code.Contains(searchModel.Code));
 
             if (searchModel.ProductCategoryId != 0)
-                query = query.Where(x => x.ProductCategoryId == searchModel.ProductCategoryId);
-
+            {
+                var parentsid=GetParent(searchModel.ProductCategoryId);
+                query = query.Where(x =>parentsId.Contains(x.ProductCategoryId));
+            }
             return query.OrderByDescending(x => x.Id).ToList();
         }
         public List<ProductViewModel> GetProducts()
@@ -77,12 +100,12 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
 
         public string GetSlug(long id)
         {
-            return _shopContext.Products.Select(x => new {x.Slug,x.Id}).FirstOrDefault(x=>x.Id == id).Slug;
+            return _shopContext.Products.Select(x => new { x.Slug, x.Id }).FirstOrDefault(x => x.Id == id).Slug;
         }
 
         public Product GetProductWithCategory(long id)
         {
-           return _shopContext.Products.Include(x=>x.ProductCategory).FirstOrDefault(x=>x.Id==id);
+            return _shopContext.Products.Include(x => x.ProductCategory).FirstOrDefault(x => x.Id == id);
         }
     }
 }

@@ -3,6 +3,7 @@ using _01_framwork.Infrastructure;
 using AcountManagement.Application.Contracts.Acount;
 using AcountManagement.Domain.Acount.Agg;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Application.Contracts.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,10 +87,11 @@ namespace AcountManagement.Infrastructure.EfCore.Repsoitory
                 Fullname = x.Fullname,
                 Username = x.Username,
                 Mobile = x.Mobile,
-                UserPhoto= x.UserPhoto,
+                UserPhoto = x.UserPhoto,
                 RolId = x.RolId,
-                Rol=x.Rol.Name
+                Rol = x.Rol.Name
             }).FirstOrDefault(x => x.Id == id);
         }
+        
     }
 }

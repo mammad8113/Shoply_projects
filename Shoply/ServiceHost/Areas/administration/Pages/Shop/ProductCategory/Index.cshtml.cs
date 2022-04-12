@@ -19,15 +19,14 @@ namespace ServiceHost.Areas.administration.Pages.Shop.ProductCategory
             this.productCategoryApplication = productCategoryApplication;
         }
 
-        public void OnGet(ProductCategorySearchModel searchModel,long id=0)
+        public void OnGet(ProductCategorySearchModel searchModel)
         {
-            searchModel.Parent = id;
             ProductCategories = productCategoryApplication.Search(searchModel);
         }
-        public IActionResult OnGetCreate(long id=0)
+        public IActionResult OnGetCreate(long? id)
         {
             var category = new CreateProductCategory();
-            category.GetAll = productCategoryApplication.GetProductCategories(id);
+            category.ParentId = id;
             return Partial("./Create",category );
         }
         public JsonResult OnPostCreate(CreateProductCategory command)

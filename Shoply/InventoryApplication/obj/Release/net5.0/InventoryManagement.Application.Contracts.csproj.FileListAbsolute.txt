@@ -1,0 +1,17 @@
+D:\Shoply_Project\Code\Shoply\InventoryApplication\bin\Release\net5.0\InventoryManagement.Application.Contracts.deps.json
+D:\Shoply_Project\Code\Shoply\InventoryApplication\bin\Release\net5.0\InventoryManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\InventoryApplication\bin\Release\net5.0\ref\InventoryManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\InventoryApplication\bin\Release\net5.0\InventoryManagement.Application.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\InventoryApplication\bin\Release\net5.0\01_framwork.dll
+D:\Shoply_Project\Code\Shoply\InventoryApplication\bin\Release\net5.0\ShopManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\InventoryApplication\bin\Release\net5.0\01_framwork.pdb
+D:\Shoply_Project\Code\Shoply\InventoryApplication\bin\Release\net5.0\ShopManagement.Application.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\InventoryApplication\obj\Release\net5.0\InventoryManagement.Application.Contracts.csproj.AssemblyReference.cache
+D:\Shoply_Project\Code\Shoply\InventoryApplication\obj\Release\net5.0\InventoryManagement.Application.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+D:\Shoply_Project\Code\Shoply\InventoryApplication\obj\Release\net5.0\InventoryManagement.Application.Contracts.AssemblyInfoInputs.cache
+D:\Shoply_Project\Code\Shoply\InventoryApplication\obj\Release\net5.0\InventoryManagement.Application.Contracts.AssemblyInfo.cs
+D:\Shoply_Project\Code\Shoply\InventoryApplication\obj\Release\net5.0\InventoryManagement.Application.Contracts.csproj.CoreCompileInputs.cache
+D:\Shoply_Project\Code\Shoply\InventoryApplication\obj\Release\net5.0\InventoryManagement.Application.Contracts.csproj.CopyComplete
+D:\Shoply_Project\Code\Shoply\InventoryApplication\obj\Release\net5.0\InventoryManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\InventoryApplication\obj\Release\net5.0\ref\InventoryManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\InventoryApplication\obj\Release\net5.0\InventoryManagement.Application.Contracts.pdb

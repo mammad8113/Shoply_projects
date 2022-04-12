@@ -11,6 +11,7 @@ namespace _01_framwork.Infrastructure
         public const string Administrator = "1";
         public const string SystemUser = "2";
         public const string ContentUploader = "3";
+        public const string SaleManager = "4";
         public const string Colleague = "5";
 }
 }

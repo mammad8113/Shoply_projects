@@ -13,7 +13,7 @@ namespace ServiceHost.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var Categories = productCategoryQuery.GetAll();
+            var Categories = productCategoryQuery.GetCategoriesOverriding();
             return View(Categories);
         }
     }

@@ -27,17 +27,12 @@ namespace ServiceHost.Pages
             }
             float count = productCategoryQuery.Count(id);
              this.Pages = new CustomPage(p,count,int.Parse(numbers), "ProductCategory");
-            category = productCategoryQuery.GetProductCategoryWithProductsForPagationBy(id,p,int.Parse(numbers));
+            category = productCategoryQuery.GetProductCategoryWithProductsForPagationBy(id);
 
         }
-        public IActionResult OnGetPage(string id, int number,int p = 1)
+        public IActionResult OnGetPage(string id)
         {
-            slug = id;
-          
-           
-            float count = productCategoryQuery.Count(id);
-            this.Pages = new CustomPage(p, count, number, "ProductCategory");
-            category = productCategoryQuery.GetProductCategoryWithProductsForPagationBy(id, p,number);
+            category = productCategoryQuery.GetProductCategoryWithProductsForPagationBy(id);
             var product = category.Products;
             return new JsonResult(category);
         }

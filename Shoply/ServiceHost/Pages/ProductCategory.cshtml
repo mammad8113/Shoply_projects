@@ -1,9 +1,12 @@
 ﻿@page "{id}"
+@using _01_Shoplyquery.Contracts.ProductCategory
 @model ServiceHost.Pages.ProductCategoryModel
+@inject IProductCategoryQuery category
 @{
     ViewData["Title"] = @Model.category.Name;
     ViewData["Keywords"] = @Model.category.Keywords;
     ViewData["MetaDescription"] = @Model.category.MetaDescription;
+    var categories = category.GetParent(@Model.category.Id);
 }
 <div class="breadcrumb-area section-space--half">
     <div class="container wide">
@@ -17,6 +20,10 @@
                         <h1 class="breadcrumb-content__title">@Model.category.Name</h1>
                         <ul class="breadcrumb-content__page-map">
                             <li><a asp-page="./Index">صفحه اصلی</a></li>
+                            @foreach (var category in categories)
+                            {
+                                <li class="active">@category.Name</li>
+                            }
                             <li class="active">@Model.category.Name</li>
                         </ul>
                     </div>
@@ -144,10 +151,7 @@
                             </div>
 
                             <!--=======  pagination area =======-->
-                            @if (true)
-                            {
-                                @Html.Partial("Partial/Pagation",Model.Pages)
-                            }
+                       
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,45 @@
+﻿@using ShopManagement.Application.Contracts.Address
+@model EditAddress
+@{
+}
+<form asp-page="/CheckOut" asp-page-handler="Edit"
+      method="post"
+      data-ajax="true"
+      data-callback=""
+      data-action="Refresh"
+      enctype="multipart/form-data">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="@Model.State" class="sr-only">استان</label>
+                    <select asp-items='new SelectList(Model.States,"Id","Name")' onclick="SetCity(this.value)" asp-for="@Model.State" class="form-control state" placeholder="استان ها" onchange="SetCity(this.value,this.innerHTML)">
+                        <option value="0">استان ها</option>
+                    </select>
+                    <a asp-page-handler="City" asp-route-id="1"></a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="@Model.City" class="sr-only city">شهرستان</label>
+                    <select asp-for="@Model.City" asp-items='new SelectList(Model.Cities,"Id","Name")' class="form-control" placeholder="شهرستان ها">
+                        <option value="0">شهرستان ها</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="@Model.Street">ادرس</label>
+                    <textarea style="width:100%" asp-for="@Model.Street" type="text" placeholder="ادرس کامل"></textarea>
+                </div>
+            </div>
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+            <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
+        </div>
+    </div>
+</form>

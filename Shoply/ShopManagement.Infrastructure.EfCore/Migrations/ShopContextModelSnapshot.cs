@@ -19,6 +19,91 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ShopManagement.Domain.Address.Agg.Address", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("AcountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("City")
+                        .HasMaxLength(200)
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemove")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("State")
+                        .HasMaxLength(200)
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("ShopManagement.Domain.Order.Agg.Order", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("AcountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("AddressId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("DiscountAmount")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPiad")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsShow")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("IssueTrakingNo")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<double>("PayAmount")
+                        .HasColumnType("float");
+
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("int");
+
+                    b.Property<long>("RefId")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("TotalAmount")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("ShopManagement.Domain.Product.Agg.Product", b =>
                 {
                     b.Property<long>("Id")
@@ -108,9 +193,6 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
-
                     b.Property<string>("MetaDescription")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -121,7 +203,7 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long>("Parent")
+                    b.Property<long?>("ParentId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Picture")
@@ -142,6 +224,8 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                         .HasColumnType("nvarchar(300)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("ProductCategories");
                 });
@@ -237,6 +321,59 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                     b.ToTable("Slides");
                 });
 
+            modelBuilder.Entity("ShopManagement.Domain.Order.Agg.Order", b =>
+                {
+                    b.HasOne("ShopManagement.Domain.Address.Agg.Address", "Address")
+                        .WithMany("Orders")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsMany("ShopManagement.Domain.Order.Agg.OrderItem", "OrderItems", b1 =>
+                        {
+                            b1.Property<long>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("bigint")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<int>("Count")
+                                .HasColumnType("int");
+
+                            b1.Property<DateTime>("CreationDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<int>("DiscountRate")
+                                .HasColumnType("int");
+
+                            b1.Property<long>("OrderId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<double>("PriceWithdiscount")
+                                .HasColumnType("float");
+
+                            b1.Property<long>("ProductId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<double>("UnitPrice")
+                                .HasColumnType("float");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("OrderId");
+
+                            b1.ToTable("OrderItems");
+
+                            b1.WithOwner("Order")
+                                .HasForeignKey("OrderId");
+
+                            b1.Navigation("Order");
+                        });
+
+                    b.Navigation("Address");
+
+                    b.Navigation("OrderItems");
+                });
+
             modelBuilder.Entity("ShopManagement.Domain.Product.Agg.Product", b =>
                 {
                     b.HasOne("ShopManagement.Domain.ProductCategory.ProductCategory", "ProductCategory")
@@ -246,6 +383,15 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductCategory");
+                });
+
+            modelBuilder.Entity("ShopManagement.Domain.ProductCategory.ProductCategory", b =>
+                {
+                    b.HasOne("ShopManagement.Domain.ProductCategory.ProductCategory", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("ShopManagement.Domain.ProductPicture.Agg.ProductPicture", b =>
@@ -259,6 +405,11 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ShopManagement.Domain.Address.Agg.Address", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("ShopManagement.Domain.Product.Agg.Product", b =>
                 {
                     b.Navigation("ProductPictures");
@@ -266,6 +417,8 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
 
             modelBuilder.Entity("ShopManagement.Domain.ProductCategory.ProductCategory", b =>
                 {
+                    b.Navigation("Children");
+
                     b.Navigation("Products");
                 });
 #pragma warning restore 612, 618

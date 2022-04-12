@@ -27,3 +27,9 @@ D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure.Config\obj\Debug
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure.Config\obj\Debug\net5.0\DiscountManagement.Infrastructure.Config.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure.Config\obj\Debug\net5.0\ref\DiscountManagement.Infrastructure.Config.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure.Config\obj\Debug\net5.0\DiscountManagement.Infrastructure.Config.pdb
+D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure.Config\bin\Debug\net5.0\AcountManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure.Config\bin\Debug\net5.0\AcountManagement.Domain.dll
+D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure.Config\bin\Debug\net5.0\AcountManagement.Infrastructure.EfCore.dll
+D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure.Config\bin\Debug\net5.0\AcountManagement.Application.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure.Config\bin\Debug\net5.0\AcountManagement.Domain.pdb
+D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure.Config\bin\Debug\net5.0\AcountManagement.Infrastructure.EfCore.pdb

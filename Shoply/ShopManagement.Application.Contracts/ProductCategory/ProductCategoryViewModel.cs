@@ -15,5 +15,7 @@ namespace ShopManagement.Application.Contracts.ProductCategory
         public bool IsRemoved { get; set; }
         public int ProductCount { get; set; }
         public string Parent { get; set; }
+        public long? ParentId { get; set; }
+        public List<ProductCategoryViewModel> Children { get; set; }=new List<ProductCategoryViewModel>();
     }
 }

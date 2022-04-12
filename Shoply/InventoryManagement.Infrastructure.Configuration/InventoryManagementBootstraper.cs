@@ -1,4 +1,6 @@
 ﻿using _01_framwork.Infrastructure;
+using _01_Shoplyquery.Contracts.Inventory;
+using _01_Shoplyquery.Query;
 using InventoryManagement.Application;
 using InventoryManagement.Application.Contracts.Inventory;
 using InventoryManagement.Domain.Inventory.Agg;
@@ -17,7 +19,7 @@ namespace InventoryManagement.Infrastructure.Configuration
             services.AddTransient<IInventoryRepository, InventoryRepository>();
             services.AddTransient<IInventoryApplication, InevntoryApplication>();
             services.AddTransient<IPermissionsExposer, InventoryPermissionExposer>();
-
+            services.AddTransient<IInventoryquery, InventoryQuery>();
             services.AddDbContext<InventoryContext>(x => x.UseSqlServer(connectionstring));
         }
     }

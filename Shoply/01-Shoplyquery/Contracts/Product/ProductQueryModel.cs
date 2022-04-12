@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _01_Shoplyquery.Contracts.ProductCategory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,8 @@ namespace _01_Shoplyquery.Contracts.Product
         public double DoublePricewithDicount { get; set; }
         public int DiscountRate { get; set; }
         public string Category { get; set; }
+        public long CategoryId { get; set; }
+        public List<string> Categories { get; set; }
         public string CategorySlug { get; set; }
         public string Slug { get; set; }
         public bool HasDiscount { get; set; }

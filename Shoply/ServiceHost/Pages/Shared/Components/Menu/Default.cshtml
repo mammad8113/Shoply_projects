@@ -1,4 +1,6 @@
-﻿@using _01_Shoplyquery
+﻿@using Microsoft.AspNetCore.Html
+@using _01_Shoplyquery
+@using _01_Shoplyquery.Contracts.ProductCategory
 @using _01_framwork.Applicatin
 @model MenuModel
 @inject IAuthHelper AuthHelper
@@ -75,14 +77,34 @@
 
                                 <li class="menu-item-has-children">
                                     <a class="fa fa-arrow-down">محصولات</a>
-                                    <ul class="sub-menu">
+                                   @* <ul class="sub-menu">
                                         @foreach (var category in Model.ProductCategories)
                                         {
                                             <li>
                                                 <a asp-page="./ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
                                             </li>
                                         }
-                                    </ul>
+                                    </ul>*@
+                                    @{
+                                        Func<dynamic, IHtmlContent> ShowMenu(List<ProductCategoryQueryModel> Categories, ProductCategoryQueryModel parent) =>       
+                                        @<ul class="sub-menu">
+                                            @foreach (var category in Categories){
+
+                                                    @if (((parent == null) && (category.ParentId == null)) || (parent?.Id == category.ParentId))
+                                                    {
+                                                        <li class="menu-item-has-children">
+                                                <a asp-page="./ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
+
+                                                            @if (category.Children != null && category.Children.Any())
+                                                            {
+                                                                @ShowMenu(category.Children, category)(null)
+                                                            }
+                                                        </li>
+                                                    }
+                                            }
+                                        </ul>;
+                                    }
+                                    @ShowMenu(Model.ProductCategories,null)(null)
                                 </li>
                                 <li class="menu-item-has-children">
                                     <a class="fa fa-arrow-down">مقالات</a>
@@ -150,7 +172,7 @@
                                             else
                                             {
                                                 <a asp-page="/Acount"> ورود/ ثبت نام</a>
-                                                
+
                                             }
                                         </div>
                                     </div>
