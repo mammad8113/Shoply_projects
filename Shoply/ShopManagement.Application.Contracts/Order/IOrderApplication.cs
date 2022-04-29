@@ -14,9 +14,10 @@ namespace ShopManagement.Application.Contracts.Order
         double GetamountBy(long id);
         long NewOrders();
         List<OrderViewModel> Search(OrderSearchModel model);
+      
         List<OrderItemViewModel> GetOrderItems(long id);
         Chart GetChartBar();
-        Chart GetChartLine();
+        Chart GetDonuthChart();
         double TotalPaymentForWekk();
         bool Show();
     }

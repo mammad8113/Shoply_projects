@@ -1,6 +1,8 @@
 ﻿using _0_Framework.Application;
+using _01_framwork.Applicatin;
 using _01_Shoplyquery.Contracts.Article;
 using _01_Shoplyquery.Contracts.Product;
+using AcountManagement.Infrastructure.EfCore;
 using BlogManagement.Infrastructure.EfCore;
 using CommentManagement.Domain.Comment.Agg;
 using CommentManagement.Infrastructure.EfCore;
@@ -17,15 +19,20 @@ namespace _01_Shoplyquery.Query
     {
         private readonly BlogContext blogContext;
         private readonly CommentContext commentContext;
-
-        public ArticleQuery(BlogContext blogContext, CommentContext commentContext)
+        private readonly AcountContext acountContext;
+        private readonly IAuthHelper authHelper;
+        public ArticleQuery(BlogContext blogContext, CommentContext commentContext, AcountContext acountContext, IAuthHelper authHelper)
         {
             this.blogContext = blogContext;
             this.commentContext = commentContext;
+            this.acountContext = acountContext;
+            this.authHelper=authHelper;
         }
 
         public ArticleQueryModel GetArticleDetals(string slug)
         {
+            var acounts = acountContext.Acounts.Select(x => new { x.Id, x.UserPhoto }).ToList();
+
             var article = blogContext.Articles.Include(x => x.ArticleCategory).Where(x => !x.IsRemove && x.PublishDate <= DateTime.Now).
                   Select(x => new ArticleQueryModel
                   {
@@ -59,8 +66,8 @@ namespace _01_Shoplyquery.Query
                     Name = x.Name,
                     Mobile = x.Mobile,
                     Message = x.Message,
+                    AcountId = x.AcountId,
                     ParentId = x.ParentId,
-                    Image = x.Image,
                     Children = MappChild(x.Children),
                     CreationDate = x.CreationDate.ToFarsi()
                 }).OrderByDescending(x => x.Id).ToList();
@@ -70,6 +77,8 @@ namespace _01_Shoplyquery.Query
 
             foreach (var comment in comments)
             {
+
+                comment.Image = acounts.FirstOrDefault(x => x.Id == comment.AcountId).UserPhoto;
                 if (comment.ParentId > 0 || comment.ParentId != null)
                     comment.Parent = comments.FirstOrDefault(x => x.Id == comment.ParentId)?.Name;
             }

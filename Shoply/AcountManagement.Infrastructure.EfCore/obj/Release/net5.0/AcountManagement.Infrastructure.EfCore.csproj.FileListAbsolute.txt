@@ -2,7 +2,6 @@ D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\bin\Release
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\bin\Release\net5.0\AcountManagement.Infrastructure.EfCore.runtimeconfig.json
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\bin\Release\net5.0\AcountManagement.Infrastructure.EfCore.runtimeconfig.dev.json
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\bin\Release\net5.0\AcountManagement.Infrastructure.EfCore.dll
-D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\bin\Release\net5.0\ref\AcountManagement.Infrastructure.EfCore.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\bin\Release\net5.0\AcountManagement.Infrastructure.EfCore.pdb
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\bin\Release\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\bin\Release\net5.0\AcountManagement.Application.Contracts.dll
@@ -22,3 +21,4 @@ D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\obj\Release
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\obj\Release\net5.0\ref\AcountManagement.Infrastructure.EfCore.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\obj\Release\net5.0\AcountManagement.Infrastructure.EfCore.pdb
 D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\obj\Release\net5.0\AcountManagement.Infrastructure.EfCore.genruntimeconfig.cache
+D:\Shoply_Project\Code\Shoply\AcountManagement.Infrastructure.EfCore\obj\Release\net5.0\refint\AcountManagement.Infrastructure.EfCore.dll

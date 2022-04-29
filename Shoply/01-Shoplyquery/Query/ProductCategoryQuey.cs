@@ -33,7 +33,7 @@ namespace _01_Shoplyquery.Query
 
         public List<ProductCategoryQueryModel> GetAll()
         {
-            return shopContext.ProductCategories.Include(x => x.Parent).Select(x => new ProductCategoryQueryModel
+            return shopContext.ProductCategories.Where(x => !x.IsRemoved).Include(x => x.Parent).Select(x => new ProductCategoryQueryModel
             {
                 Id = x.Id,
                 Picture = x.Picture,
@@ -53,7 +53,8 @@ namespace _01_Shoplyquery.Query
 
         public List<ProductCategoryQueryModel> GetCategoriesOverriding()
         {
-            return shopContext.ProductCategories.Include(x => x.Parent).Where(x => x.ParentId == null).Select(x => new ProductCategoryQueryModel
+
+            return shopContext.ProductCategories.Where(x => x.ParentId == null && !x.IsRemoved).Select(x => new ProductCategoryQueryModel
             {
                 Id = x.Id,
                 Picture = x.Picture,
@@ -67,7 +68,7 @@ namespace _01_Shoplyquery.Query
                 Slug = x.Slug,
                 ParentId = x.ParentId,
                 Parent = x.Parent.Name,
-                Children = MappChildren(x.Children)
+
             }).OrderByDescending(x => x.Id).ToList();
         }
 
@@ -94,9 +95,9 @@ namespace _01_Shoplyquery.Query
         }
         public List<ProductQueryModel> getProducts(ProductCategoryQueryModel category)
         {
-            if (category != null && category.Children.Any())
+            if (category != null && category.Children.Any() && category.Children.Count > 0)
             {
-                foreach (var children in category.Children)
+                foreach (var children in category.Children.Where(x => !x.IsRemoved))
                 {
                     var c = shopContext.ProductCategories.Include(x => x.Products).ThenInclude(x => x.ProductCategory)
                     .Select(x => new ProductCategoryQueryModel
@@ -106,11 +107,10 @@ namespace _01_Shoplyquery.Query
                         Keywords = x.Keywords,
                         Children = MappChildren(x.Children),
                         Products = MapProduct(x.Products)
-                    }).FirstOrDefault(x => x.Slug == children.Slug);
+                    }).FirstOrDefault(x => x.Id == children.Id);
                     if (c.Products.Any())
                     {
                         Products.AddRange(c.Products);
-
                     }
                     if (c.Children != null && c.Children.Any() && c.Children.Count >= 0)
                     {
@@ -126,14 +126,13 @@ namespace _01_Shoplyquery.Query
             var inventory = inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
             var discount = discountContext.CustomerDiscounts.Where(x => x.StartDiscount < DateTime.Now && x.EndDiscount > DateTime.Now)
                 .Select(x => new { x.ProductId, x.Discount }).ToList();
-            var categories = shopContext.ProductCategories.Where(x => x.IsRemoved == false)
-                .Include(x => x.Products).ThenInclude(x => x.ProductCategory).Where(x=>x.ParentId==null).Select(x => new ProductCategoryQueryModel
+            var categories = shopContext.ProductCategories.Where(x => x.IsRemoved == false).Where(x => x.ParentId == null)
+                .Include(x => x.Products).ThenInclude(x => x.ProductCategory).Select(x => new ProductCategoryQueryModel
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Products = MapProduct(x.Products),
                     Children = MappChildren(x.Children)
-
                 }).OrderByDescending(x => x.Id).ToList();
 
 
@@ -141,11 +140,7 @@ namespace _01_Shoplyquery.Query
             {
 
                 category.Products.AddRange(getProducts(category));
-                foreach (var children in category.Children)
-                {
-                    category.Products.AddRange(children.Products);
 
-                }
 
                 foreach (var product in category.Products)
                 {
@@ -182,7 +177,9 @@ namespace _01_Shoplyquery.Query
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
                 Slug = x.Slug,
+                CategorySlug = x.ProductCategory.Slug,
                 Category = x.ProductCategory.Name,
+                CategoryId = x.ProductCategoryId
             }).OrderByDescending(x => x.Id).ToList();
         }
 
@@ -208,6 +205,10 @@ namespace _01_Shoplyquery.Query
                 }).FirstOrDefault(x => x.Slug == slug);
 
             category.Products.AddRange(getProducts(category));
+            foreach (var children in category.Children)
+            {
+                category.Products.AddRange(children.Products);
+            }
             foreach (var product in category.Products)
             {
                 var productInventory = inventory.FirstOrDefault(x => x.ProductId == product.Id);
@@ -234,7 +235,7 @@ namespace _01_Shoplyquery.Query
             return category;
         }
 
-        public int Count(string? slug)
+        public int Count(string slug)
         {
             var quey = shopContext.Products.Where(x => !x.IsRemoved);
             if (!string.IsNullOrWhiteSpace(slug))
@@ -245,15 +246,17 @@ namespace _01_Shoplyquery.Query
 
         public List<Breadcrumb> GetParent(long? id)
         {
-            var category = shopContext.ProductCategories.Where(x => !x.IsRemoved).Include(x => x.Parent).Select(x => new { x.Id, x.Parent, x.ParentId })
+            var category = shopContext.ProductCategories.Where(x => !x.IsRemoved).Select(x => new { x.Id, x.Name, x.Slug })
+            .FirstOrDefault(x => x.Id == id);
+            var Parent = shopContext.ProductCategories.Where(x => !x.IsRemoved).Include(x => x.Parent).Select(x => new { x.Id, x.Parent, x.ParentId })
             .FirstOrDefault(x => x.Id == id)?.Parent;
 
-            if (category != null)
+            if (Parent != null)
             {
-                parents.Add(new Breadcrumb(category.Name, category.Id, category.Slug));
-                if (category.ParentId >= 0)
+                parents.Add(new Breadcrumb(Parent.Name, Parent.Id, Parent.Slug));
+                if (Parent.ParentId >= 0)
                 {
-                    GetParent(category.Id);
+                    GetParent(Parent.Id);
                 }
             }
             return parents.OrderBy(x => x.Id).ToList();
@@ -280,6 +283,15 @@ namespace _01_Shoplyquery.Query
                 Name = x.Name,
                 ParentId = x.ParentId,
                 Parent = x.Parent.Name,
+            }).FirstOrDefault(x => x.Id == id);
+        }
+
+        public ProductCategoryQueryModel GetCategoryName(long? id)
+        {
+            return shopContext.ProductCategories.Select(x => new ProductCategoryQueryModel
+            {
+                Id = x.Id,
+                Name = x.Name,
             }).FirstOrDefault(x => x.Id == id);
         }
     }

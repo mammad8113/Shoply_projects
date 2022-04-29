@@ -3332,6 +3332,7 @@
           "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0",
           "Microsoft.AspNetCore.Http.Features": "5.0.14",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0",
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.EntityFrameworkCore": "5.0.13",
           "MimeKit": "1.10.0",
           "Newtonsoft.Json": "13.0.1",
@@ -3417,6 +3418,21 @@
         },
         "runtime": {
           "bin/placeholder/AcountManagement.Infrastructure.EfCore.dll": {}
+        }
+      },
+      "AcountManagement.presentation.Api/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "01_framwork": "1.0.0",
+          "AcountManagement.Application.Contracts": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.5"
+        },
+        "compile": {
+          "bin/placeholder/AcountManagement.presentation.Api.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AcountManagement.presentation.Api.dll": {}
         }
       },
       "BlogManagement.Applicatio.Contracts/1.0.0": {
@@ -3749,7 +3765,8 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "01_framwork": "1.0.0",
-          "Microsoft.AspNetCore.Http.Features": "5.0.14"
+          "Microsoft.AspNetCore.Http.Features": "5.0.14",
+          "System.ComponentModel.Annotations": "5.0.0"
         },
         "compile": {
           "bin/placeholder/ShopManagement.Application.Contracts.dll": {}
@@ -10948,6 +10965,11 @@
       "path": "../AcountManagement.Infrastructure.EfCore/AcountManagement.Infrastructure.EfCore.csproj",
       "msbuildProject": "../AcountManagement.Infrastructure.EfCore/AcountManagement.Infrastructure.EfCore.csproj"
     },
+    "AcountManagement.presentation.Api/1.0.0": {
+      "type": "project",
+      "path": "../AcountManagement.presentation.Api/AcountManagement.presentation.Api.csproj",
+      "msbuildProject": "../AcountManagement.presentation.Api/AcountManagement.presentation.Api.csproj"
+    },
     "BlogManagement.Applicatio.Contracts/1.0.0": {
       "type": "project",
       "path": "../BlogManagement.Applicatio.Contracts/BlogManagement.Applicatio.Contracts.csproj",
@@ -11097,6 +11119,7 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "AcountManagement.Infrastructure.Configuration >= 1.0.0",
+      "AcountManagement.presentation.Api >= 1.0.0",
       "BlogManagement.Infrastructure.Config >= 1.0.0",
       "CommentManagement.Application.Contracts >= 1.0.0",
       "CommentManagement.Infrastructure.Config >= 1.0.0",
@@ -11139,6 +11162,9 @@
           "projectReferences": {
             "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Infrastructure.Configuration\\AcountManagement.Infrastructure.Configuration.csproj": {
               "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Infrastructure.Configuration\\AcountManagement.Infrastructure.Configuration.csproj"
+            },
+            "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.presentation.Api\\AcountManagement.presentation.Api.csproj": {
+              "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.presentation.Api\\AcountManagement.presentation.Api.csproj"
             },
             "D:\\Shoply_Project\\Code\\Shoply\\BlogManagement.Infrastructure.Config\\BlogManagement.Infrastructure.Config.csproj": {
               "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\BlogManagement.Infrastructure.Config\\BlogManagement.Infrastructure.Config.csproj"
@@ -11205,7 +11231,7 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.15, 5.0.15]"
+            "version": "[5.0.16, 5.0.16]"
           }
         ],
         "frameworkReferences": {
@@ -11216,7 +11242,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   },

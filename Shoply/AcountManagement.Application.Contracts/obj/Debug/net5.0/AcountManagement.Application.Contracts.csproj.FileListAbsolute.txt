@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\bin\Debug\net5.0\AcountManagement.Application.Contracts.deps.json
 D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\bin\Debug\net5.0\AcountManagement.Application.Contracts.dll
-D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\bin\Debug\net5.0\ref\AcountManagement.Application.Contracts.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\bin\Debug\net5.0\AcountManagement.Application.Contracts.pdb
 D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\bin\Debug\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\bin\Debug\net5.0\01_framwork.pdb
@@ -13,3 +12,4 @@ D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\obj\Debug\n
 D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\obj\Debug\net5.0\AcountManagement.Application.Contracts.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\obj\Debug\net5.0\ref\AcountManagement.Application.Contracts.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\obj\Debug\net5.0\AcountManagement.Application.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\AcountManagement.Application.Contracts\obj\Debug\net5.0\refint\AcountManagement.Application.Contracts.dll

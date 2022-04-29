@@ -27,7 +27,7 @@ function AddToCart(id, name, price, priceWithdiscount, picture) {
     }
     var countproduct = products.find(x => x.id == id).count;
     const settings = {
-        "url": "https://localhost:5001/api/Inventory",
+        "url": "https://iranshoply.ir/api/Inventory",
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -149,7 +149,7 @@ function ChangItemCount(id, totalId, count) {
     UpdateCart();
 
     const settings = {
-        "url": "https://localhost:5001/api/Inventory",
+        "url": "https://iranshoply.ir/api/Inventory",
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -183,7 +183,7 @@ function ChangItemCount(id, totalId, count) {
 async function SetCity(stateId) {
     debugger;
 
-    let response = await fetch(`https://localhost:5001/CheckOut?id=${stateId}&handler=City`)
+    let response = await fetch(`https://iranshoply.ir/CheckOut?id=${stateId}&handler=City`)
     let data = await response.json();
     var cities = document.getElementById("City");
     cities.options.length = 0;
@@ -194,7 +194,7 @@ async function SetCity(stateId) {
     }
 
 }
-debugger;
+
 function Set() {
     debugger;
     var value = $("#State").val();
@@ -207,6 +207,97 @@ function Set() {
 };
 
 
+
+
+var minutes;
+var seconds;
+var set_inteval;
+function otp_timer() {
+    seconds -= 1;
+    document.getElementById('seconds').innerHTML = seconds;
+    document.getElementById('minutes').innerHTML = minutes;
+    if (seconds == 0) {
+        if (minutes > 0) {
+            seconds = 60;
+            minutes -= 1;
+        } else {
+            minutes = 0;
+            document.getElementById('minutes').innerHTML = minutes;
+            clearInterval(set_inteval);
+            minutes = 0;
+            seconds = 0;
+            document.getElementById('seconds').innerHTML = '00';
+            document.getElementById('minutes').innerHTML = '0';
+            var div = document.getElementById("CodeWrapper");
+            div.style.display = "none"
+            document.getElementById("BtnMobile").style.display = "none";
+            document.getElementById("BtnGetcode").style.display = "block";
+        }
+    }
+}
+
+
+function startTimer() {
+    minutes = 1;
+    seconds = 10;
+    document.getElementById('seconds').innerHTML = seconds;
+    document.getElementById('minutes').innerHTML = minutes;
+    set_inteval = setInterval('otp_timer()', 1000);
+}
+
+
+
+let code;
+let Id;
+async function GetPassword() {
+    debugger;
+    var mobile = $("#Mobile").val();
+    let response = await fetch(`https://iranshoply.ir/api/Acount`, {
+        method: "Post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ "Mobile": mobile })
+    });
+
+    var data = await response.json();
+    if (data.isSuccedded) {
+        document.getElementById("ErrorMessage").style.display="none";
+        code = data.code;
+        Id = data.id;
+        var div = document.getElementById("CodeWrapper");
+        div.style.display = "block"
+        var BtnGetcode = document.getElementById("BtnGetcode");
+        BtnGetcode.style.display = "none";
+        var BtnMobile = document.getElementById("BtnMobile");
+        BtnMobile.style.display = "block";
+        startTimer();
+    } else {
+        let ErrorMessage = document.getElementById("ErrorMessage");
+        ErrorMessage.innerHTML = `${data.message}`
+        ErrorMessage.style.display = "block";
+    }
+};
+
+function CheckCode() {
+    debugger;
+    var Code = $("#Code").val();
+    if (Code == code) {
+        window.location.href = `https://iranshoply.ir/ChangPassword/${Id}`;
+    } else {
+        document.getElementById("ErrorMessage").style.display = "block";
+        $("#ErrorMessage").text("کد ورودی اشتباه است");
+    }
+};
+
+function ChangMobile() {
+    debugger;
+    document.getElementById("BtnMobile").style.display = "none";
+    document.getElementById("CodeWrapper").style.display = "none";
+    document.getElementById("BtnGetcode").style.display = "block";
+    clearInterval(set_inteval);
+
+}
 
 
 

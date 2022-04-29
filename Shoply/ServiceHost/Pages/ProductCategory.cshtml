@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <!--=======  breadcrumb wrpapper  =======-->
                 <div class="breadcrumb-wrapper">
-                    <img src="~/Upload/@Model.category.Picture" />
+                    <img src="~/theme/assets/img/backgrounds/category-image-1820x400.jpg" />
                     <!--=======  breadcrumb content  =======-->
                     <div class="breadcrumb-content">
                         <h1 class="breadcrumb-content__title">@Model.category.Name</h1>
@@ -22,7 +22,9 @@
                             <li><a asp-page="./Index">صفحه اصلی</a></li>
                             @foreach (var category in categories)
                             {
-                                <li class="active">@category.Name</li>
+                                <li class="active">
+                                    <a asp-page="/ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
+                                </li>
                             }
                             <li class="active">@Model.category.Name</li>
                         </ul>
@@ -151,7 +153,7 @@
                             </div>
 
                             <!--=======  pagination area =======-->
-                       
+
                         </div>
                     </div>
                 </div>

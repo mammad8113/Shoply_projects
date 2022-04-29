@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application;
 using _01_framwork.Applicatin;
+using _01_framwork.Applicatin.Sms;
 using AcountManagement.Application.Contracts.Acount;
 using AcountManagement.Domain.Acount.Agg;
 using AcountManagement.Domain.Rol.Agg;
@@ -18,14 +19,16 @@ namespace AcountManagement.Application.Acount
         private readonly IFileUploader fileUploader;
         private readonly IAuthHelper authHelper;
         private readonly IRolRepository rolRepository;
+        private readonly ISmsService smsService;
         public AcountApplication(IAcountRepository acountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader, IAuthHelper authHelper,
-            IRolRepository rolRepository)
+            IRolRepository rolRepository, ISmsService smsService)
         {
             this.acountRepository = acountRepository;
             this.passwordHasher = passwordHasher;
             this.fileUploader = fileUploader;
             this.authHelper = authHelper;
             this.rolRepository = rolRepository;
+            this.smsService = smsService;
         }
 
         public OperationResult ChangPassword(ChangPassword command)
@@ -54,6 +57,8 @@ namespace AcountManagement.Application.Acount
 
             if (command.RolId == 0)
             {
+                command.RolId = 2;
+
                 if (command.Password != command.RePassword)
                     return operation.Faild(ApplicationMessage.PasswordNotMath);
             }
@@ -69,13 +74,10 @@ namespace AcountManagement.Application.Acount
             acountRepository.Create(acount);
             acountRepository.Save();
 
-            if (command.RolId == 0)
-            {
-                var permissions = rolRepository.Get(acount.RolId).Permissions.Select(x => x.Code).ToList();
+            var permissions = rolRepository.Get(acount.RolId).Permissions.Select(x => x.Code).ToList();
 
-                var Auth = new AuthViewModel(acount.Id, acount.Fullname, acount.Username, acount.RolId, acount.Password, acount.Mobile,DateTime.Now.ToFarsi(),permissions);
-                authHelper.Signin(Auth);
-            }
+            var Auth = new AuthViewModel(acount.Id, acount.Fullname, acount.Username, acount.RolId, acount.Password, acount.Mobile, DateTime.Now.ToFarsi(), permissions);
+            authHelper.Signin(Auth);
 
             return operation.Success();
         }
@@ -120,6 +122,34 @@ namespace AcountManagement.Application.Acount
             return acountRepository.GetDetals(id);
         }
 
+        public PasswordResult GetPassword(RegesterMobil command)
+        {
+            var operation = new PasswordResult();
+            var acount = acountRepository.GetBy(x => x.Mobile == command.Mobile);
+            if (acount != null)
+            {
+                if (acount.Mobile != command.Mobile)
+                    return operation.Faild("همچین شماره ای در سیستم موجود نیست");
+
+                var random = new Random();  
+                int num1 = random.Next(0, 9);
+                int num2 = random.Next(0, 9);
+                int num3 = random.Next(0, 9);
+                int num4 = random.Next(0, 9);
+                var code = $"{num1}{num2}{num3}{num4}";
+                smsService.Send(command.Mobile, code);
+                return operation.Successs("عملیات با موفقعیت انجام شد", code, acount.Id);
+            }
+            return operation.Faild("همچین شماره ای در سیستم موجود نیست");
+
+        }
+
+        public string GetPhoto(long id)
+        {
+            
+            return acountRepository.GetPhoto(id);
+        }
+
         public OperationResult Login(Login command)
         {
             var operation = new OperationResult();
@@ -134,7 +164,7 @@ namespace AcountManagement.Application.Acount
 
             var permissions = rolRepository.Get(acount.RolId).Permissions.Select(x => x.Code).ToList();
 
-            var Auth = new AuthViewModel(acount.Id, acount.Fullname, acount.Username, acount.RolId, acount.Password, acount.Mobile,DateTime.Now.ToFarsi(), permissions);
+            var Auth = new AuthViewModel(acount.Id, acount.Fullname, acount.Username, acount.RolId, acount.Password, acount.Mobile, DateTime.Now.ToFarsi(), permissions);
 
             authHelper.Signin(Auth);
             return operation.Success();
@@ -144,6 +174,11 @@ namespace AcountManagement.Application.Acount
         public void Logout()
         {
             authHelper.SignOut();
+        }
+
+        public int NewAcount()
+        {
+           return acountRepository.NewAcount();
         }
 
         public List<AcountViewModel> Search(AcountSearchModel searchModel)

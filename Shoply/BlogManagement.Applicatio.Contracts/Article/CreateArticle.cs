@@ -13,16 +13,15 @@ namespace BlogManagement.Application.Contracts.Article
     public class CreateArticle
     {
         [Required(ErrorMessage = VallidationMessage.Message)]
-      
         public string Title { get; set; }
-        [MaxSizeAttribut(3*1024*1024,ErrorMessage ="حجم فایل نباید بیشتر از 3 مگابایت باشد")]
-        [FileExtention(".png",".jpeg",".jpg",ErrorMessage ="فرمت فایل درست نیست")]
+        [MaxSizeAttribut(3 * 1024 * 1024, ErrorMessage = "حجم فایل نباید بیشتر از 3 مگابایت باشد")]
+        [FileExtention(".png", ".jpeg", ".jpg", ErrorMessage = "فرمت فایل درست نیست")]
         public IFormFile Picture { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
         [MaxLength(106)]
         public string ShortDescription { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
-      
+
         public string Description { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
 

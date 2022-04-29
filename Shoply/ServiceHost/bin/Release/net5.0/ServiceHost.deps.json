@@ -34,6 +34,7 @@
       "ServiceHost/1.0.0": {
         "dependencies": {
           "AcountManagement.Infrastructure.Configuration": "1.0.0",
+          "AcountManagement.presentation.Api": "1.0.0",
           "BlogManagement.Infrastructure.Config": "1.0.0",
           "CommentManagement.Application.Contracts": "1.0.0",
           "CommentManagement.Infrastructure.Config": "1.0.0",
@@ -2685,6 +2686,19 @@
         },
         "compile": {
           "AcountManagement.Infrastructure.EfCore.dll": {}
+        }
+      },
+      "AcountManagement.presentation.Api/1.0.0": {
+        "dependencies": {
+          "01_framwork": "1.0.0",
+          "AcountManagement.Application.Contracts": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.5"
+        },
+        "runtime": {
+          "AcountManagement.presentation.Api.dll": {}
+        },
+        "compile": {
+          "AcountManagement.presentation.Api.dll": {}
         }
       },
       "BlogManagement.Applicatio.Contracts/1.0.0": {
@@ -6167,6 +6181,11 @@
       "sha512": ""
     },
     "AcountManagement.Infrastructure.EfCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AcountManagement.presentation.Api/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

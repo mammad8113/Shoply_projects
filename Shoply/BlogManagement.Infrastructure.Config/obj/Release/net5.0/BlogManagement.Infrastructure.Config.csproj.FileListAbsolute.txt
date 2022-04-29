@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Release\net5.0\BlogManagement.Infrastructure.Config.deps.json
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Release\net5.0\BlogManagement.Infrastructure.Config.dll
-D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Release\net5.0\ref\BlogManagement.Infrastructure.Config.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Release\net5.0\BlogManagement.Infrastructure.Config.pdb
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Release\net5.0\01-Shoplyquery.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Release\net5.0\01_framwork.dll
@@ -53,3 +52,4 @@ D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\obj\Release\n
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\obj\Release\net5.0\BlogManagement.Infrastructure.Config.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\obj\Release\net5.0\ref\BlogManagement.Infrastructure.Config.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\obj\Release\net5.0\BlogManagement.Infrastructure.Config.pdb
+D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\obj\Release\net5.0\refint\BlogManagement.Infrastructure.Config.dll

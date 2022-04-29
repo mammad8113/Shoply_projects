@@ -12,11 +12,14 @@ namespace AcountManagement.Application.Contracts.Acount
         OperationResult Create(RegisterAcount command);
         OperationResult Edit(EditAcount command);
         OperationResult ChangPassword(ChangPassword command);
+        PasswordResult GetPassword(RegesterMobil command);
         OperationResult Login(Login command);
         EditAcount GetDetals(long id);
         AcountViewModel GetAcount(long id);
         List<AcountViewModel> Search(AcountSearchModel searchModel);
         public List<AcountViewModel> GetAll();
         void Logout();
+        int NewAcount();
+        public string GetPhoto(long id);
     }
 }

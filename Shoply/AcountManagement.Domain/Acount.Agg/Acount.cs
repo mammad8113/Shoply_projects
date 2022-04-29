@@ -15,7 +15,7 @@ namespace AcountManagement.Domain.Acount.Agg
         public string Password { get; private set; }
         public string UserPhoto { get; private set; }
         public long RolId { get; private set; }
-        public Rol.Agg.Rol Rol { get; private set; }
+        public Rol.Agg.Role Rol { get; private set; }
 
         protected Acount()
         {

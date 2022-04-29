@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\bin\Release\net5.0\InventoryManagement.Presentation.Api.deps.json
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\bin\Release\net5.0\InventoryManagement.Presentation.Api.dll
-D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\bin\Release\net5.0\ref\InventoryManagement.Presentation.Api.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\bin\Release\net5.0\InventoryManagement.Presentation.Api.pdb
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\bin\Release\net5.0\01-Shoplyquery.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\bin\Release\net5.0\01_framwork.dll
@@ -51,3 +50,4 @@ D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\obj\Release\n
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\obj\Release\net5.0\InventoryManagement.Presentation.Api.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\obj\Release\net5.0\ref\InventoryManagement.Presentation.Api.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\obj\Release\net5.0\InventoryManagement.Presentation.Api.pdb
+D:\Shoply_Project\Code\Shoply\InventoryManagement.Presentation.Api\obj\Release\net5.0\refint\InventoryManagement.Presentation.Api.dll

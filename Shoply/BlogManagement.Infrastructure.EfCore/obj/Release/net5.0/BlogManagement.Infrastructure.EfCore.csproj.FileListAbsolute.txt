@@ -2,7 +2,6 @@ D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\bin\Release\n
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\bin\Release\net5.0\BlogManagement.Infrastructure.EfCore.runtimeconfig.json
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\bin\Release\net5.0\BlogManagement.Infrastructure.EfCore.runtimeconfig.dev.json
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\bin\Release\net5.0\BlogManagement.Infrastructure.EfCore.dll
-D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\bin\Release\net5.0\ref\BlogManagement.Infrastructure.EfCore.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\bin\Release\net5.0\BlogManagement.Infrastructure.EfCore.pdb
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\bin\Release\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\bin\Release\net5.0\BlogManagement.Applicatio.Contracts.dll
@@ -20,3 +19,4 @@ D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\obj\Release\n
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\obj\Release\net5.0\ref\BlogManagement.Infrastructure.EfCore.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\obj\Release\net5.0\BlogManagement.Infrastructure.EfCore.pdb
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\obj\Release\net5.0\BlogManagement.Infrastructure.EfCore.genruntimeconfig.cache
+D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.EfCore\obj\Release\net5.0\refint\BlogManagement.Infrastructure.EfCore.dll

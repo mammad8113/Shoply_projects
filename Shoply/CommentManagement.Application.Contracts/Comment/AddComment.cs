@@ -13,7 +13,7 @@ namespace CommentManagement.Application.Contracts.Comment
         public string Mobile { get; set; }
         public long OwnerRecordId { get; set; }
         public int type { get; set; }
-        public string Image { get; set; }
+        public long AcountId { get; set; }
         public long? ParentId { get; set; }
     }
 }

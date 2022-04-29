@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AcountManagement.Infrastructure.EfCore.Repsoitory
 {
-    public class RolRepository : BaseRepository<long, Rol>, IRolRepository
+    public class RolRepository : BaseRepository<long, Role>, IRolRepository
     {
         private AcountContext _context;
 

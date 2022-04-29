@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Debug\net5.0\InventoryManagement.Application.deps.json
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Debug\net5.0\InventoryManagement.Application.dll
-D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Debug\net5.0\ref\InventoryManagement.Application.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Debug\net5.0\InventoryManagement.Application.pdb
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\obj\Debug\net5.0\InventoryManagement.Application.csproj.AssemblyReference.cache
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\obj\Debug\net5.0\InventoryManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
@@ -31,3 +30,4 @@ D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Debug\net5.0\A
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Debug\net5.0\AcountManagement.Application.Contracts.pdb
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Debug\net5.0\AcountManagement.Domain.pdb
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Debug\net5.0\AcountManagement.Infrastructure.EfCore.pdb
+D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\obj\Debug\net5.0\refint\InventoryManagement.Application.dll

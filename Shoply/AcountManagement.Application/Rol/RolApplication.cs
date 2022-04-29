@@ -23,8 +23,12 @@ namespace AcountManagement.Application.Rol
             var operation = new OperationResult();
             if (rolRepository.Exist(x => x.Name == command.Name))
                 return operation.Faild(ApplicationMessage.DoblicatedMessage);
-
-            var rol = new Domain.Rol.Agg.Rol(command.Name, new List<Permission>());
+            var permissions = new List<Permission>();
+            if (command.Permissions != null)
+            {
+                command.Permissions.ForEach(code => permissions.Add(new Permission(code)));
+            }
+            var rol = new Domain.Rol.Agg.Role(command.Name, permissions);
 
             rolRepository.Create(rol);
             rolRepository.Save();
@@ -42,9 +46,10 @@ namespace AcountManagement.Application.Rol
                 return operation.Faild(ApplicationMessage.DoblicatedMessage);
 
             var permissions = new List<Permission>();
-
-            command.Permissions.ForEach(code => permissions.Add(new Permission(code)));
-
+            if (command.Permissions != null)
+            {
+                command.Permissions.ForEach(code => permissions.Add(new Permission(code)));
+            }
             rol.Edit(command.Name, permissions);
             rolRepository.Save();
             return operation.Success();

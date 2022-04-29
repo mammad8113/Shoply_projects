@@ -6,7 +6,7 @@
         public int Code { get; set; }
         public string Name { get; set; }
         public long RolId { get; set; }
-        public Rol Rol { get; set; }
+        public Role Rol { get; set; }
 
         public Permission(int code, string name)
         {

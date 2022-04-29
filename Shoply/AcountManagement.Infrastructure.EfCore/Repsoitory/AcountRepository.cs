@@ -30,6 +30,7 @@ namespace AcountManagement.Infrastructure.EfCore.Repsoitory
                 Username = x.Username,
                 Mobile = x.Mobile,
                 RolId = x.RolId,
+                
             }).FirstOrDefault(x => x.Id == id);
         }
 
@@ -92,6 +93,20 @@ namespace AcountManagement.Infrastructure.EfCore.Repsoitory
                 Rol = x.Rol.Name
             }).FirstOrDefault(x => x.Id == id);
         }
-        
+
+        public int NewAcount()
+        {
+            var week = DateTime.Now.Day - 1;
+            var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, week);
+            var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1);
+
+            return _context.Acounts.Where(x=>x.CreationDate>=startDate&&x.CreationDate<=endDate).Select(x => x.Id).Count();
+
+        }
+
+        public string GetPhoto(long id)
+        {
+            return _context.Acounts.Select(x => new { x.UserPhoto, x.Id }).FirstOrDefault(x => x.Id == id).UserPhoto;
+        }
     }
 }

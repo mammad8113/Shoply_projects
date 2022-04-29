@@ -9,5 +9,6 @@ namespace _01_framwork.Applicatin
     public static class VallidationMessage
     {
         public const string Message = "این فیلد اجباری است.";
+        public const string Maxlenght = "این فیلد اجباری است.";
     }
 }

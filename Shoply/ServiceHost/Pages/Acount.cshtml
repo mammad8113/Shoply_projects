@@ -30,11 +30,10 @@
                     <div class="page-content-wrapper">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6">
-                                @if (Model.LoginMessage != null)
+                                @if (!string.IsNullOrWhiteSpace(Model.LoginMessage))
                                 {
-                                    <div class="alert alert-danger">@Model.LoginMessage</div>
+                                    <p class="alert alert-danger">@Model.LoginMessage</p>
                                 }
-
                                 <form method="post" asp-page-handler="Login">
                                     <div class="login-form">
                                         <h4 class="login-title">ورود</h4>
@@ -48,9 +47,9 @@
                                                 <input type="password" name="Password" id="Password" placeholder="رمز عبور">
                                             </div>
                                             <div class="col-sm-6 text-left text-sm-right">
-                                                <a href="#" class="forget-pass-link"> رمز عبور خود را فراموش کرده اید؟</a>
+                                                <a class="forget-pass-link" asp-page="./RigesterMobile"> رمز عبور خود را فراموش کرده اید؟</a>
                                             </div>
-                                            
+
 
                                             <div class="col-md-12">
                                                 <button type="submit" class="register-button">ورود</button>
@@ -62,12 +61,11 @@
                                 </form>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
-                                 
-                                 @if (!string.IsNullOrWhiteSpace( Model.registerMessage ))
+
+                                @if (!string.IsNullOrWhiteSpace(Model.registerMessage))
                                 {
                                     <p class="alert alert-danger">@Model.registerMessage</p>
                                 }
-
                                 <form method="post" asp-page-handler="Register">
 
                                     <div class="login-form">

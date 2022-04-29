@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\bin\Release\net5.0\CommentManagement.Domain.deps.json
 D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\bin\Release\net5.0\CommentManagement.Domain.dll
-D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\bin\Release\net5.0\ref\CommentManagement.Domain.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\bin\Release\net5.0\CommentManagement.Domain.pdb
 D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\bin\Release\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\bin\Release\net5.0\CommentManagement.Application.Contracts.dll
@@ -15,3 +14,4 @@ D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\obj\Release\net5.0\Commen
 D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\obj\Release\net5.0\CommentManagement.Domain.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\obj\Release\net5.0\ref\CommentManagement.Domain.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\obj\Release\net5.0\CommentManagement.Domain.pdb
+D:\Shoply_Project\Code\Shoply\CommentManagement.Domain\obj\Release\net5.0\refint\CommentManagement.Domain.dll

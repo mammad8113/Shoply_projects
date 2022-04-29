@@ -8,22 +8,23 @@ namespace ShopManagement.Application.Contracts.Product
 {
     public class CreateProduct
     {
-        [Required(ErrorMessage =VallidationMessage.Message)]
+        [Required(ErrorMessage = VallidationMessage.Message)]
+        [DataType(DataType.Text)]
         public string Name { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
-
         public string Code { get; set; }
         public string Description { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
-
+        [MaxLength(800, ErrorMessage = "تعداد کاراکتر نمیتواند بیشتر از 800 کاراکتر باشد.")]
         public string ShortDescription { get; set; }
 
         [FileExtention(".jpeg", ".jpg", ".png", ErrorMessage = "فرمت عکس مجاز نیست")]
         [MaxSizeAttribut(3 * 1024 * 1024, ErrorMessage = "فایل نباید حجیم تر از 3 مگابایت باشد")]
+        [DataType(DataType.Upload, ErrorMessage = "یک عکس انتخاب نمایید")]
         public IFormFile Picture { get; set; }
         public string PictureAlt { get; set; }
         public string PictureTitle { get; set; }
-     
+
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string Slug { get; set; }
@@ -33,9 +34,9 @@ namespace ShopManagement.Application.Contracts.Product
         [Required(ErrorMessage = VallidationMessage.Message)]
 
         public string KeyWords { get; set; }
-        [Range(1,100000,ErrorMessage = VallidationMessage.Message)]
+        [Range(1, 100000, ErrorMessage = VallidationMessage.Message)]
 
         public long ProductCategoryId { get; set; }
-        public List<ProductCategoryViewModel> ProductCategories{ get; set; }
+        public List<ProductCategoryViewModel> ProductCategories { get; set; }
     }
 }

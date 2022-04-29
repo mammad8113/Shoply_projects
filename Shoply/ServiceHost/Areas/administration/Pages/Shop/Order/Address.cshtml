@@ -1,0 +1,35 @@
+﻿@using ShopManagement.Application.Contracts.Address
+@model AddressViewModel
+@{
+}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title"> ادرس  </h4>
+
+</div>
+<p id="Alert" class="alert-danger"></p>
+
+<div class="modal-body">
+    <table class="table table-bordered " style="background-color:deepskyblue;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>استان</th>
+                <th>شهر</th>
+                <th>ادرس کامل</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.State</td>
+                <td>@Model.City</td>
+                <td>@Model.Street</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+</div>
+

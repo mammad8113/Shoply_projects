@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\bin\Debug\net5.0\DiscountManagement.Application.Contracts.deps.json
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\bin\Debug\net5.0\DiscountManagement.Application.Contracts.dll
-D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\bin\Debug\net5.0\ref\DiscountManagement.Application.Contracts.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\bin\Debug\net5.0\DiscountManagement.Application.Contracts.pdb
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\bin\Debug\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\bin\Debug\net5.0\01_framwork.pdb
@@ -15,3 +14,4 @@ D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\obj\Debug
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\obj\Debug\net5.0\DiscountManagement.Application.Contracts.pdb
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\bin\Debug\net5.0\ShopManagement.Application.Contracts.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\bin\Debug\net5.0\ShopManagement.Application.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\DiscountManagement.Application.Contracts\obj\Debug\net5.0\refint\DiscountManagement.Application.Contracts.dll

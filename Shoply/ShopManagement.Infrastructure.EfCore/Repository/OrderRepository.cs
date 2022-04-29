@@ -3,7 +3,9 @@ using _01_framwork;
 using _01_framwork.Infrastructure;
 using AcountManagement.Infrastructure.EfCore;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Application.Contracts.Address;
 using ShopManagement.Application.Contracts.Order;
+using ShopManagement.Domain.Address.Agg;
 using ShopManagement.Domain.Order.Agg;
 using System;
 using System.Collections.Generic;
@@ -50,7 +52,7 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
             chart.BackgroundColor = new List<string> { "#f32" };
             return chart;
         }
-        public Chart GetChartLine()
+        public Chart GetDonuthChart()
         {
             var chart = new Chart("گزارش فروش محصولات فروخته شده در هفته", "#000");
             var TotalorderItems = new List<OrderItemViewModel>();
@@ -61,7 +63,10 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
             var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
             var orders = _shopContext.Orders
-                .Select(x => new { x.OrderItems, x.Id, x.PayAmount }).AsNoTracking().ToList();
+                .Where(x => x.CreationDate >= startDate && x.CreationDate <= endDate)
+                .Select(x => new { x.OrderItems, x.Id, x.PayAmount })
+                .AsNoTracking()
+                .ToList();
 
             var totalPricePayment = orders.Sum(x => x.PayAmount);
 
@@ -80,7 +85,7 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
                 }).ToList();
                 TotalorderItems.AddRange(orderItems);
             }
-            var productsid = DeletDoblicated(TotalorderItems.Select(x => x.ProductId).ToList());
+            var productsid = TotalorderItems.Select(x => x.ProductId).Distinct().ToList();
             double payment = 0;
             foreach (var id in productsid)
             {
@@ -108,8 +113,8 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
                 if (!newidies.Contains(id))
                     newidies.Add(id);
             }
-
             return newidies;
+
         }
         public List<OrderItemViewModel> GetOrderItems(long id)
         {
@@ -130,7 +135,7 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
 
             foreach (var item in orderItems)
             {
-                item.Product = products.FirstOrDefault(x => x.Id == item.ProductId).Name;
+                item.Product = products.FirstOrDefault(x => x.Id == item.ProductId)?.Name;
             }
             return orderItems.OrderByDescending(x => x.Id).ToList();
         }
@@ -138,7 +143,7 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
         public List<OrderViewModel> Search(OrderSearchModel model)
         {
             var acounts = AcountContext.Acounts.Select(x => new { x.Id, x.Fullname }).ToList();
-            var query = _shopContext.Orders.Select(x => new OrderViewModel
+            var query = _shopContext.Orders.Include(x => x.Address).Select(x => new OrderViewModel
             {
                 Id = x.Id,
                 IssueTrakingNo = x.IssueTrakingNo,
@@ -149,9 +154,9 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
                 IsCanceled = x.IsCanceled,
                 IsPiad = x.IsPiad,
                 RefId = x.RefId,
+                Address = MappAddress(x.Address),
                 TotalAmount = x.TotalAmount,
                 CreationDate = x.CreationDate.ToFarsi(),
-
             });
 
             query = query.Where(x => x.IsCanceled == model.IsCancel);
@@ -172,9 +177,20 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
             return orders;
         }
 
+        private static AddressViewModel MappAddress(Address address)
+        {
+            return new AddressViewModel
+            {
+                Id = address.Id,
+                City = Cities.GetBy(address.City).Name,
+                State = States.getBy(address.State).Name,
+                Street = address.Street,
+            };
+        }
+
         public long NewOrders()
         {
-   
+
             return _shopContext.Orders.Where(x => !x.IsShow).Count();
         }
 
@@ -187,10 +203,10 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
             }).ToList();
         }
 
-       public List<long> OrderIdies()
+        public List<long> OrderIdies()
         {
 
-             return _shopContext.Orders.OrderByDescending(x=>x.Id).Select(x => x.Id).ToList();
+            return _shopContext.Orders.OrderByDescending(x => x.Id).Select(x => x.Id).ToList();
 
         }
 
@@ -198,9 +214,12 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
         {
             var week = DateTime.Now.Day - 7;
             var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, week);
-            var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day+1);
+            var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1);
             var total = _shopContext.Orders.Where(x => x.CreationDate >= startDate && x.CreationDate <= endDate).Select(x => new { x.Id, x.PayAmount }).ToList();
             return total.Sum(x => x.PayAmount);
         }
+
+
+
     }
 }

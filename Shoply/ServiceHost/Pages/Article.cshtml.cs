@@ -44,7 +44,7 @@ namespace ServiceHost.Pages
         public IActionResult OnPost(AddComment command, string ArticleSlug)
         {
             command.type = CommentType.Article;
-            command.Image = acountApplication.GetAcount(authHelper.CurrentAccountId()).UserPhoto;
+            command.AcountId = authHelper.CurrentAccountId();
             var result = commentApplication.Add(command);
 
             return RedirectToPage("./Article", new { id = ArticleSlug });

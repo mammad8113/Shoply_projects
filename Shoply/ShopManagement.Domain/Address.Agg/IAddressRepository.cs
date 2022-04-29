@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace ShopManagement.Domain.Address.Agg
 {
-    public interface IAddressRepository:IRepository<long,Address>
+    public interface IAddressRepository : IRepository<long, Address>
     {
         EditAddress GetDetals(long id);
+        AddressViewModel GetAddress(long id);
         List<AddressViewModel> GetAll();
     }
 }

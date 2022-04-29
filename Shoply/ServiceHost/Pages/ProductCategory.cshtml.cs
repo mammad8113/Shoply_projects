@@ -17,24 +17,10 @@ namespace ServiceHost.Pages
             this.productCategoryQuery = productCategoryQuery;
         }
 
-        public void OnGet(string id,int p=1)
-        {
-            slug = id;
-            string numbers = HttpContext.Request.Query["number"];
-            if (numbers==null)
-            {
-                numbers = "3";
-            }
-            float count = productCategoryQuery.Count(id);
-             this.Pages = new CustomPage(p,count,int.Parse(numbers), "ProductCategory");
-            category = productCategoryQuery.GetProductCategoryWithProductsForPagationBy(id);
-
-        }
-        public IActionResult OnGetPage(string id)
+        public void OnGet(string id)
         {
             category = productCategoryQuery.GetProductCategoryWithProductsForPagationBy(id);
-            var product = category.Products;
-            return new JsonResult(category);
         }
+    
     }
 }

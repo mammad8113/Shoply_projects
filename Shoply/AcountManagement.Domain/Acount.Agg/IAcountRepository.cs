@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 
 namespace AcountManagement.Domain.Acount.Agg
 {
-    public interface IAcountRepository:IRepository<long,Acount>
+    public interface IAcountRepository : IRepository<long, Acount>
     {
         EditAcount GetDetals(long id);
         public AcountViewModel GetAcount(long id);
         List<AcountViewModel> Search(AcountSearchModel searchModel);
         public List<AcountViewModel> GetAcounts();
+        int NewAcount();
+        string GetPhoto(long id);
     }
 }

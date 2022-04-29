@@ -5,6 +5,6 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\Shoply_Project\Publish</_PublishTargetUrl>
-    <History>True|2022-04-12T04:44:40.7224130Z;</History>
+    <History>True|2022-04-25T14:47:45.7016275Z;True|2022-04-24T23:46:42.5175581+04:30;True|2022-04-22T01:27:44.8843554+04:30;True|2022-04-16T23:25:24.6512941+04:30;True|2022-04-16T22:45:16.9360947+04:30;True|2022-04-13T11:10:17.8265532+04:30;True|2022-04-12T09:14:40.7224130+04:30;</History>
   </PropertyGroup>
 </Project>

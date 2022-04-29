@@ -2248,6 +2248,7 @@
           "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0",
           "Microsoft.AspNetCore.Http.Features": "5.0.14",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0",
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.EntityFrameworkCore": "5.0.13",
           "MimeKit": "1.10.0",
           "Newtonsoft.Json": "13.0.1",
@@ -2485,7 +2486,8 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "01_framwork": "1.0.0",
-          "Microsoft.AspNetCore.Http.Features": "5.0.14"
+          "Microsoft.AspNetCore.Http.Features": "5.0.14",
+          "System.ComponentModel.Annotations": "5.0.0"
         },
         "compile": {
           "bin/placeholder/ShopManagement.Application.Contracts.dll": {}
@@ -8015,7 +8017,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   },

@@ -235,5 +235,7 @@ namespace _01_Shoplyquery.Contracts.Slide
 
             return cartItems;
         }
+
+      
     }
 }

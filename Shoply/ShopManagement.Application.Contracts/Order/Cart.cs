@@ -11,6 +11,7 @@ namespace ShopManagement.Application.Contracts.Order
         public long AddressId { get; set; }
         public List<CartItem> CartItems { get; set; }
 
+
         public Cart()
         {
             CartItems = new List<CartItem>();
@@ -19,7 +20,7 @@ namespace ShopManagement.Application.Contracts.Order
         public void Add(CartItem cartItem)
         {
             CartItems.Add(cartItem);
-            TotalPrice+=cartItem.TotalPrice;
+            TotalPrice += cartItem.TotalPrice;
             TotalDiscountPrice += cartItem.DiscountAmount;
             PaymentPrice += cartItem.ItemPayAmount;
 
@@ -33,7 +34,7 @@ namespace ShopManagement.Application.Contracts.Order
         public void SetAddress(long Address)
         {
             this.AddressId = Address;
-                
+
         }
     }
 }

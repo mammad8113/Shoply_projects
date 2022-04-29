@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Release\net5.0\InventoryManagement.Application.deps.json
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Release\net5.0\InventoryManagement.Application.dll
-D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Release\net5.0\ref\InventoryManagement.Application.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Release\net5.0\InventoryManagement.Application.pdb
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Release\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\bin\Release\net5.0\AcountManagement.Application.Contracts.dll
@@ -31,3 +30,4 @@ D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\obj\Release\net5.0
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\obj\Release\net5.0\InventoryManagement.Application.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\obj\Release\net5.0\ref\InventoryManagement.Application.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\obj\Release\net5.0\InventoryManagement.Application.pdb
+D:\Shoply_Project\Code\Shoply\InventoryManagement.Application\obj\Release\net5.0\refint\InventoryManagement.Application.dll

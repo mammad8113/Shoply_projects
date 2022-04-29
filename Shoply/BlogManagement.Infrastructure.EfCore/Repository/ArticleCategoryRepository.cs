@@ -63,7 +63,17 @@ namespace BlogManagement.Infrastructure.EfCore.Repository
 
         public string GetSlug(long id)
         {
-            return blogContext.ArticleCategories.Select(x => new { x.Id, x.Slug }).FirstOrDefault(x => x.Id == id).Slug;
+            //var category = blogContext.ArticleCategories.Select(x => new { x.Id, x.Slug }).FirstOrDefault(x => x.Id == id);
+            //string slug = null;
+            //if (category != null)
+            //{
+            //    slug = category.Slug;
+            //}
+            //return slug;
+
+            var category = blogContext.ArticleCategories.Select(x => new { x.Id, x.Slug }).FirstOrDefault(x => x.Id == id);
+            return category?.Slug;
+
         }
 
         public List<ArticleCategoryViewModel> GetSelectList()

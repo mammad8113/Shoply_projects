@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\BlogManagement.Application\bin\Release\net5.0\BlogManagement.Application.deps.json
 D:\Shoply_Project\Code\Shoply\BlogManagement.Application\bin\Release\net5.0\BlogManagement.Application.dll
-D:\Shoply_Project\Code\Shoply\BlogManagement.Application\bin\Release\net5.0\ref\BlogManagement.Application.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Application\bin\Release\net5.0\BlogManagement.Application.pdb
 D:\Shoply_Project\Code\Shoply\BlogManagement.Application\bin\Release\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Application\bin\Release\net5.0\BlogManagement.Applicatio.Contracts.dll
@@ -17,3 +16,4 @@ D:\Shoply_Project\Code\Shoply\BlogManagement.Application\obj\Release\net5.0\Blog
 D:\Shoply_Project\Code\Shoply\BlogManagement.Application\obj\Release\net5.0\BlogManagement.Application.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Application\obj\Release\net5.0\ref\BlogManagement.Application.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Application\obj\Release\net5.0\BlogManagement.Application.pdb
+D:\Shoply_Project\Code\Shoply\BlogManagement.Application\obj\Release\net5.0\refint\BlogManagement.Application.dll

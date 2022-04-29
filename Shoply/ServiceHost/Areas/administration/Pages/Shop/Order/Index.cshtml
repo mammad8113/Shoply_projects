@@ -30,7 +30,9 @@
                     </div>
                     <div class="form-group">
                         <div class="checkbox checkbox-primary "></div>
+                        @*@Html.CheckBoxFor(IndexModel=>Model.SearchModel.IsCancel,true)*@
                         <input asp-for="SearchModel.IsCancel" />
+
                         <label asp-for="SearchModel.IsCancel">
                             کنسل شده ها
                         </label>
@@ -107,6 +109,9 @@
                                             }
                                             <a href="#showmodal=@Url.Page("./Index","Items",new{id=order.Id})" class="btn btn-primary pull-right m-rl-5">
                                                 <i class="fa fa-recycle"></i> ایتم ها
+                                            </a>
+                                            <a href="#showmodal=@Url.Page("./Index","Address",new{id=order.Address.Id})" class="btn btn-primary pull-right m-rl-5">
+                                                <i class="fa fa-recycle"></i> ادرس
                                             </a>
                                         </td>
                                     </tr>

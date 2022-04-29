@@ -1,9 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Html
+@using Microsoft.AspNetCore.Http
 @using _01_Shoplyquery
 @using _01_Shoplyquery.Contracts.ProductCategory
 @using _01_framwork.Applicatin
 @model MenuModel
 @inject IAuthHelper AuthHelper
+@inject IHttpContextAccessor HttpContextAccessor 
 @{
 
 }
@@ -27,72 +29,17 @@
                                     <a asp-page="./Index">صفحه اصلی</a>
                                 </li>
 
-                                @*     <li class="menu-item-has-children">
-                                    <a href="#">PAGES</a>
-                                    <ul class="sub-menu">
-                                    <li class="menu-item-has-children">
-                                    <a href="#">Page List One</a>
-                                    <ul class="sub-menu">
-                                    <li>
-                                    <a href="cart.html">Cart</a>
-                                    </li>
-                                    <li>
-                                    <a href="checkout.html">Checkout</a>
-                                    </li>
-                                    <li>
-                                    <a href="wishlist.html">Wishlist</a>
-                                    </li>
-                                    </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                    <a href="#">page list two</a>
-                                    <ul class="sub-menu">
-                                    <li>
-                                    <a href="my-account.html">My Account</a>
-                                    </li>
-                                    <li>
-                                    <a href="login-register.html">Login Register</a>
-                                    </li>
-                                    <li>
-                                    <a href="faq.html">FAQ</a>
-                                    </li>
-                                    </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                    <a href="#">Page list three</a>
-                                    <ul class="sub-menu">
-                                    <li>
-                                    <a href="compare.html">Compare</a>
-                                    </li>
-                                    <li>
-                                    <a href="contact.html">Contact</a>
-                                    </li>
-                                    <li>
-                                    <a href="about.html">About Us</a>
-                                    </li>
-                                    </ul>
-                                    </li>
-                                    </ul>
-                                    </li>*@
-
                                 <li class="menu-item-has-children">
                                     <a class="fa fa-arrow-down">محصولات</a>
-                                   @* <ul class="sub-menu">
-                                        @foreach (var category in Model.ProductCategories)
-                                        {
-                                            <li>
-                                                <a asp-page="./ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
-                                            </li>
-                                        }
-                                    </ul>*@
+                                  
                                     @{
                                         Func<dynamic, IHtmlContent> ShowMenu(List<ProductCategoryQueryModel> Categories, ProductCategoryQueryModel parent) =>       
                                         @<ul class="sub-menu">
-                                            @foreach (var category in Categories){
-
+                                            @foreach (var category in Categories.Where(x=>!x.IsRemoved)){
+                                                //menu-item-has-children
                                                     @if (((parent == null) && (category.ParentId == null)) || (parent?.Id == category.ParentId))
                                                     {
-                                                        <li class="menu-item-has-children">
+                                                        <li class="@(category.Children.Any()?"menu-item-has-children":"")">
                                                 <a asp-page="./ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
 
                                                             @if (category.Children != null && category.Children.Any())

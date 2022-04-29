@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace AcountManagement.Infrastructure.EfCore.Mapping
 {
-    public class RolMapping : IEntityTypeConfiguration<Rol>
+    public class RolMapping : IEntityTypeConfiguration<Role>
     {
-        public void Configure(EntityTypeBuilder<Rol> builder)
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.ToTable("Rols");
             builder.HasKey(x => x.Id);

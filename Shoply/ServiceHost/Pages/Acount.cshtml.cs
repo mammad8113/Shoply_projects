@@ -1,6 +1,8 @@
 using AcountManagement.Application.Contracts.Acount;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 
 namespace ServiceHost.Pages
 {
@@ -17,18 +19,26 @@ namespace ServiceHost.Pages
             this.acountApplication = acountApplication;
         }
 
-        public void OnGet()
+        public void OnGet([FromQuery(Name = "ReturnUrl")] string? ReturnUrl)
         {
+            //string url = HttpContext.Request.Query["ReturnUrl"].ToString();
+            if (ReturnUrl != null)
+                HttpContext.Session.SetString("url", ReturnUrl);
         }
 
         public IActionResult OnPostLogin(Login command)
         {
             var result = acountApplication.Login(command);
+            string url = HttpContext.Session.GetString("url");
+       
+            if (string.IsNullOrWhiteSpace(url))
+                url = "./Index";
+
             if (result.IsSuccedded)
-                return RedirectToPage("./Index");
+                HttpContext.Response.Redirect(url);
 
             LoginMessage = result.Message;
-            return RedirectToPage("/Acount");
+            return Page();
         }
 
         public IActionResult OnGetLogout()

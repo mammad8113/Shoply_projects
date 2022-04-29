@@ -9,6 +9,7 @@ namespace ShopManagement.Application.Contracts.Address
         void Remove(long id);
         OperationResult Edit(EditAddress command);
         EditAddress GetDetals(long id);
+        public AddressViewModel GetAddress(long id);
         List<AddressViewModel> GetAll();
     }
 }

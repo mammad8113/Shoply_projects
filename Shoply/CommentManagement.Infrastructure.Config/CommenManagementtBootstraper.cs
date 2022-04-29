@@ -9,9 +9,9 @@ using System;
 
 namespace CommentManagement.Infrastructure.Config
 {
-    public class CommenManagementtBootstraper
+    public static class CommenManagementtBootstraper
     {
-        public static void Configur(IServiceCollection services, string ConnectionString)
+        public static void AddCommentSection(this IServiceCollection services, string ConnectionString)
         {
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<ICommentApplication, CommentApplication>();

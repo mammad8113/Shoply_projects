@@ -3,6 +3,7 @@ using _01_framwork.Domain;
 using _01_framwork.Infrastructure;
 using AcountManagement.Infrastructure.EfCore;
 using ShopManagement.Application.Contracts.Address;
+using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.Address.Agg;
 using System;
 using System.Collections.Generic;
@@ -22,28 +23,41 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
             _shopContext = shopContext;
             this.acountContext = acountContext;
         }
+
+        public AddressViewModel GetAddress(long id)
+        {
+            return _shopContext.Addresses.Select(x => new AddressViewModel
+            {
+                Id = x.Id,
+                State = States.getBy(x.State).Name,
+                City = Cities.GetBy(x.City).Name,
+                Street = x.Street,
+                AcountId = x.AcountId,
+            }).FirstOrDefault(x => x.Id == id);
+        }
+
         public EditAddress GetDetals(long id)
         {
-            return _shopContext.Addresses.Select(x=>new EditAddress
+            return _shopContext.Addresses.Select(x => new EditAddress
             {
-                Id = x.Id,    
+                Id = x.Id,
                 State = x.State,
                 City = x.City,
                 Street = x.Street,
                 AcountId = x.AcountId,
-            }).FirstOrDefault(x=>x.Id == id);
+            }).FirstOrDefault(x => x.Id == id);
         }
         List<AddressViewModel> IAddressRepository.GetAll()
         {
-            var addresses= _shopContext.Addresses.Select(x => new AddressViewModel
+            var addresses = _shopContext.Addresses.Select(x => new AddressViewModel
             {
-                Id=x.Id,
-              
+                Id = x.Id,
+
                 Street = x.Street,
-            
-                AcountId=x.AcountId,
-                CreationDate=x.CreationDate.ToFarsi(),
-             
+
+                AcountId = x.AcountId,
+                CreationDate = x.CreationDate.ToFarsi(),
+
             }).OrderByDescending(x => x.Id).ToList();
 
             foreach (var item in addresses)

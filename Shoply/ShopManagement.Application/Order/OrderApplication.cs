@@ -43,9 +43,9 @@ namespace ShopManagement.Application.Order
             return orederRepository.GetChartBar();
         }
 
-        public Chart GetChartLine()
+        public Chart GetDonuthChart()
         {
-            return orederRepository.GetChartLine();
+            return orederRepository.GetDonuthChart();
         }
 
         public List<OrderItemViewModel> GetOrderItems(long id)

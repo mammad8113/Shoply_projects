@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AcountManagement.Domain.Rol.Agg
 {
-    public interface IRolRepository:IRepository<long,Rol>
+    public interface IRolRepository:IRepository<long,Role>
     {
         EditRol GetDetals(long id);
         List<RolViewModel> GetAll();

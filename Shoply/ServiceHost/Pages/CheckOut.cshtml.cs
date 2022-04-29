@@ -54,7 +54,7 @@ namespace ServiceHost.Pages
             this.addressApplication = addressApplication;
             CartServices = cartServices;
             CityServices = cityServices;
-       
+
         }
 
         public void OnGet()
@@ -89,7 +89,9 @@ namespace ServiceHost.Pages
                 var name = authHelper.CurrentAccountName();
                 var mobile = authHelper.CurrentAccountMobile();
                 var paymentReponse = zarinPalFactory.CreatePaymentRequest(cart.PaymentPrice.ToString(CultureInfo.InvariantCulture), mobile, "", "خرید از فروشگاه شاپلی", orderId);
+
                 return Redirect($"https://{zarinPalFactory.Prefix}.zarinpal.com/pg/StartPay/{paymentReponse.Authority}");
+
             }
             else
             {
@@ -101,10 +103,13 @@ namespace ServiceHost.Pages
             }
         }
         //{zarinPalFactory.Prefix
+
+
+
         public IActionResult OnGetCallBack([FromQuery] string authority, [FromQuery] string status,
         [FromQuery] long Id)
         {
-
+            
             var amount = orderApplication.GetamountBy(Id);
             var result = zarinPalFactory.CreateVerificationRequest(authority, amount.ToString(CultureInfo.InvariantCulture));
             var OpreationResponse = new _01_framwork.Applicatin.PayResult();
@@ -124,9 +129,12 @@ namespace ServiceHost.Pages
             }
             else
             {
-                OpreationResponse = OpreationResponse.Faild("عملیات موفقعیت انیز نبود. در صورت کسر از حساب تا 48 ساعت اینده مبلغ به حساب شما بر میگردد.");
+                orderApplication.PaymentCancel(Id);
+                OpreationResponse = OpreationResponse.Faild("عملیات موفقعیت امیز نبود. در صورت کسر از حساب تا 48 ساعت اینده مبلغ به حساب شما بر میگردد.");
                 return RedirectToPage("/PaymentResult", OpreationResponse);
             }
+
+
         }
 
 
@@ -157,7 +165,7 @@ namespace ServiceHost.Pages
             return RedirectToPage("./CheckOut");
         }
 
-        public IActionResult OnGetEdit(long id,long stateId)
+        public IActionResult OnGetEdit(long id, long stateId)
         {
             var command = addressApplication.GetDetals(id);
             command.States = States.GetAll();

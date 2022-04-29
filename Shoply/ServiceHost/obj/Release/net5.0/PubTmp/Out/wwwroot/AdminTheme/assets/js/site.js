@@ -21,9 +21,32 @@ SinglePage.LoadModal = function () {
         });
 };
 
-function showModal() {
+async function showModal() {
+    debugger;
+    var url = window.location.hash.toLowerCase();
+    let urledit = url.split("&handler=")[1];
+    if (url.includes("?id=")) {
+        let split = url.split("?id=");
+        let productid = split.splice(1, 1)[0].split("&")[0];
+
+        let edit = document.getElementById(`EditProduct_${productid}`);
+        let id;
+        if (urledit == "edit") {
+
+            if (edit != undefined && edit != null) {
+                id = edit.getAttribute("name");
+            }
+        }
+    }
     $("#MainModal").modal("show");
+    let btntext = $("#btncategory");
+    if (id != undefined && btntext != undefined && btntext != null) {
+        let text = await GetCategory(id);
+        btntext.text(text);
+    }
+
 }
+
 
 function hideModal() {
     $("#MainModal").modal("hide");
@@ -193,7 +216,7 @@ async function SetCategory(id, name, backId) {
     var backwrapper = $("#WrapperBack");
     if (id != undefined) {
 
-        let response1 = await fetch(`https://localhost:5001/api/ProductCategory/${id}`, {
+        let response1 = await fetch(`https://iranshoply.ir/api/ProductCategory/${id}`, {
             method: "Post",
         });
         let data1 = await response1.json();
@@ -202,7 +225,7 @@ async function SetCategory(id, name, backId) {
         backwrapper.html('');
         backwrapper.append(btn);
 
-        let response = await fetch(`https://localhost:5001/api/ProductCategory/${id}`)
+        let response = await fetch(`https://iranshoply.ir/api/ProductCategory/${id}`)
         let data = await response.json();
 
         if (data.length > 0) {
@@ -210,11 +233,10 @@ async function SetCategory(id, name, backId) {
 
             categories.html('');
             data.forEach(c => {
-
                 let category = ``;
                 var name = `${c.name}`;
                 category = `  <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
-                        <a style="display:block;" onclick='SetCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
+                        <a  onclick='SetCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
                     </div>`;
 
                 categories.append(category);
@@ -225,7 +247,7 @@ async function SetCategory(id, name, backId) {
             categoryid.val(id);
             var btn = $("#btncategory");
 
-            let response = await fetch(`https://localhost:5001/api/ProductCategory/GetParent/${id}`)
+            let response = await fetch(`https://iranshoply.ir/api/ProductCategory/GetParent/${id}`)
             let data = await response.json();
             let btntext = ``;
             data.forEach(c => {
@@ -240,7 +262,7 @@ async function SetCategory(id, name, backId) {
     } else {
         backwrapper.html('');
 
-        let response = await fetch(`https://localhost:5001/api/ProductCategory`)
+        let response = await fetch(`https://iranshoply.ir/api/ProductCategory`)
         let data = await response.json();
 
         if (data.length > 0) {
@@ -252,7 +274,7 @@ async function SetCategory(id, name, backId) {
                 let category = ``;
                 var name = `${c.name}`;
                 category = `  <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
-                               <a style="display:block;" onclick='SetCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
+                               <a  onclick='SetCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
                              </div>`;
 
                 categories.append(category);
@@ -264,10 +286,13 @@ async function SetCategory(id, name, backId) {
 
 async function ChooseCategory(id, name, backId) {
     debugger;
+    let categories = $("#productCategory");
+
+
     var backwrapper = $("#backWrapper");
     if (id != undefined) {
 
-        let response1 = await fetch(`https://localhost:5001/api/ProductCategory/${id}`, {
+        let response1 = await fetch(`https://iranshoply.ir/api/ProductCategory/${id}`, {
             method: "Post",
         });
         let data1 = await response1.json();
@@ -276,11 +301,11 @@ async function ChooseCategory(id, name, backId) {
         backwrapper.html('');
         backwrapper.append(btn);
 
-        let response = await fetch(`https://localhost:5001/api/ProductCategory/${id}`)
+        let response = await fetch(`https://iranshoply.ir/api/ProductCategory/${id}`)
         let data = await response.json();
 
         if (data.length > 0) {
-            let categories = $("#productCategory");
+            //let categories = $("#productCategory");
 
             categories.html('');
             data.forEach(c => {
@@ -289,18 +314,18 @@ async function ChooseCategory(id, name, backId) {
                 var name = `${c.name}`;
                 category = `  <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
                              <span onclick='checkCategory(${c.id},"${name}")' class="fa fa-check fa-2x text-success"></span>
-                        <a style="display:block;" onclick='ChooseCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
+                        <a onclick='ChooseCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
                     </div>`;
 
                 categories.append(category);
             })
 
         } else {
-            let categoryid = $("#ProductCategoryId");
+            let categoryid = $("#SearchModel_ProductCategoryId");
             categoryid.val(id);
             var btn = $("#btn-category");
 
-            let response = await fetch(`https://localhost:5001/api/ProductCategory/GetParent/${id}`)
+            let response = await fetch(`https://iranshoply.ir/api/ProductCategory/GetParent/${id}`)
             let data = await response.json();
             let btntext = ``;
             data.forEach(c => {
@@ -311,15 +336,31 @@ async function ChooseCategory(id, name, backId) {
             btntext += `${name}`;
             btn.text(btntext);
             hideCategory();
+
+            categories.html('');
+            let responseCategory = await fetch(`https://iranshoply.ir/api/ProductCategory`)
+            let category = await responseCategory.json();
+            category.forEach(c => {
+
+                let category = ``;
+                var name = `${c.name}`;
+                category = `  <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
+                               <span onclick='checkCategory(${c.id},"${name}")' class="fa fa-check fa-2x text-success"></span>
+                        <a onclick='ChooseCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
+                    </div>`;
+
+                categories.append(category);
+            });
         }
+
     } else {
         backwrapper.html('');
 
-        let response = await fetch(`https://localhost:5001/api/ProductCategory`)
+        let response = await fetch(`https://iranshoply.ir/api/ProductCategory`)
         let data = await response.json();
 
         if (data.length > 0) {
-            let categories = $("#productCategories");
+            //let categories = $("#productCategory");
 
             categories.html('');
             data.forEach(c => {
@@ -328,7 +369,7 @@ async function ChooseCategory(id, name, backId) {
                 var name = `${c.name}`;
                 category = `  <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
                                <span onclick='checkCategory(${c.id},"${name}")' class="fa fa-check fa-2x text-success"></span>
-                        <a style="display:block;" onclick='ChooseCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
+                        <a onclick='ChooseCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
                     </div>`;
 
                 categories.append(category);
@@ -339,12 +380,12 @@ async function ChooseCategory(id, name, backId) {
 
 async function checkCategory(id, name) {
     debugger;
-    let categoryid = $("#ProductCategoryId");
+    let categoryid = $("#SearchModel_ProductCategoryId");
     categoryid.val(id);
 
     var btn = $("#btn-category");
 
-    let response = await fetch(`https://localhost:5001/api/ProductCategory/GetParent/${id}`)
+    let response = await fetch(`https://iranshoply.ir/api/ProductCategory/GetParent/${id}`)
     let data = await response.json();
     let btntext = ``;
     data.forEach(c => {
@@ -409,3 +450,20 @@ jQuery.validator.addMethod("fileExtention",
         }
     });
 jQuery.validator.unobtrusive.adapters.addBool("fileExtention");
+
+
+async function GetCategory(id) {
+    debugger;
+    let response = await fetch(`https://iranshoply.ir/api/ProductCategory/GetParent/${id}`);
+    let name = await fetch(`https://localhost:5001/api/ProductCategory/GetCategoryName/${id}`);
+    let data = await response.json();
+    var category = await name.json();
+    let btntext = ``;
+    data.forEach(c => {
+        let text = `${c.name}>`;
+
+        btntext += text;
+    });
+    btntext += `${category.name}`;
+    return btntext;
+}

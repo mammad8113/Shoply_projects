@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace AcountManagement.Domain.Rol.Agg
 {
-    public class Rol : EntityBase<long>
+    public class Role : EntityBase<long>
     {
         public string Name { get; private set; }
         public List<Acount.Agg.Acount> Acounts { get; private set; }
         public List<Permission> Permissions { get; private set; }
-        protected Rol()
+        protected Role()
         {
 
         }
-        public Rol(string name,List<Permission> permissions)
+        public Role(string name,List<Permission> permissions)
         {
             Name = name;
             Permissions = permissions;

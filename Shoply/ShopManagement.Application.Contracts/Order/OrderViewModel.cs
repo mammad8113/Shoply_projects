@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShopManagement.Application.Contracts.Address;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,6 @@ namespace ShopManagement.Application.Contracts.Order
         public string IssueTrakingNo { get; set; }
         public long RefId { get; set; }
         public string CreationDate { get; set; }
+        public AddressViewModel Address { get; set; }
     }
 }

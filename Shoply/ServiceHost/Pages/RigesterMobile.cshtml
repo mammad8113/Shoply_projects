@@ -1,0 +1,68 @@
+﻿@page
+@model ServiceHost.Pages.RigesterMobileModel
+@{
+    ViewData["Title"] = "ورود _ ثبت نام";
+
+}
+<div class="breadcrumb-area section-space--half">
+    <div class="container wide">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-wrapper breadcrumb-bg">
+                    <div class="breadcrumb-content">
+                        <h2 class="breadcrumb-content__title">دریافت کد</h2>
+                        <ul class="breadcrumb-content__page-map">
+                            <li><a href="index.html">صفحه اصلی</a></li>
+                            <li class="active">دریافت کد</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-wrapper">
+                    <div class="page-content-wrapper">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6">
+
+                                <p style="display:none" id="ErrorMessage" class="alert alert-danger"></p>
+
+                                <div class="login-form">
+                                    <h4 class="login-title">دریافت کد</h4>
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <label>موبایل</label>
+                                            <input name="Mobile" id="Mobile" autofocus />
+                                        </div>
+
+                                        <div style="display:none;" id="CodeWrapper" class="col-md-12 col-12">
+                                            <div class="otp-timer">
+                                                <span class="text"> زمان باقیمانده :</span>
+                                                <span id="seconds">00</span>
+                                                <span class="dot">:</span>
+                                                <span id="minutes">0</span>
+                                            </div>
+                                            <label>کد</label>
+                                            <input name="Code" id="Code" placeholder="کد">
+                                            <button type="submit" onclick="CheckCode()" class="register-button">ارسال کد</button>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" onclick="GetPassword()" id="BtnGetcode" class="register-button">دریافت کد</button>
+                                            <button style="display:none;" type="submit" id="BtnMobile" onclick="ChangMobile()" class="register-button">تغییر شماره موبایل</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

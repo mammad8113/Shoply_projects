@@ -1,5 +1,6 @@
 ﻿using _01_Shoplyquery.Contracts.Inventory;
 using InventoryManagement.Application.Contracts.Inventory;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace InventoryManagement.Presentation.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class InventoryController : ControllerBase
     {
         private readonly IInventoryApplication inventoryApplication;

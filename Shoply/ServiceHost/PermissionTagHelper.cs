@@ -1,6 +1,5 @@
 ﻿using _01_framwork.Applicatin;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Threading.Tasks;
 
 namespace ServiceHost
 {

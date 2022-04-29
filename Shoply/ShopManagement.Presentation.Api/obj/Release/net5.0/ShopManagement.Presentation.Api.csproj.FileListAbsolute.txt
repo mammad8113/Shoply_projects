@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\bin\Release\net5.0\ShopManagement.Presentation.Api.deps.json
 D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\bin\Release\net5.0\ShopManagement.Presentation.Api.dll
-D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\bin\Release\net5.0\ref\ShopManagement.Presentation.Api.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\bin\Release\net5.0\ShopManagement.Presentation.Api.pdb
 D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\bin\Release\net5.0\01-Shoplyquery.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\bin\Release\net5.0\01_framwork.dll
@@ -51,3 +50,4 @@ D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\obj\Release\net5.0
 D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\obj\Release\net5.0\ShopManagement.Presentation.Api.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\obj\Release\net5.0\ref\ShopManagement.Presentation.Api.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\obj\Release\net5.0\ShopManagement.Presentation.Api.pdb
+D:\Shoply_Project\Code\Shoply\ShopManagement.Presentation.Api\obj\Release\net5.0\refint\ShopManagement.Presentation.Api.dll

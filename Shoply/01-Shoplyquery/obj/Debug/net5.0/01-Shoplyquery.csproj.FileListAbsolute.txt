@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\01-Shoplyquery.deps.json
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\01-Shoplyquery.dll
-D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\ref\01-Shoplyquery.dll
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\01-Shoplyquery.pdb
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\ShopManagement.Application.Contracts.dll
@@ -49,3 +48,4 @@ D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\AcountManagement.I
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\AcountManagement.Application.Contracts.pdb
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\AcountManagement.Domain.pdb
 D:\Shoply_Project\Code\Shoply\01-Shoplyquery\bin\Debug\net5.0\AcountManagement.Infrastructure.EfCore.pdb
+D:\Shoply_Project\Code\Shoply\01-Shoplyquery\obj\Debug\net5.0\refint\01-Shoplyquery.dll

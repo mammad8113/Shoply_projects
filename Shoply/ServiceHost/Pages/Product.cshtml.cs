@@ -20,7 +20,6 @@ namespace ServiceHost.Pages
             this.commentApplication = commentApplication;
             this.authHelper = authHelper;
         }
-
         public void OnGet(string id)
         {
             Product = productQuery.GetDetals(id);

@@ -9,7 +9,7 @@ namespace AcountManagement.Infrastructure.EfCore
     public class AcountContext : DbContext
     {
         public DbSet<Acount> Acounts { get; set; }
-        public DbSet<Rol> Rols { get; set; }
+        public DbSet<Role> Rols { get; set; }
 
         public AcountContext(DbContextOptions<AcountContext> options) : base(options)
         {

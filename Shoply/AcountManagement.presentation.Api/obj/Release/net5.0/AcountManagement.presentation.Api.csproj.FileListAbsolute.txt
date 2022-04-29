@@ -1,0 +1,17 @@
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\bin\Release\net5.0\AcountManagement.presentation.Api.deps.json
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\bin\Release\net5.0\AcountManagement.presentation.Api.dll
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\bin\Release\net5.0\AcountManagement.presentation.Api.pdb
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\bin\Release\net5.0\01_framwork.dll
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\bin\Release\net5.0\AcountManagement.Application.Contracts.dll
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\bin\Release\net5.0\01_framwork.pdb
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\bin\Release\net5.0\AcountManagement.Application.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\obj\Release\net5.0\AcountManagement.presentation.Api.csproj.AssemblyReference.cache
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\obj\Release\net5.0\AcountManagement.presentation.Api.GeneratedMSBuildEditorConfig.editorconfig
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\obj\Release\net5.0\AcountManagement.presentation.Api.AssemblyInfoInputs.cache
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\obj\Release\net5.0\AcountManagement.presentation.Api.AssemblyInfo.cs
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\obj\Release\net5.0\AcountManagement.presentation.Api.csproj.CoreCompileInputs.cache
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\obj\Release\net5.0\AcountManagement.presentation.Api.csproj.CopyComplete
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\obj\Release\net5.0\AcountManagement.presentation.Api.dll
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\obj\Release\net5.0\refint\AcountManagement.presentation.Api.dll
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\obj\Release\net5.0\AcountManagement.presentation.Api.pdb
+D:\Shoply_Project\Code\Shoply\AcountManagement.presentation.Api\obj\Release\net5.0\ref\AcountManagement.presentation.Api.dll

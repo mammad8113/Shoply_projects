@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\bin\Debug\net5.0\ShopManagement.Infrastructure.Services.Acl.deps.json
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\bin\Debug\net5.0\ShopManagement.Infrastructure.Services.Acl.dll
-D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\bin\Debug\net5.0\ref\ShopManagement.Infrastructure.Services.Acl.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\bin\Debug\net5.0\ShopManagement.Infrastructure.Services.Acl.pdb
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\bin\Debug\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\bin\Debug\net5.0\InventoryManagement.Application.Contracts.dll
@@ -19,3 +18,4 @@ D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\obj\Deb
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\obj\Debug\net5.0\ShopManagement.Infrastructure.Services.Acl.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\obj\Debug\net5.0\ref\ShopManagement.Infrastructure.Services.Acl.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\obj\Debug\net5.0\ShopManagement.Infrastructure.Services.Acl.pdb
+D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.InventoryAcl\obj\Debug\net5.0\refint\ShopManagement.Infrastructure.Services.Acl.dll

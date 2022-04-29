@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\bin\Release\net5.0\DiscountManagement.Application.deps.json
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\bin\Release\net5.0\DiscountManagement.Application.dll
-D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\bin\Release\net5.0\ref\DiscountManagement.Application.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\bin\Release\net5.0\DiscountManagement.Application.pdb
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\bin\Release\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\bin\Release\net5.0\DiscountManagement.Application.Contracts.dll
@@ -19,3 +18,4 @@ D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\obj\Release\net5.0\
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\obj\Release\net5.0\DiscountManagement.Application.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\obj\Release\net5.0\ref\DiscountManagement.Application.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\obj\Release\net5.0\DiscountManagement.Application.pdb
+D:\Shoply_Project\Code\Shoply\DiscountManagement.Application\obj\Release\net5.0\refint\DiscountManagement.Application.dll

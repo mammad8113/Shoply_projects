@@ -5,7 +5,6 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\ServiceHost.deps.js
 D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\ServiceHost.runtimeconfig.json
 D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\ServiceHost.runtimeconfig.dev.json
 D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\ServiceHost.dll
-D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\ref\ServiceHost.dll
 D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\ServiceHost.pdb
 D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\ServiceHost.Views.dll
 D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\ServiceHost.Views.pdb
@@ -293,3 +292,9 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\ServiceHost.dll
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\ref\ServiceHost.dll
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\ServiceHost.pdb
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\ServiceHost.genruntimeconfig.cache
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\refint\ServiceHost.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\AcountManagement.presentation.Api.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\AcountManagement.presentation.Api.pdb
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\Razor\Pages\ChangPassword.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\Razor\Pages\RigesterMobile.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\Razor\Areas\administration\Pages\Shop\Order\Address.cshtml.g.cs

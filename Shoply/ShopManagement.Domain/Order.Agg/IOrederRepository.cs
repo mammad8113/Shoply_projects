@@ -17,7 +17,7 @@ namespace ShopManagement.Domain.Order.Agg
         double TotalPaymentForWekk();
         long NewOrders();
         Chart GetChartBar();
-        Chart GetChartLine();
+        Chart GetDonuthChart();
         List<long> OrderIdies();
 
     }

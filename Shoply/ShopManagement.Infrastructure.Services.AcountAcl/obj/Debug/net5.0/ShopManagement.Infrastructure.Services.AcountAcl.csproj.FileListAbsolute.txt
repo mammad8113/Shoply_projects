@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\bin\Debug\net5.0\ShopManagement.Infrastructure.Services.AcountAcl.deps.json
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\bin\Debug\net5.0\ShopManagement.Infrastructure.Services.AcountAcl.dll
-D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\bin\Debug\net5.0\ref\ShopManagement.Infrastructure.Services.AcountAcl.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\bin\Debug\net5.0\ShopManagement.Infrastructure.Services.AcountAcl.pdb
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\bin\Debug\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\bin\Debug\net5.0\AcountManagement.Application.Contracts.dll
@@ -19,3 +18,4 @@ D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\o
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\obj\Debug\net5.0\ShopManagement.Infrastructure.Services.AcountAcl.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\obj\Debug\net5.0\ref\ShopManagement.Infrastructure.Services.AcountAcl.dll
 D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\obj\Debug\net5.0\ShopManagement.Infrastructure.Services.AcountAcl.pdb
+D:\Shoply_Project\Code\Shoply\ShopManagement.Infrastructure.Services.AcountAcl\obj\Debug\net5.0\refint\ShopManagement.Infrastructure.Services.AcountAcl.dll

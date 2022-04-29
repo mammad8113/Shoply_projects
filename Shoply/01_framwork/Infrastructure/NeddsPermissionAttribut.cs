@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +14,9 @@ namespace _01_framwork.Infrastructure
 
         public NeddsPermissionAttribute(int permission)
         {
-          Permission = permission;
+            Permission = permission;
         }
+
+       
     }
 }

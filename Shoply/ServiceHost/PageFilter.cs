@@ -1,5 +1,6 @@
 ﻿using _01_framwork.Applicatin;
 using _01_framwork.Infrastructure;
+using AcountManagement.Domain.Rol.Agg;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -11,15 +12,16 @@ namespace ServiceHost
     public class PageFilter : IPageFilter
     {
         private readonly IAuthHelper authHelper;
-
-        public PageFilter(IAuthHelper authHelper)
+        private readonly IRolRepository rolRepository;
+        public PageFilter(IAuthHelper authHelper, IRolRepository rolRepository)
         {
             this.authHelper = authHelper;
+            this.rolRepository = rolRepository;
         }
 
         public void OnPageHandlerExecuted(PageHandlerExecutedContext context)
         {
-
+            
         }
 
         public void OnPageHandlerExecuting(PageHandlerExecutingContext context)
@@ -29,6 +31,7 @@ namespace ServiceHost
 
             if (handlerpermission == null)
                 return;
+          
 
             var permissions = authHelper.GetPermissions();
             if (!permissions.Contains(handlerpermission.Permission))

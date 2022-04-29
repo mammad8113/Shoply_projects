@@ -2,7 +2,6 @@ D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\bin\Releas
 D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\bin\Release\net5.0\CommentManagement.Infrastructure.EfCore.runtimeconfig.json
 D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\bin\Release\net5.0\CommentManagement.Infrastructure.EfCore.runtimeconfig.dev.json
 D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\bin\Release\net5.0\CommentManagement.Infrastructure.EfCore.dll
-D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\bin\Release\net5.0\ref\CommentManagement.Infrastructure.EfCore.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\bin\Release\net5.0\CommentManagement.Infrastructure.EfCore.pdb
 D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\bin\Release\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\bin\Release\net5.0\BlogManagement.Applicatio.Contracts.dll
@@ -28,3 +27,4 @@ D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\obj\Releas
 D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\obj\Release\net5.0\ref\CommentManagement.Infrastructure.EfCore.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\obj\Release\net5.0\CommentManagement.Infrastructure.EfCore.pdb
 D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\obj\Release\net5.0\CommentManagement.Infrastructure.EfCore.genruntimeconfig.cache
+D:\Shoply_Project\Code\Shoply\CommentManagement.Infrastructure.EfCore\obj\Release\net5.0\refint\CommentManagement.Infrastructure.EfCore.dll

@@ -61,7 +61,7 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
 
         public string GetSlug(long id)
         {
-            return _shopContext.ProductCategories.Select(x => new { x.Id, x.Slug }).FirstOrDefault(x => x.Id == id).Slug;
+            return _shopContext.ProductCategories.Select(x => new { x.Id, x.Slug }).FirstOrDefault(x => x.Id == id)?.Slug;
         }
 
        

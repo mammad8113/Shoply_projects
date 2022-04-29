@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\bin\Release\net5.0\InventoryManagement.Infrastructure.Configuration.deps.json
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\bin\Release\net5.0\InventoryManagement.Infrastructure.Configuration.dll
-D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\bin\Release\net5.0\ref\InventoryManagement.Infrastructure.Configuration.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\bin\Release\net5.0\InventoryManagement.Infrastructure.Configuration.pdb
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\bin\Release\net5.0\01-Shoplyquery.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\bin\Release\net5.0\01_framwork.dll
@@ -53,3 +52,4 @@ D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\o
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\obj\Release\net5.0\InventoryManagement.Infrastructure.Configuration.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\obj\Release\net5.0\ref\InventoryManagement.Infrastructure.Configuration.dll
 D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\obj\Release\net5.0\InventoryManagement.Infrastructure.Configuration.pdb
+D:\Shoply_Project\Code\Shoply\InventoryManagement.Infrastructure.Configuration\obj\Release\net5.0\refint\InventoryManagement.Infrastructure.Configuration.dll

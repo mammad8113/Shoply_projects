@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\01_framwork\bin\Debug\net5.0\01_framwork.deps.json
 D:\Shoply_Project\Code\Shoply\01_framwork\bin\Debug\net5.0\01_framwork.dll
-D:\Shoply_Project\Code\Shoply\01_framwork\bin\Debug\net5.0\ref\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\01_framwork\bin\Debug\net5.0\01_framwork.pdb
 D:\Shoply_Project\Code\Shoply\01_framwork\obj\Debug\net5.0\01_framwork.csproj.AssemblyReference.cache
 D:\Shoply_Project\Code\Shoply\01_framwork\obj\Debug\net5.0\01_framwork.GeneratedMSBuildEditorConfig.editorconfig
@@ -10,3 +9,4 @@ D:\Shoply_Project\Code\Shoply\01_framwork\obj\Debug\net5.0\01_framwork.csproj.Co
 D:\Shoply_Project\Code\Shoply\01_framwork\obj\Debug\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\01_framwork\obj\Debug\net5.0\ref\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\01_framwork\obj\Debug\net5.0\01_framwork.pdb
+D:\Shoply_Project\Code\Shoply\01_framwork\obj\Debug\net5.0\refint\01_framwork.dll

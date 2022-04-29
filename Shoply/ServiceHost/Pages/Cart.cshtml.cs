@@ -9,6 +9,8 @@ using ShopManagement.Domain.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ServiceHost.Pages
 {
@@ -25,8 +27,13 @@ namespace ServiceHost.Pages
             CartItems = new List<CartItem>();
         }
 
-        public void OnGet()
+        public  void OnGet()
         {
+            Thread.Sleep(10000);
+            if (HttpContext.RequestAborted.IsCancellationRequested)
+            {
+               HttpContext.RequestAborted.ThrowIfCancellationRequested();
+            }
             var serializer = new JavaScriptSerializer();
             var value = Request.Cookies[CookieName];
             CartItems = serializer.Deserialize<List<CartItem>>(value);
@@ -35,7 +42,6 @@ namespace ServiceHost.Pages
                 cartitem.UserUnitprice = cartitem.Unitprice.ToMoney();
                 cartitem.calculatorTotalPrice();
             }
-
             CartItems = productQuery.CheckInstock(CartItems);
 
         }

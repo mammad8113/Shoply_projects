@@ -37,7 +37,7 @@ namespace ServiceHost.Areas.administration.Pages.Acounts.Rol
 
                     foreach (var permission in value)
                     {
-                        var item = new SelectListItem(permission.Name, permission.Code.ToString())
+                        var item = new SelectListItem(permission.Name, permission?.Code.ToString())
                         {
                             Group = group,
                         };
@@ -52,7 +52,7 @@ namespace ServiceHost.Areas.administration.Pages.Acounts.Rol
         public IActionResult OnPost(CreateRol command)
         {
             var result = rolApplication.Create(command);
-            return RedirectToPage(result);
+            return RedirectToPage("./Index");
         }
 
     }

@@ -2,7 +2,6 @@ D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\bin\Release\net5
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\bin\Release\net5.0\DiscountManagement.Infrastructure.runtimeconfig.json
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\bin\Release\net5.0\DiscountManagement.Infrastructure.runtimeconfig.dev.json
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\bin\Release\net5.0\DiscountManagement.Infrastructure.dll
-D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\bin\Release\net5.0\ref\DiscountManagement.Infrastructure.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\bin\Release\net5.0\DiscountManagement.Infrastructure.pdb
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\bin\Release\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\bin\Release\net5.0\AcountManagement.Application.Contracts.dll
@@ -32,3 +31,4 @@ D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\obj\Release\net5
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\obj\Release\net5.0\ref\DiscountManagement.Infrastructure.dll
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\obj\Release\net5.0\DiscountManagement.Infrastructure.pdb
 D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\obj\Release\net5.0\DiscountManagement.Infrastructure.genruntimeconfig.cache
+D:\Shoply_Project\Code\Shoply\DiscountManagement.Infrastructure\obj\Release\net5.0\refint\DiscountManagement.Infrastructure.dll

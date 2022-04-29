@@ -25,9 +25,9 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Product
         }
 
         [NeddsPermission((int)ShopPermission.ListProducts)]
-        public void OnGet(CategorySearchModel searchModel,long ProductCategoryId)
+        public void OnGet(CategorySearchModel searchModel)
         {
-            searchModel.ProductCategoryId = ProductCategoryId;
+          
             Products = productApplication.Search(searchModel);
             ProductCategories = productCategoryApplication.GetProductCategories();
             productCategories = new SelectList(productCategoryApplication.GetProductCategories(0), "Id", "Name");
@@ -47,11 +47,11 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Product
             var result = productApplication.Create(command);
             return new JsonResult(result);
         }
-
+       
         public IActionResult OnGetEdit(int id)
         {
             var product = productApplication.GetDetals(id);
-            product.ProductCategories = productCategoryApplication.GetProductCategories(0);
+            product.ProductCategories = productCategoryApplication.GetProductCategories();
             return Partial("./Edit", product);
         }
 

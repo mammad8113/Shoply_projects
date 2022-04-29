@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\bin\Release\net5.0\AcountManagement.Domain.deps.json
 D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\bin\Release\net5.0\AcountManagement.Domain.dll
-D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\bin\Release\net5.0\ref\AcountManagement.Domain.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\bin\Release\net5.0\AcountManagement.Domain.pdb
 D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\bin\Release\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\bin\Release\net5.0\AcountManagement.Application.Contracts.dll
@@ -15,3 +14,4 @@ D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\obj\Release\net5.0\AcountM
 D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\obj\Release\net5.0\AcountManagement.Domain.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\obj\Release\net5.0\ref\AcountManagement.Domain.dll
 D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\obj\Release\net5.0\AcountManagement.Domain.pdb
+D:\Shoply_Project\Code\Shoply\AcountManagement.Domain\obj\Release\net5.0\refint\AcountManagement.Domain.dll

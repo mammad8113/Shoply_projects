@@ -69,7 +69,7 @@ namespace BlogManagement.Application.ArticleCategory.App
             var picturePath = fileUploader.Upload(command.Picture, paht);
 
             category.Edit(command.Name, command.ShortDescription,
-                  picturePath,command.PictureAlt,command.PictureTitle, command.Description, command.ShowOrder, slug, command.KeyWords, command.MetaDescription,
+                  command.Description,picturePath,command.PictureAlt,command.PictureTitle, command.ShowOrder, slug, command.KeyWords, command.MetaDescription,
                   command.CanonicalAddress);
 
             articleCategoryRepository.Save();

@@ -35,6 +35,11 @@ namespace ShopManagement.Application.Address
             return operation.Success();
         }
 
+        public AddressViewModel GetAddress(long id)
+        {
+            return addressRepository.GetAddress(id);
+        }
+
         public List<AddressViewModel> GetAll()
         {
             return addressRepository.GetAll();

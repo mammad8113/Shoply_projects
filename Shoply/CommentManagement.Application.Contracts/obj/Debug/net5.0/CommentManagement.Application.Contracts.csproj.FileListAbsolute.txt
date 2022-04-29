@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\bin\Debug\net5.0\CommentManagement.Application.Contracts.deps.json
 D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\bin\Debug\net5.0\CommentManagement.Application.Contracts.dll
-D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\bin\Debug\net5.0\ref\CommentManagement.Application.Contracts.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\bin\Debug\net5.0\CommentManagement.Application.Contracts.pdb
 D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\bin\Debug\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\bin\Debug\net5.0\01_framwork.pdb
@@ -13,3 +12,4 @@ D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\obj\Debug\
 D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\obj\Debug\net5.0\CommentManagement.Application.Contracts.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\obj\Debug\net5.0\ref\CommentManagement.Application.Contracts.dll
 D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\obj\Debug\net5.0\CommentManagement.Application.Contracts.pdb
+D:\Shoply_Project\Code\Shoply\CommentManagement.Application.Contracts\obj\Debug\net5.0\refint\CommentManagement.Application.Contracts.dll

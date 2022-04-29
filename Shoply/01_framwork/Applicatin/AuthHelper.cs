@@ -24,7 +24,6 @@ namespace _01_framwork.Applicatin
             var result = new AuthViewModel();
             if (!IsAuthenticated())
                 return result;
-
             var claims = _contextAccessor.HttpContext.User.Claims.ToList();
             result.Id = long.Parse(claims.FirstOrDefault(x => x.Type == "AccountId").Value);
             result.Username = claims.FirstOrDefault(x => x.Type == "Username").Value;
@@ -61,7 +60,7 @@ namespace _01_framwork.Applicatin
         public string CurrentAccountMobile()
         {
             if (IsAuthenticated())
-                return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type ==ClaimTypes.MobilePhone)?.Value;
+                return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.MobilePhone)?.Value;
 
             return null;
         }
@@ -112,9 +111,7 @@ namespace _01_framwork.Applicatin
             var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),
-
             };
-
 
             _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),

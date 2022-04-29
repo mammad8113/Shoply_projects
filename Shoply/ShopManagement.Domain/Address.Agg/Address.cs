@@ -37,5 +37,8 @@ namespace ShopManagement.Domain.Address.Agg
         {
             IsRemove = true;
         }
+
+
+
     }
 }

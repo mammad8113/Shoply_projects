@@ -22,7 +22,7 @@ namespace ShopManagement.Domain.Order.Agg
         public bool IsShow { get; set; }
         public Address.Agg.Address Address { get; set; }
         public List<OrderItem> OrderItems { get; private set; }
-        
+
         protected Order()
         {
         }

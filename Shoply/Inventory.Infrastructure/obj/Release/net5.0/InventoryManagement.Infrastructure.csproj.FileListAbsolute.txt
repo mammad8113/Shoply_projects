@@ -2,7 +2,6 @@ D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Release\net5.0\Invent
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Release\net5.0\InventoryManagement.Infrastructure.runtimeconfig.json
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Release\net5.0\InventoryManagement.Infrastructure.runtimeconfig.dev.json
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Release\net5.0\InventoryManagement.Infrastructure.dll
-D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Release\net5.0\ref\InventoryManagement.Infrastructure.dll
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Release\net5.0\InventoryManagement.Infrastructure.pdb
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Release\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\bin\Release\net5.0\AcountManagement.Application.Contracts.dll
@@ -32,3 +31,4 @@ D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\obj\Release\net5.0\Invent
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\obj\Release\net5.0\ref\InventoryManagement.Infrastructure.dll
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\obj\Release\net5.0\InventoryManagement.Infrastructure.pdb
 D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\obj\Release\net5.0\InventoryManagement.Infrastructure.genruntimeconfig.cache
+D:\Shoply_Project\Code\Shoply\Inventory.Infrastructure\obj\Release\net5.0\refint\InventoryManagement.Infrastructure.dll

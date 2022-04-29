@@ -1,6 +1,5 @@
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Debug\net5.0\BlogManagement.Infrastructure.Config.deps.json
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Debug\net5.0\BlogManagement.Infrastructure.Config.dll
-D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Debug\net5.0\ref\BlogManagement.Infrastructure.Config.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Debug\net5.0\BlogManagement.Infrastructure.Config.pdb
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Debug\net5.0\01_framwork.dll
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Debug\net5.0\BlogManagement.Applicatio.Contracts.dll
@@ -53,3 +52,4 @@ D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Debug\net
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Debug\net5.0\AcountManagement.Application.Contracts.pdb
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Debug\net5.0\AcountManagement.Domain.pdb
 D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\bin\Debug\net5.0\AcountManagement.Infrastructure.EfCore.pdb
+D:\Shoply_Project\Code\Shoply\BlogManagement.Infrastructure.Config\obj\Debug\net5.0\refint\BlogManagement.Infrastructure.Config.dll

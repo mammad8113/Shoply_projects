@@ -26,6 +26,14 @@ namespace ShopManagement.Presentation.Api
             return productCategoryApplication.GetProductCategories();
         }
 
+
+        [Route("GetCategoryName/{id}")]
+        [HttpGet()]
+        public ProductCategoryQueryModel GetCategoryName(long id)
+        {
+            return productCategoryQuery.GetCategoryName(id);
+        }
+
         [Route("GetParent/{id}")]
         [HttpGet()]
         public List<Breadcrumb> GetParent(long id)

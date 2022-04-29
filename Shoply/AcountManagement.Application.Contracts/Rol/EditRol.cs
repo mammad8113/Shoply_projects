@@ -6,6 +6,6 @@ namespace AcountManagement.Application.Contracts.Rol
     public class EditRol:CreateRol
     {
         public long Id { get; set; }
-        public List<PermissionsDTO> MappPermision { get; set; }
+        public List<PermissionsDTO> MappPermision { get; set; }=new List<PermissionsDTO>();
     }
 }

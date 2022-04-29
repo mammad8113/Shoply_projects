@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <AnalysisLevel>5.0-all</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AcountManagement.Infrastructure.Configuration\AcountManagement.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\AcountManagement.presentation.Api\AcountManagement.presentation.Api.csproj" />
     <ProjectReference Include="..\BlogManagement.Infrastructure.Config\BlogManagement.Infrastructure.Config.csproj" />
     <ProjectReference Include="..\CommentManagement.Application.Contracts\CommentManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\CommentManagement.Infrastructure.Config\CommentManagement.Infrastructure.Config.csproj" />

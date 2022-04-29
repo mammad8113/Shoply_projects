@@ -2,9 +2,11 @@ using _0_Framework.Application.ZarinPal;
 using _01_framwork.Applicatin;
 using _01_framwork.Applicatin.Email;
 using _01_framwork.Applicatin.Sms;
+using _01_framwork.Applicatin.TokenAuthorize;
 using _01_framwork.Applicatin.ZarinPal;
 using _01_framwork.Infrastructure;
 using AcountManagement.Infrastructure.Configuration;
+using AcountManagement.presentation.Api;
 using BlogManagement.Infrastructure.Config;
 using CommentManagement.Infrastructure.Config;
 using DiscountManagement.Infrastructure.Config;
@@ -18,6 +20,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using ShopManagement.Presentation.Api;
 using ShopManagment.Imfrastructure.Config;
 using System;
@@ -47,8 +50,9 @@ namespace ServiceHost
             DiscountManagementBootstraper.Configur(services, connectionString);
             InventoryManagementBootstraper.Configur(services, connectionString);
             BlogBootstrapper.Configur(services, connectionString);
-            CommenManagementtBootstraper.Configur(services, connectionString);
             AcountManagementBootstarpper.Configur(services, connectionString);
+
+            services.AddCommentSection(connectionString);
 
             services.AddTransient<IAuthHelper, AuthHelper>();
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
@@ -57,8 +61,7 @@ namespace ServiceHost
             services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
             services.AddTransient<ISmsService, SmsService>();
             services.AddTransient<IEmailService, EmailService>();
-
-
+            services.AddSingleton<ITokenManagement, TokenManagement>();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -70,6 +73,7 @@ namespace ServiceHost
                 {
                     o.LoginPath = new PathString("/Acount");
                     o.LogoutPath = new PathString("/Acount");
+                    //o.ReturnUrlParameter = new PathString("/AccessDenied");
                     o.AccessDeniedPath = new PathString("/AccessDenied");
                 });
             //services.Configure<CookiePolicyOptions>(options =>
@@ -79,11 +83,13 @@ namespace ServiceHost
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
 
+
+
             services.AddAuthorization(option =>
             {
                 option.AddPolicy("AdminArea", builder => builder.RequireRole(Rols.Administrator, Rols.ContentUploader, Rols.SaleManager));
                 option.AddPolicy("Acounts", builder => builder.RequireRole(Rols.Administrator));
-                option.AddPolicy("Inventory", builder => builder.RequireRole(Rols.Administrator, Rols.SaleManager,Rols.ContentUploader));
+                option.AddPolicy("Inventory", builder => builder.RequireRole(Rols.Administrator, Rols.SaleManager, Rols.ContentUploader));
                 option.AddPolicy("ColleagueDiscount", builder => builder.RequireRole(Rols.Administrator, Rols.SaleManager));
                 option.AddPolicy("Order", builder => builder.RequireRole(Rols.Administrator, Rols.SaleManager));
             });
@@ -93,8 +99,19 @@ namespace ServiceHost
                 //builder.WithOrigins("https://localhost:5001")
                 builder.AllowAnyOrigin()
                 .AllowAnyMethod()
+                //.WithMethods(HttpMethods.Get)
                 .AllowAnyHeader();
+
             }));
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(1000);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             services.AddRazorPages()
                .AddMvcOptions(option => option.Filters.Add<PageFilter>())
@@ -107,6 +124,8 @@ namespace ServiceHost
                     options.Conventions.AuthorizeAreaPage("Administration", "/Discount/ColleagueDiscount/Index", "ColleagueDiscount");
                 })
                .AddApplicationPart(typeof(ProductController).Assembly)
+               .AddApplicationPart(typeof(AuthorizeController).Assembly)
+               .AddApplicationPart(typeof(AcountController).Assembly)
                .AddApplicationPart(typeof(InventoryController).Assembly);
         }
 
@@ -129,11 +148,11 @@ namespace ServiceHost
             app.UseStaticFiles();
 
             app.UseCookiePolicy();
-
             app.UseRouting();
 
             app.UseAuthorization();
             app.UseCors("MyPolicy");
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
