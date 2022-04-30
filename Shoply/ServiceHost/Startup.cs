@@ -46,12 +46,12 @@ namespace ServiceHost
         {
             services.AddHttpContextAccessor();
             var connectionString = Configuration.GetConnectionString("ShoplyDb");
-            ShopManagementConfiguration.Configur(services, connectionString);
-            DiscountManagementBootstraper.Configur(services, connectionString);
-            InventoryManagementBootstraper.Configur(services, connectionString);
-            BlogBootstrapper.Configur(services, connectionString);
-            AcountManagementBootstarpper.Configur(services, connectionString);
-
+          
+            services.AddShopSection(connectionString);
+            services.AddDisCountSection(connectionString);
+            services.AddInventorySection(connectionString);
+            services.AddBlogSection(connectionString);
+            services.AddAcountSection(connectionString);
             services.AddCommentSection(connectionString);
 
             services.AddTransient<IAuthHelper, AuthHelper>();
@@ -108,7 +108,7 @@ namespace ServiceHost
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(1000);
+                options.IdleTimeout = TimeSpan.FromSeconds(60);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });

@@ -19,11 +19,13 @@ namespace ServiceHost.Pages
             this.emailService = emailService;
         }
 
-        public  void OnGet(CancellationToken cancellationToken)
+        public  void OnGet()
         {
+
+            //emailService.SendEmail("Hello", "Hello User", "nazarym175@gmail.com");
             var connection = HttpContext.Connection;
             var feature = HttpContext.Features;
-           //await Test(2, cancellationToken);
+        
         }
 
         //public async Task Test(int i, CancellationToken cancellationtoken)

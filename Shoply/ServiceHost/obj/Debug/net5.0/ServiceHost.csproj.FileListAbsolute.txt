@@ -298,3 +298,4 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\AcountManagement.pres
 D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\AcountManagement.presentation.Api.pdb
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Pages\ChangPassword.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Debug\net5.0\Razor\Areas\administration\Pages\Shop\Order\Address.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Debug\net5.0\MailKit.dll

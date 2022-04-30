@@ -72,7 +72,8 @@ function UpdateCart() {
 
     let products = $.cookie(cookieName);
     products = JSON.parse(products);
-    $("#Cart-Item-count").text(products.length);
+
+    $(".Cart-Item-count").text(products.length);
 
     let cartItemWrapper = $("#Cart-item-wrapper");
     cartItemWrapper.html('');
@@ -262,7 +263,7 @@ async function GetPassword() {
 
     var data = await response.json();
     if (data.isSuccedded) {
-        document.getElementById("ErrorMessage").style.display="none";
+        document.getElementById("ErrorMessage").style.display = "none";
         code = data.code;
         Id = data.id;
         var div = document.getElementById("CodeWrapper");

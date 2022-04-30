@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace _01_framwork.Applicatin.TokenAuthorize
 {
     public class Token

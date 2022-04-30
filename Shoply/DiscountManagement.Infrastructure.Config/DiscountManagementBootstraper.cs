@@ -11,9 +11,9 @@ using System;
 
 namespace DiscountManagement.Infrastructure.Config
 {
-    public class DiscountManagementBootstraper
+    public static class DiscountManagementBootstraper
     {
-        public static void Configur(IServiceCollection services,string ConnectionString)
+        public static void AddDisCountSection(this IServiceCollection services,string ConnectionString)
         {
             services.AddTransient<ICustomerDiscountApplication, CustomerDiscountApplication>();
             services.AddTransient<ICustomerDiscountRepository, CustomerDiscountRepository>();

@@ -36,9 +36,9 @@ using System;
 
 namespace ShopManagment.Imfrastructure.Config
 {
-    public class ShopManagementConfiguration
+    public static class ShopManagementConfiguration
     {
-        public static void Configur(IServiceCollection services, string ConnectionString)
+        public static void AddShopSection(this IServiceCollection services, string ConnectionString)
         {
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();

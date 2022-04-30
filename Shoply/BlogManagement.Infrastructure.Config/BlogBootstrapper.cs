@@ -15,9 +15,9 @@ using _01_Shoplyquery.Contracts.ArticleCategory;
 
 namespace BlogManagement.Infrastructure.Config
 {
-    public class BlogBootstrapper
+    public static class BlogBootstrapper
     {
-        public static void Configur(IServiceCollection services, string connectionString)
+        public static void AddBlogSection(this IServiceCollection services, string connectionString)
         {
             services.AddTransient<IArticleCategoryApplication, ArticleCategoryApplication>();
             services.AddTransient<IArticleCategoryRepository, ArticleCategoryRepository>();

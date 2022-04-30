@@ -298,3 +298,4 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\AcountManagement.pr
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\Razor\Pages\ChangPassword.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\Razor\Pages\RigesterMobile.cshtml.g.cs
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\Razor\Areas\administration\Pages\Shop\Order\Address.cshtml.g.cs
+D:\Shoply_Project\Code\Shoply\ServiceHost\bin\Release\net5.0\MailKit.dll

@@ -5,9 +5,27 @@
 @using _01_framwork.Applicatin
 @model MenuModel
 @inject IAuthHelper AuthHelper
-@inject IHttpContextAccessor HttpContextAccessor 
-@{
+@inject IHttpContextAccessor HttpContextAccessor
 
+@{
+    Func<dynamic, IHtmlContent> ShowMenu(List<ProductCategoryQueryModel> Categories, ProductCategoryQueryModel parent) =>
+    @<ul class="sub-menu">
+        @foreach (var category in Categories.Where(x => !x.IsRemoved))
+            {
+                //menu-item-has-children
+                @if (((parent == null) && (category.ParentId == null)) || (parent?.Id == category.ParentId))
+                {
+                    <li class="@(category.Children.Any()?"menu-item-has-children":"")">
+                        <a asp-page="./ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
+
+                        @if (category.Children != null && category.Children.Any())
+                        {
+                            @ShowMenu(category.Children, category)(null)
+                        }
+                    </li>
+                }
+            }
+        </ul>;
 }
 <div class="header-area header-sticky">
     <div class="container">
@@ -17,7 +35,7 @@
                 <div class="header-wrapper d-none d-lg-flex">
                     <!-- logo -->
                     <div class="logo">
-                        <a href="index.html">
+                        <a asp-page="/Index">
                             <img src="~/theme/assets/img/logo.png" class="img-fluid" alt="">
                         </a>
                     </div>
@@ -31,26 +49,7 @@
 
                                 <li class="menu-item-has-children">
                                     <a class="fa fa-arrow-down">محصولات</a>
-                                  
-                                    @{
-                                        Func<dynamic, IHtmlContent> ShowMenu(List<ProductCategoryQueryModel> Categories, ProductCategoryQueryModel parent) =>       
-                                        @<ul class="sub-menu">
-                                            @foreach (var category in Categories.Where(x=>!x.IsRemoved)){
-                                                //menu-item-has-children
-                                                    @if (((parent == null) && (category.ParentId == null)) || (parent?.Id == category.ParentId))
-                                                    {
-                                                        <li class="@(category.Children.Any()?"menu-item-has-children":"")">
-                                                <a asp-page="./ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
 
-                                                            @if (category.Children != null && category.Children.Any())
-                                                            {
-                                                                @ShowMenu(category.Children, category)(null)
-                                                            }
-                                                        </li>
-                                                    }
-                                            }
-                                        </ul>;
-                                    }
                                     @ShowMenu(Model.ProductCategories,null)(null)
                                 </li>
                                 <li class="menu-item-has-children">
@@ -83,34 +82,12 @@
                                 <div class="header-cart-icon">
                                     <a href="#" id="minicart-trigger">
                                         <i class="ion-bag"></i>
-                                        <span class="counter" id="Cart-Item-count">0</span>
+                                        <span class="counter Cart-Item-count">0</span>
+
                                     </a>
                                     <div class="mini-cart" id="mini-cart">
                                         <div class="cart-items-wrapper ps-scroll" id="Cart-item-wrapper">
                                         </div>
-                                        @*<div class="cart-calculation">
-                                            <table class="table">
-                                            <tbody>
-                                            <tr>
-                                            <td class="text-right">Sub-Total :</td>
-                                            <td class="text-left">$220.00</td>
-                                            </tr>
-                                            <tr>
-                                            <td class="text-right">Eco Tax (-2.00) :</td>
-                                            <td class="text-left">$6.00</td>
-                                            </tr>
-                                            <tr>
-                                            <td class="text-right">VAT (20%) :</td>
-                                            <td class="text-left">$44.00</td>
-                                            </tr>
-                                            <tr>
-                                            <td class="text-right">Total :</td>
-                                            <td class="text-left">$270.00</td>
-                                            </tr>
-                                            </tbody>
-                                            </table>
-                                            </div>*@
-
                                         <div class="cart-buttons">
                                             @if (AuthHelper.IsAuthenticated())
                                             {
@@ -205,11 +182,48 @@
                                 <div class="header-icon-wrapper">
                                     <ul class="icon-list justify-content-end">
                                         <li>
-                                            <div class="header-cart-icon">
-                                                <a href="cart.html">
-                                                    <i class="ion-bag"></i>
-                                                    <span class="counter">3</span>
+                                            @*   <div class="header-cart-icon">
+                                                <a id="minicart-trigger">
+                                                <i class="ion-bag"></i>
+                                                <span class="counter" id="Cart-Item-count">0</span>
                                                 </a>
+                                                <div class="mini-cart" id="mini-cart">
+                                                <div class="cart-items-wrapper ps-scroll" id="Cart-item-wrapper">
+                                                </div>
+                                                <div class="cart-buttons">
+                                                @if (AuthHelper.IsAuthenticated())
+                                                {
+                                                <a asp-page="/Cart"> مشاهده سبد خرید</a>
+                                                }
+                                                else
+                                                {
+                                                <a asp-page="/Acount"> ورود/ ثبت نام</a>
+
+                                                }
+                                                </div>
+                                                </div>
+                                                </div>*@
+                                            <div class="header-cart-icon">
+                                                <a asp-page="/Cart" id="minicart-trigger">
+                                                    <i class="ion-bag"></i>
+                                                    <span class="counter Cart-Item-count">0</span>
+
+                                                </a>
+                                                <div class="mini-cart" id="mini-cart">
+                                                    <div class="cart-items-wrapper ps-scroll" id="Cart-item-wrapper">
+                                                    </div>
+                                                    <div class="cart-buttons">
+                                                        @if (AuthHelper.IsAuthenticated())
+                                                        {
+                                                            <a asp-page="/Cart"> مشاهده سبد خرید</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a asp-page="/Acount"> ورود/ ثبت نام</a>
+
+                                                        }
+                                                    </div>
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
@@ -255,26 +269,22 @@
 
                     </li>
 
+
+
                     <li class="menu-item-has-children">
-                        <a href="#">محصولات</a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="blog-left-sidebar.html">دکوری</a>
-                            </li>
-                            <li>
-                                <a href="blog-right-sidebar.html">مبلمان</a>
-                            </li>
-                        </ul>
+                        <a >محصولات</a>
+                        @ShowMenu(Model.ProductCategories,null)(null)
                     </li>
+
                     <li class="menu-item-has-children">
-                        <a href="#">مقالات</a>
+                        <a>مقالات</a>
                         <ul class="sub-menu">
-                            <li>
-                                <a href="blog-left-sidebar.html">مقاله 1</a>
-                            </li>
-                            <li>
-                                <a href="blog-right-sidebar.html">مقاله 2</a>
-                            </li>
+                            @foreach (var category in Model.ArticleCategories)
+                            {
+                                <li>
+                                    <a asp-page="./ArticleCategory" asp-route-id="@category.Slug">@category.Name</a>
+                                </li>
+                            }
                         </ul>
                     </li>
                     <li class="menu-item-has-children">
@@ -288,14 +298,21 @@
                 <nav class="offcanvas-navigation">
                     <ul>
                         <li class="menu-item-has-children">
-                            <a href="#">حساب کاربری </a>
+                            <h4 class="title">حساب کاربری </h4>
                             <ul class="sub-menu">
-                                <li>
-                                    <a href="login-register.html">ثبت نام</a>
-                                </li>
-                                <li>
-                                    <a href="login-register.html">ورود</a>
-                                </li>
+
+                                @if (AuthHelper.IsAuthenticated())
+                                {
+                                    <li>
+                                        <a asp-page="/Acount" asp-page-handler="Logout">خروج</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-page="/Acount">ورود</a>
+                                    </li>
+                                }
                             </ul>
                         </li>
                     </ul>

@@ -16,7 +16,7 @@ namespace _01_framwork.Infrastructure
             var tokenManagement = (ITokenManagement)context.HttpContext.RequestServices.GetService(typeof(ITokenManagement));
 
             var result = true;
-            if (!context.HttpContext.Response.Headers.ContainsKey("Authorization"))
+            if (!context.HttpContext.Request.Headers.ContainsKey("Authorization"))
                 result = false;
 
             string token = string.Empty;

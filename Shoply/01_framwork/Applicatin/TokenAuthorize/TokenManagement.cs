@@ -16,7 +16,7 @@ namespace _01_framwork.Applicatin.TokenAuthorize
 
         public bool Authorize(string Pwd)
         {
-            if (string.IsNullOrWhiteSpace(Pwd) || Pwd.ToLower() != "shoply")
+            if (!string.IsNullOrWhiteSpace(Pwd) && Pwd.ToLower() != "shoply")
             {
                 return false;
             }
@@ -29,8 +29,9 @@ namespace _01_framwork.Applicatin.TokenAuthorize
             var token = new Token
             {
                 Value = Guid.NewGuid().ToString(),
-                ExpierDate = DateTime.Now.AddMinutes(2),
+                ExpierDate = DateTime.Now.AddMinutes(10),
             };
+
             tokens.Add(token);
 
             return token;

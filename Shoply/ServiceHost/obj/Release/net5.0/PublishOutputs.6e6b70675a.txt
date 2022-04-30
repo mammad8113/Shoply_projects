@@ -568,6 +568,8 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\wwwroot\
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\wwwroot\Upload\گلدان-و-دکوری\گلدان-مدل-g02\2022-04-19-23-22-28-1_1-600x800.jpg
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\wwwroot\Upload\گلدان-و-دکوری\گلدان-مدل-g03\2022-04-19-23-37-55-7_1-600x800.jpg
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\wwwroot\Upload\گلدان\2022-04-19-23-39-27-big1-1.jpg
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\wwwroot\Upload\گلدان\sdf\2022-04-26-22-44-55-bertina.png
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\wwwroot\Upload\گلدان\محمدحسین\2022-04-26-22-59-12-photo1649921253.jpeg
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\wwwroot\Upload\گلدان\گلدان-مدل-g01\2022-04-20-09-31-34-10-600x800.jpg
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\wwwroot\Upload\گلدان\گلدان-مدل-g01\2022-04-20-09-31-49-10_1-600x800.jpg
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\wwwroot\Upload\گلدان\گلدان-مدل-g01\2022-04-20-09-32-12-sample.png
@@ -586,6 +588,7 @@ D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\ServiceH
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\ServiceHost.runtimeconfig.json
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\ServiceHost.pdb
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\Humanizer.dll
+D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\MailKit.dll
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Http.Features.dll
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Razor.Language.dll
 D:\Shoply_Project\Code\Shoply\ServiceHost\obj\Release\net5.0\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll

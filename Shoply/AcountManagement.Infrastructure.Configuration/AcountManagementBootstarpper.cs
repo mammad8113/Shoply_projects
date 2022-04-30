@@ -12,9 +12,9 @@ using System;
 
 namespace AcountManagement.Infrastructure.Configuration
 {
-    public class AcountManagementBootstarpper
+    public static class AcountManagementBootstarpper
     {
-        public static void Configur(IServiceCollection services, string connectionString)
+        public static void AddAcountSection(this IServiceCollection services, string connectionString)
         {
             services.AddTransient<IAcountApplication, AcountApplication>();
             services.AddTransient<IAcountRepository, AcountRepository>();

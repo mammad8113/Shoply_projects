@@ -111,6 +111,7 @@ namespace _01_framwork.Applicatin
             var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1),
+          
             };
 
             _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,

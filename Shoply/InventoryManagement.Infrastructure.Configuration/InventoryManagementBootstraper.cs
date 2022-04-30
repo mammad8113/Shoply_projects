@@ -12,9 +12,9 @@ using System;
 
 namespace InventoryManagement.Infrastructure.Configuration
 {
-    public class InventoryManagementBootstraper
+    public static class InventoryManagementBootstraper
     {
-        public static void Configur(IServiceCollection services,string connectionstring)
+        public static void AddInventorySection(this IServiceCollection services,string connectionstring)
         {
             services.AddTransient<IInventoryRepository, InventoryRepository>();
             services.AddTransient<IInventoryApplication, InevntoryApplication>();
