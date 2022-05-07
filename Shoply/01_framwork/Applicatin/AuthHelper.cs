@@ -94,6 +94,7 @@ namespace _01_framwork.Applicatin
 
         public void Signin(AuthViewModel account)
         {
+            //System.Text.Json.JsonSerializer.Serialize(account.Permissions);
             var permissin = JsonConvert.SerializeObject(account.Permissions);
 
             var claims = new List<Claim>

@@ -1,3 +1,4 @@
+﻿using _01_framwork.Applicatin;
 using _01_framwork.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -5,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShopManagement.Application.Contracts.ProductCategory;
 using System.Collections.Generic;
 
-namespace ServiceHost.Areas.administration.Pages.Shop.ProductCategory  
+namespace ServiceHost.Areas.administration.Pages.Shop.ProductCategory
 {
     [Authorize(Roles = Rols.Administrator + "," + Rols.ContentUploader)]
     public class IndexModel : PageModel
@@ -27,11 +28,11 @@ namespace ServiceHost.Areas.administration.Pages.Shop.ProductCategory
         {
             var category = new CreateProductCategory();
             category.ParentId = id;
-            return Partial("./Create",category );
+            return Partial("./Create", category);
         }
         public JsonResult OnPostCreate(CreateProductCategory command)
         {
-            var result=productCategoryApplication.Create(command);
+            var result = productCategoryApplication.Create(command);
             return new JsonResult(result);
         }
         public IActionResult OnGetEdit(int id)
@@ -46,7 +47,7 @@ namespace ServiceHost.Areas.administration.Pages.Shop.ProductCategory
             {
 
             }
-            var result=productCategoryApplication.Edit(command);
+            var result = productCategoryApplication.Edit(command);
             return new JsonResult(result);
         }
         public IActionResult OnGetRemove(long id)

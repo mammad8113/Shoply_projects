@@ -1,3 +1,4 @@
+﻿using _01_framwork.Applicatin;
 using BlogManagement.Application.Contracts.ArticleCategory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -33,8 +34,14 @@ namespace ServiceHost.Areas.administration.Pages.Blog.ArticleCategory
         }
         public JsonResult OnPostCreate(CreateArticleCategory command)
         {
-            var result = articleCategoryApplication.Create(command);
-            return new JsonResult(result);
+            if (ModelState.IsValid)
+            {
+                var result = articleCategoryApplication.Create(command);
+                return new JsonResult(result);
+            }
+            var operation = new OperationResult();
+            operation = operation.Faild("لطفا مقادیر را به درستی وارد نمایید");
+            return new JsonResult(operation);
         }
         public IActionResult OnGetEdit(int id)
         {

@@ -1,3 +1,4 @@
+﻿using _01_framwork.Applicatin;
 using AcountManagement.Application.Contracts.Acount;
 using AcountManagement.Application.Contracts.Rol;
 using Microsoft.AspNetCore.Mvc;
@@ -32,13 +33,14 @@ namespace ServiceHost.Areas.administration.Pages.Acounts.Acount
         public IActionResult OnGetCreate()
         {
             var command = new RegisterAcount();
-            command.RolViewModels=rolApplication.GetAll();
+            command.RolViewModels = rolApplication.GetAll();
             return Partial("./Create", command);
         }
         public JsonResult OnPostCreate(RegisterAcount command)
         {
             var result = acountApplication.Create(command);
             return new JsonResult(result);
+
         }
         public IActionResult OnGetEdit(long id)
         {

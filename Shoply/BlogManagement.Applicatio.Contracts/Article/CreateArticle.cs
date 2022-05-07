@@ -40,6 +40,7 @@ namespace BlogManagement.Application.Contracts.Article
         public string CanonicalAddress { get; set; }
         [Required(ErrorMessage = VallidationMessage.Message)]
 
+        [Range(1,1000,ErrorMessage =VallidationMessage.Message)]
         public long ArticleCategoryId { get; set; }
     }
 }

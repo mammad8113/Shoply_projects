@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class="row">
+<div permission="@(int)ShopPermission.SearchProducts" class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -139,8 +139,8 @@
                     @foreach (var item in Model.ProductCategories)
                     {
                         <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
-                            <span onclick='checkCategory(@item.Id,"@item.Name")' class="fa fa-check fa-2x text-success"></span>
-                            <a onclick='ChooseCategory(@item.Id,"@item.Name",@null)'>@item.Name</a>
+                            <span style="cursor:pointer" onclick='checkCategory(@item.Id,"@item.Name")' class="fa fa-check fa-2x text-success"></span>
+                            <a style="cursor:pointer" onclick='ChooseCategory(@item.Id,"@item.Name",@null)'>@item.Name</a>
                         </div>
                     }
                 </div>

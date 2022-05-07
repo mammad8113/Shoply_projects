@@ -1,4 +1,4 @@
-using _01_framwork.Applicatin;
+﻿using _01_framwork.Applicatin;
 using _01_framwork.Infrastructure;
 using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using DiscountManagement.Application.Contracts.CustomerDiscount;
@@ -50,6 +50,7 @@ namespace ServiceHost.Areas.administration.Pages.Inventory
             inventory.Products = productApplication.GetProducts();
             return Partial("./Edit", inventory);
         }
+        [NeddsPermission((int)InventoryPermission.EditInventory)]
 
         public JsonResult OnPostEdit(EditInventory command)
         {
@@ -64,11 +65,13 @@ namespace ServiceHost.Areas.administration.Pages.Inventory
             };
             return Partial("./Increase", operation);
         }
+        [NeddsPermission((int)InventoryPermission.Increase)]
 
         public JsonResult OnPostIncrease(IncreaseInventory command)
         {
             var result = inventoryApplication.Increase(command);
             return new JsonResult(result);
+
         }
         public IActionResult OnGetReduce(long id)
         {
@@ -78,6 +81,7 @@ namespace ServiceHost.Areas.administration.Pages.Inventory
             };
             return Partial("./Reduce", operation);
         }
+        [NeddsPermission((int)InventoryPermission.Reduce)]
 
         public JsonResult OnPostReduce(DecreaseInventory command)
         {

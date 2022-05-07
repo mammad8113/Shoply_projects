@@ -1,3 +1,4 @@
+﻿using _01_framwork.Applicatin;
 using _01_framwork.Infrastructure;
 using AcountManagement.Application.Contracts.Rol;
 using Microsoft.AspNetCore.Mvc;
@@ -51,8 +52,14 @@ namespace ServiceHost.Areas.administration.Pages.Acounts.Rol
 
         public IActionResult OnPost(CreateRol command)
         {
-            var result = rolApplication.Create(command);
-            return RedirectToPage("./Index");
+            if (ModelState.IsValid)
+            {
+                var result = rolApplication.Create(command);
+                return RedirectToPage("./Index");
+            }
+            var operation = new OperationResult();
+            operation = operation.Faild("لطفا مقادیر را به درستی وارد نمایید");
+            return new JsonResult(operation);
         }
 
     }

@@ -29,11 +29,6 @@ namespace ServiceHost.Pages
 
         public  void OnGet()
         {
-            Thread.Sleep(10000);
-            if (HttpContext.RequestAborted.IsCancellationRequested)
-            {
-               HttpContext.RequestAborted.ThrowIfCancellationRequested();
-            }
             var serializer = new JavaScriptSerializer();
             var value = Request.Cookies[CookieName];
             CartItems = serializer.Deserialize<List<CartItem>>(value);

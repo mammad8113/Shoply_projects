@@ -58,9 +58,9 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
             var TotalorderItems = new List<OrderItemViewModel>();
             var random = new Random();
 
-            var week = DateTime.Now.Day - 7;
+            var week = (DateTime.Now.Day - 7 >0 ? DateTime.Now.Day - 7 : 1);
             var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, week);
-            var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day+1);
 
             var orders = _shopContext.Orders
                 .Where(x => x.CreationDate >= startDate && x.CreationDate <= endDate)
@@ -212,14 +212,12 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
 
         public double TotalPaymentForWekk()
         {
-            var week = DateTime.Now.Day - 7;
+            var week = (DateTime.Now.Day - 7 > 0 ? DateTime.Now.Day - 7 : 1);
+
             var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, week);
-            var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1);
+            var endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day+1);
             var total = _shopContext.Orders.Where(x => x.CreationDate >= startDate && x.CreationDate <= endDate).Select(x => new { x.Id, x.PayAmount }).ToList();
             return total.Sum(x => x.PayAmount);
         }
-
-
-
     }
 }

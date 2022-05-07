@@ -27,21 +27,35 @@ namespace ShopManagement.Application.Slider
                 return result.Faild(ApplicationMessage.NullMessage);
 
             slide.Activate();
-            sliderepository.Save();
+            try
+            {
+                sliderepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return result.Success();
         }
 
         public OperationResult Create(CreateSlide command)
         {
             var result = new OperationResult();
-            if (sliderepository.Exist(x=>x.Heding == command.Heding))
+            if (sliderepository.Exist(x => x.Heding == command.Heding))
                 return result.Faild(ApplicationMessage.DoblicatedMessage);
             var path = "slides";
             var picture = fileUploader.Upload(command.Picture, path);
 
             var slide = new Slide(picture, command.PictureAlt, command.PictureTitle, command.Heding, command.Link, command.Title, command.Text, command.BtnText);
             sliderepository.Create(slide);
-            sliderepository.Save();
+            try
+            {
+                sliderepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.NullFildMessage);
+            }
             return result.Success();
         }
 
@@ -58,7 +72,14 @@ namespace ShopManagement.Application.Slider
             var path = "slides";
             var picture = fileUploader.Upload(command.Picture, path);
             slide.Edit(picture, command.PictureAlt, command.PictureTitle, command.Heding, command.Link, command.Title, command.Text, command.BtnText);
-            sliderepository.Save();
+            try
+            {
+                sliderepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.NullFildMessage);
+            }
             return result.Success();
         }
 
@@ -80,7 +101,14 @@ namespace ShopManagement.Application.Slider
                 return result.Faild(ApplicationMessage.NullMessage);
 
             slide.Remove();
-            sliderepository.Save();
+            try
+            {
+                sliderepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return result.Success();
         }
     }

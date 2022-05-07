@@ -1,4 +1,6 @@
 ﻿using _0_Framework.Application;
+using _01_framwork.Applicatin;
+using _01_framwork.Infrastructure;
 using _01_Shoplyquery.Contracts.Product;
 using _01_Shoplyquery.Contracts.ProductCategory;
 using CommentManagement.Infrastructure.EfCore;
@@ -19,24 +21,30 @@ namespace _01_Shoplyquery.Contracts.Slide
 {
     public class ProductQuery : IProductQuery
     {
-        private readonly ShopContext shopContext;
-        private readonly DiscountContext discountContext;
         private readonly InventoryContext inventoryContext;
+        private readonly DiscountContext discountContext;
         private readonly CommentContext commentContext;
-        public ProductQuery(InventoryContext inventoryContext, ShopContext shopContext, DiscountContext discountContext, CommentContext commentContext)
+        private readonly ShopContext shopContext;
+        private readonly IAuthHelper authHelper;
+        public ProductQuery(InventoryContext inventoryContext, ShopContext shopContext, DiscountContext discountContext
+            , CommentContext commentContext, IAuthHelper authHelper)
         {
             this.inventoryContext = inventoryContext;
-            this.shopContext = shopContext;
             this.discountContext = discountContext;
             this.commentContext = commentContext;
+            this.shopContext = shopContext;
+            this.authHelper = authHelper;
         }
 
         public ProductQueryModel GetDetals(string slug)
         {
             var Inventory = inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice, x.InStock }).ToList();
 
-            var Discount = discountContext.CustomerDiscounts.Where(x => x.StartDiscount < DateTime.Now && x.EndDiscount > DateTime.Now).
+            var customerDiscount = discountContext.CustomerDiscounts.Where(x => x.StartDiscount < DateTime.Now && x.EndDiscount > DateTime.Now).
                 Select(x => new { x.ProductId, x.Discount, x.EndDiscount }).ToList();
+
+            var ColleagueDiscounts = discountContext.ColleagueDiscounts.
+               Select(x => new { x.ProductId, x.Discount }).ToList();
 
             var product = shopContext.Products.Where(x => !x.IsRemoved).Include(x => x.ProductCategory)
                 .Include(x => x.ProductPictures)
@@ -48,8 +56,8 @@ namespace _01_Shoplyquery.Contracts.Slide
                     PictureAlt = x.PictureAlt,
                     PictureTitle = x.PictureTitle,
                     Slug = x.Slug,
-                    Category =x.ProductCategory.Name,
-                   CategoryId=x.ProductCategoryId,
+                    Category = x.ProductCategory.Name,
+                    CategoryId = x.ProductCategoryId,
                     CategorySlug = x.ProductCategory.Slug,
                     ShortDescription = x.ShortDescription,
                     Description = x.Description,
@@ -57,12 +65,15 @@ namespace _01_Shoplyquery.Contracts.Slide
                     Code = x.Code,
                     KeyWords = x.KeyWords,
                     IsRemoved = x.IsRemoved,
-                    
+
                     Pictures = MapPictures(x.ProductPictures),
 
                 }).FirstOrDefault(x => x.Slug == slug);
 
             var productInventory = Inventory.FirstOrDefault(x => x.ProductId == product.Id);
+
+
+
             if (productInventory != null)
             {
                 var price = productInventory.UnitPrice;
@@ -70,18 +81,37 @@ namespace _01_Shoplyquery.Contracts.Slide
                 product.DoublePrice = price;
                 product.InStock = productInventory.InStock;
 
-                var productDiscount = Discount.FirstOrDefault(x => x.ProductId == product.Id);
-                if (productDiscount != null)
+                if (authHelper.IsAuthenticated() && authHelper.CurrentAccountRole() == Rols.Colleague)
                 {
-                    product.EndDate = productDiscount.EndDiscount.ToString();
-                    var discountRate = productDiscount.Discount;
-                    product.DiscountRate = discountRate;
-
-                    product.HasDiscount = discountRate > 0;
-                    var discountAmount = Math.Round((price * discountRate) / 100);
-                    product.PricewithDicount = (price - discountAmount).ToMoney();
-                    product.DoublePricewithDicount = price - discountAmount;
+                    var productColleagueDiscounts = ColleagueDiscounts.FirstOrDefault(x => x.ProductId == product.Id);
+                    if (productColleagueDiscounts != null)
+                    {
+                        var discountRate = productColleagueDiscounts.Discount;
+                        product.DiscountRate = discountRate;
+                        product.HasDiscount = discountRate > 0;
+                        var discountAmount = Math.Round((price * discountRate) / 100);
+                        product.PricewithDicount = (price - discountAmount).ToMoney();
+                        product.DoublePricewithDicount = price - discountAmount;
+                    }
                 }
+                else
+                {
+                    var productcustomerDiscount = customerDiscount.FirstOrDefault(x => x.ProductId == product.Id);
+                    if (productcustomerDiscount != null)
+                    {
+                        product.EndDate = productcustomerDiscount.EndDiscount.ToString();
+                        var discountRate = productcustomerDiscount.Discount;
+                        product.DiscountRate = discountRate;
+
+                        product.HasDiscount = discountRate > 0;
+                        var discountAmount = Math.Round((price * discountRate) / 100);
+                        product.PricewithDicount = (price - discountAmount).ToMoney();
+                        product.DoublePricewithDicount = price - discountAmount;
+                    }
+                }
+
+
+
             }
 
             product.Comments = commentContext.Comments.Where(x => x.IsConfirm && !x.IsCanceld && x.Type == CommentType.Product && x.OwnerRecordId == product.Id)
@@ -91,12 +121,13 @@ namespace _01_Shoplyquery.Contracts.Slide
                     Mobile = x.Mobile,
                     Name = x.Name,
                     Message = x.Message,
+                    Rating = x.Rating,
                 }).OrderByDescending(x => x.Id).ToList();
 
             return product;
         }
 
-    
+
 
         private static List<ProductPictureQueryModel> MapPictures(List<ProductPicture> productPictures)
         {
@@ -114,7 +145,10 @@ namespace _01_Shoplyquery.Contracts.Slide
         {
             var Inventory = inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
 
-            var Discount = discountContext.CustomerDiscounts.Where(x => x.StartDiscount < DateTime.Now && x.EndDiscount > DateTime.Now).
+            var CustomerDiscounts = discountContext.CustomerDiscounts.Where(x => x.StartDiscount < DateTime.Now && x.EndDiscount > DateTime.Now).
+                Select(x => new { x.ProductId, x.Discount, x.EndDiscount }).ToList();
+
+            var ColleagueDiscounts = discountContext.ColleagueDiscounts.
                 Select(x => new { x.ProductId, x.Discount }).ToList();
 
             var query = shopContext.Products.Where(x => !x.IsRemoved).Include(x => x.ProductCategory).Select(x => new ProductQueryModel
@@ -145,17 +179,42 @@ namespace _01_Shoplyquery.Contracts.Slide
                     var price = productInventory.UnitPrice;
                     product.Price = price.ToMoney();
 
-                    var productDiscount = Discount.FirstOrDefault(x => x.ProductId == product.Id);
-                    if (productDiscount != null)
+                    if (authHelper.IsAuthenticated() && authHelper.CurrentAccountRole() == Rols.Colleague)
                     {
-                        var discountRate = productDiscount.Discount;
-                        product.DiscountRate = discountRate;
+                        var productColleagueDiscounts = ColleagueDiscounts.FirstOrDefault(x => x.ProductId == product.Id);
+                        if (productColleagueDiscounts != null)
+                        {
+                            var discountRate = productColleagueDiscounts.Discount;
+                            product.DiscountRate = discountRate;
+                            product.HasDiscount = discountRate > 0;
+                            var discountAmount = Math.Round((price * discountRate) / 100);
+                            product.PricewithDicount = (price - discountAmount).ToMoney();
+                            product.DoublePricewithDicount = price - discountAmount;
+                        }
+                    }
+                    else
+                    {
+                        var productcustomerDiscount = CustomerDiscounts.FirstOrDefault(x => x.ProductId == product.Id);
+                        if (productcustomerDiscount != null)
+                        {
+                            product.EndDate = productcustomerDiscount.EndDiscount.ToString();
+                            var discountRate = productcustomerDiscount.Discount;
+                            product.DiscountRate = discountRate;
 
-                        product.HasDiscount = discountRate > 0;
-                        var discountAmount = Math.Round((price * discountRate) / 100);
-                        product.PricewithDicount = (price - discountAmount).ToMoney();
+                            product.HasDiscount = discountRate > 0;
+                            var discountAmount = Math.Round((price * discountRate) / 100);
+                            product.PricewithDicount = (price - discountAmount).ToMoney();
+                            product.DoublePricewithDicount = price - discountAmount;
+                        }
                     }
                 }
+
+                product.Comments = commentContext.Comments.Where(x => x.IsConfirm && !x.IsCanceld && x.Type == CommentType.Product && x.OwnerRecordId == product.Id)
+                .Select(x => new CommentQueryModel
+                {
+                    Id = x.Id,
+                    Rating = x.Rating,
+                }).OrderByDescending(x => x.Id).ToList();
             }
 
 
@@ -236,6 +295,6 @@ namespace _01_Shoplyquery.Contracts.Slide
             return cartItems;
         }
 
-      
+
     }
 }

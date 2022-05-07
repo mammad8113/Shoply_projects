@@ -36,7 +36,7 @@
 
             <div class="col-md-12">
                 <div class="form-group">
-                    <input asp-for="ProductCategoryId" type="hidden" value="" />
+                    <input asp-for="ProductCategoryId" type="hidden"  />
                     <span asp-validation-for="ProductCategoryId" class="error"></span>
                     <button type="button" id="btncategory" class="btn btn-primary" onclick="showCategoryModal()">
                         انتخاب دسته بندی
@@ -141,7 +141,7 @@
                     @foreach (var item in Model.ProductCategories)
                     {
                         <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
-                            <a onclick='SetCategory(@item.Id,"@item.Name",@null)'>@item.Name</a>
+                            <a  style="cursor:pointer"onclick='SetCategory(@item.Id,"@item.Name",@null)'>@item.Name</a>
                         </div>
                     }
                 </div>

@@ -31,7 +31,14 @@ namespace AcountManagement.Application.Rol
             var rol = new Domain.Rol.Agg.Role(command.Name, permissions);
 
             rolRepository.Create(rol);
-            rolRepository.Save();
+            try
+            {
+                rolRepository.Save();
+            }
+            catch
+            {
+                return operation.Faild(ApplicationMessage.NullFildMessage);
+            }
             return operation.Success();
         }
 
@@ -51,7 +58,14 @@ namespace AcountManagement.Application.Rol
                 command.Permissions.ForEach(code => permissions.Add(new Permission(code)));
             }
             rol.Edit(command.Name, permissions);
-            rolRepository.Save();
+            try
+            {
+                rolRepository.Save();
+            }
+            catch
+            {
+                return operation.Faild(ApplicationMessage.NullFildMessage);
+            }
             return operation.Success();
         }
 

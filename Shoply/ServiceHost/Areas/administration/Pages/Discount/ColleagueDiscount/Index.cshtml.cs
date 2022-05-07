@@ -1,4 +1,4 @@
-using _01_framwork.Applicatin;
+﻿using _01_framwork.Applicatin;
 using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using DiscountManagement.Application.Contracts.CustomerDiscount;
 using Microsoft.AspNetCore.Mvc;
@@ -60,8 +60,8 @@ namespace ServiceHost.Areas.administration.Pages.Discount.ColleagueDiscount
         }
         public IActionResult OnGetRemove(long id)
         {
-           
-           colleagueDiscountApplication.Removed(id);
+
+            colleagueDiscountApplication.Removed(id);
             return RedirectToPage("./Index");
         }
 

@@ -1,6 +1,6 @@
 ﻿@using _01_Shoplyquery.Contracts.ProductCategory
 @model List<ProductCategoryQueryModel>
- @{
+@{
 }
 <div class="single-row-slider-tab-area section-space">
     <div class="container">
@@ -85,11 +85,21 @@
                                                                 <a href="shop-left-sidebar.html">@product.Category</a>
                                                             </span>
                                                             <span class="rating">
-                                                                <i class="ion-android-star active"></i>
-                                                                <i class="ion-android-star active"></i>
-                                                                <i class="ion-android-star active"></i>
-                                                                <i class="ion-android-star active"></i>
-                                                                <i class="ion-android-star-outline"></i>
+                                                                @if (product.Comments.Count > 0 && product.Rating > 0)
+                                                                {
+                                                                    @for (int i = 1; i <= 5; i++)
+                                                                    {
+                                                                        <i class="ion-android-star @(Math.Ceiling((decimal)(product.Rating/product.Comments.Count))>=i?"active":"")"></i>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                     @for (int i = 1; i <= 5; i++)
+                                                                    {
+                                                                        <i class="ion-android-star"></i>
+                                                                    }
+                                                                }
+                                                             
                                                             </span>
                                                         </div>
 

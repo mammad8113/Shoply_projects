@@ -26,6 +26,9 @@ namespace CommentManagement.Infrastructure.EfCore.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("AcountId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -55,6 +58,9 @@ namespace CommentManagement.Infrastructure.EfCore.Migrations
 
                     b.Property<long?>("ParentId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");

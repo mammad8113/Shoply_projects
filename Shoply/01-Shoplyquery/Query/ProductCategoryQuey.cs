@@ -1,6 +1,9 @@
 ﻿using _0_Framework.Application;
+using _01_framwork.Applicatin;
+using _01_framwork.Infrastructure;
 using _01_Shoplyquery.Contracts.Product;
 using _01_Shoplyquery.Contracts.ProductCategory;
+using CommentManagement.Infrastructure.EfCore;
 using DiscountManagement.Infrastructure;
 using InventoryManagement.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -17,18 +20,24 @@ namespace _01_Shoplyquery.Query
 {
     public class ProductCategoryQuey : IProductCategoryQuery
     {
-        private readonly ShopContext shopContext;
         private readonly InventoryContext inventoryContext;
         private readonly DiscountContext discountContext;
-        public static List<Breadcrumb> parents { get; set; }
+        private readonly CommentContext commentContext;
+        private readonly ShopContext shopContext;
+        private readonly IAuthHelper authHelper;
         public static List<ProductQueryModel> Products { get; set; }
-        public ProductCategoryQuey(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext)
+        public static List<Breadcrumb> parents { get; set; }
+        public ProductCategoryQuey(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext,
+          CommentContext commentContext, IAuthHelper authHelper)
         {
-            this.shopContext = shopContext;
             this.inventoryContext = inventoryContext;
             this.discountContext = discountContext;
-            parents = new List<Breadcrumb>();
+            this.commentContext = commentContext;
+            this.shopContext = shopContext;
+            this.authHelper = authHelper;
+
             Products = new List<ProductQueryModel>();
+            parents = new List<Breadcrumb>();
         }
 
         public List<ProductCategoryQueryModel> GetAll()
@@ -124,10 +133,21 @@ namespace _01_Shoplyquery.Query
         public List<ProductCategoryQueryModel> GetProductCategoryWithProducts()
         {
             var inventory = inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice }).ToList();
-            var discount = discountContext.CustomerDiscounts.Where(x => x.StartDiscount < DateTime.Now && x.EndDiscount > DateTime.Now)
-                .Select(x => new { x.ProductId, x.Discount }).ToList();
-            var categories = shopContext.ProductCategories.Where(x => x.IsRemoved == false).Where(x => x.ParentId == null)
-                .Include(x => x.Products).ThenInclude(x => x.ProductCategory).Select(x => new ProductCategoryQueryModel
+            var customerdiscount = discountContext.CustomerDiscounts
+                .Where(x => x.StartDiscount < DateTime.Now && x.EndDiscount > DateTime.Now)
+                .Select(x => new { x.ProductId, x.Discount, x.EndDiscount })
+                .ToList();
+
+            var ColleagueDiscounts = discountContext.ColleagueDiscounts
+                .Select(x => new { x.ProductId, x.Discount })
+                .ToList();
+
+            var categories = shopContext.ProductCategories
+                .Where(x => x.IsRemoved == false)
+                .Where(x => x.ParentId == null)
+                .Include(x => x.Products)
+                .ThenInclude(x => x.ProductCategory)
+                .Select(x => new ProductCategoryQueryModel
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -149,17 +169,45 @@ namespace _01_Shoplyquery.Query
                     {
                         var Price = Productinventory.UnitPrice;
                         product.Price = Price.ToMoney();
-                        var productDiscount = discount.FirstOrDefault(x => x.ProductId == product.Id);
-                        if (productDiscount != null)
+                        if (authHelper.IsAuthenticated() && authHelper.CurrentAccountRole() == Rols.Colleague)
                         {
-                            int discountrate = productDiscount.Discount;
-                            product.DiscountRate = discountrate;
-                            product.HasDiscount = discountrate > 0;
-                            var discountAmount = Math.Round((Price * discountrate) / 100);
-                            product.PricewithDicount = (Price - discountAmount).ToMoney();
+                            var productColleagueDiscounts = ColleagueDiscounts.FirstOrDefault(x => x.ProductId == product.Id);
+                            if (productColleagueDiscounts != null)
+                            {
+                                var discountRate = productColleagueDiscounts.Discount;
+                                product.DiscountRate = discountRate;
+                                product.HasDiscount = discountRate > 0;
+                                var discountAmount = Math.Round((Price * discountRate) / 100);
+                                product.PricewithDicount = (Price - discountAmount).ToMoney();
+                                product.DoublePricewithDicount = Price - discountAmount;
+                            }
+                        }
+                        else
+                        {
+                            var productcustomerDiscount = customerdiscount.FirstOrDefault(x => x.ProductId == product.Id);
+                            if (productcustomerDiscount != null)
+                            {
+                                product.EndDate = productcustomerDiscount.EndDiscount.ToString();
+                                var discountRate = productcustomerDiscount.Discount;
+                                product.DiscountRate = discountRate;
+
+                                product.HasDiscount = discountRate > 0;
+                                var discountAmount = Math.Round((Price * discountRate) / 100);
+                                product.PricewithDicount = (Price - discountAmount).ToMoney();
+                                product.DoublePricewithDicount = Price - discountAmount;
+                            }
                         }
                     }
 
+                    product.Comments = commentContext.Comments
+                        .Where(x => x.IsConfirm && !x.IsCanceld && x.Type == CommentType.Product && x.OwnerRecordId == product.Id)
+                        .Select(x => new CommentQueryModel
+                        {
+                            Id = x.Id,
+                            Rating = x.Rating,
+                        }).OrderByDescending(x => x.Id).ToList();
+
+                    product.Rating = product.Comments.Sum(x => x.Rating);
                 }
             }
 

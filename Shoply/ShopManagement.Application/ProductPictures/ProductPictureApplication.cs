@@ -30,15 +30,23 @@ namespace ShopManagement.Application.ProductPictures
                 return result.Faild(ApplicationMessage.NullMessage);
 
             picture.Activate();
-            productPictureRepository.Save();
+            try
+            {
+                productPictureRepository.Save();
+
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return result.Success();
         }
 
         public OperationResult Create(CreateProductPicture command)
         {
             var result = new OperationResult();
-          
-            var product=productRepository.GetProductWithCategory(command.ProductId);
+
+            var product = productRepository.GetProductWithCategory(command.ProductId);
             var path = $"{product.ProductCategory.Slug}/{product.Slug}";
             var picture = fileUploader.Upload(command.Picture, path);
 
@@ -52,13 +60,20 @@ namespace ShopManagement.Application.ProductPictures
         public OperationResult Edit(EditProductPicture command)
         {
             var result = new OperationResult();
-            var productPicture=productPictureRepository.Get(command.Id);
+            var productPicture = productPictureRepository.Get(command.Id);
             var product = productRepository.GetProductWithCategory(command.ProductId);
             var path = $"{product.ProductCategory.Slug}/{product.Slug}";
             var picture = fileUploader.Upload(command.Picture, path);
 
             productPicture.Edit(picture, command.PictureAlt, command.PictureTitle, command.ProductId);
-            productPictureRepository.Save();
+            try
+            {
+                productPictureRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.NullFildMessage);
+            }
             return result.Success();
         }
 
@@ -75,13 +90,20 @@ namespace ShopManagement.Application.ProductPictures
                 return result.Faild(ApplicationMessage.NullMessage);
 
             picture.Remove();
-            productPictureRepository.Save();
+            try
+            {
+                productPictureRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return result.Success();
         }
 
         public List<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel)
         {
-           return productPictureRepository.Search(searchModel);
+            return productPictureRepository.Search(searchModel);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace InventoryManagement.Presentation.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+
     public class InventoryController : ControllerBase
     {
         private readonly IInventoryApplication inventoryApplication;

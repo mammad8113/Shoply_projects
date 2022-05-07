@@ -24,11 +24,11 @@ namespace ServiceHost.Pages
         {
             Product = productQuery.GetDetals(id);
         }
-        public IActionResult OnPost(AddComment command,string productSlug)
+        public IActionResult OnPost(AddComment command, string productSlug)
         {
             command.type = CommentType.Product;
             command.Mobile = authHelper.CurrentAccountMobile();
-           var result= commentApplication.Add(command);
+            var result = commentApplication.Add(command);
             return RedirectToPage("./Product", new { id = productSlug });
         }
     }

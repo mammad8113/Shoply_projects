@@ -1,3 +1,4 @@
+﻿using _01_framwork.Applicatin;
 using DiscountManagement.Application.Contracts.CustomerDiscount;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -50,6 +51,6 @@ namespace ServiceHost.Areas.administration.Pages.Discount.CustomerDiscount
             var result = customerDiscountApplication.Edit(command);
             return new JsonResult(result);
         }
-       
+
     }
 }

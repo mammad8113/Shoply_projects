@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Application;
 using _01_framwork.Applicatin;
 using _01_framwork.Applicatin.Sms;
+using _01_framwork.Infrastructure;
 using AcountManagement.Application.Contracts.Acount;
 using AcountManagement.Domain.Acount.Agg;
 using AcountManagement.Domain.Rol.Agg;
@@ -43,7 +44,14 @@ namespace AcountManagement.Application.Acount
 
             var password = passwordHasher.Hash(command.Password);
             Acount.ChangPassword(password);
-            acountRepository.Save();
+            try
+            {
+                acountRepository.Save();
+            }
+            catch
+            {
+                return operation.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return operation.Success();
         }
         public OperationResult Create(RegisterAcount command)
@@ -57,7 +65,7 @@ namespace AcountManagement.Application.Acount
 
             if (command.RolId == 0)
             {
-                command.RolId = 2;
+                command.RolId = int.Parse(Rols.SystemUser);
 
                 if (command.Password != command.RePassword)
                     return operation.Faild(ApplicationMessage.PasswordNotMath);
@@ -72,7 +80,14 @@ namespace AcountManagement.Application.Acount
                 command.RolId, picture);
 
             acountRepository.Create(acount);
-            acountRepository.Save();
+            try
+            {
+                acountRepository.Save();
+            }
+            catch
+            {
+                return operation.Faild(ApplicationMessage.NullFildMessage);
+            }
 
             var permissions = rolRepository.Get(acount.RolId).Permissions.Select(x => x.Code).ToList();
 
@@ -102,8 +117,14 @@ namespace AcountManagement.Application.Acount
 
             acount.Edit(command.Fullname, command.Username, command.Mobile,
                 command.RolId, picture);
-
-            acountRepository.Save();
+            try
+            {
+                acountRepository.Save();
+            }
+            catch
+            {
+                return operation.Faild(ApplicationMessage.NullFildMessage);
+            }
             return operation.Success();
         }
 
@@ -131,7 +152,7 @@ namespace AcountManagement.Application.Acount
                 if (acount.Mobile != command.Mobile)
                     return operation.Faild("همچین شماره ای در سیستم موجود نیست");
 
-                var random = new Random();  
+                var random = new Random();
                 int num1 = random.Next(0, 9);
                 int num2 = random.Next(0, 9);
                 int num3 = random.Next(0, 9);
@@ -146,7 +167,7 @@ namespace AcountManagement.Application.Acount
 
         public string GetPhoto(long id)
         {
-            
+
             return acountRepository.GetPhoto(id);
         }
 
@@ -178,7 +199,7 @@ namespace AcountManagement.Application.Acount
 
         public int NewAcount()
         {
-           return acountRepository.NewAcount();
+            return acountRepository.NewAcount();
         }
 
         public List<AcountViewModel> Search(AcountSearchModel searchModel)

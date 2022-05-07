@@ -29,6 +29,7 @@ namespace _01_Shoplyquery.Contracts.Product
         public bool HasDiscount { get; set; }
         public string EndDate { get; set; }
         public string Code { get; set; }
+        public int Rating { get; set; }
         public string Description { get; set; }
         public bool IsRemoved { get; set; }
         public string MetaDescription { get; set; }

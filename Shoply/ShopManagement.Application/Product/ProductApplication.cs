@@ -32,7 +32,14 @@ namespace ShopManagement.Application.Producta
                 return result.Faild(ApplicationMessage.NullMessage);
 
             product.Activate();
-            productRepository.Save();
+            try
+            {
+                productRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return result.Success();
         }
 
@@ -50,6 +57,15 @@ namespace ShopManagement.Application.Producta
             var product = new Product(command.Name, command.Code, command.Description, command.ShortDescription, picture, command.PictureAlt,
                 command.PictureTitle, slug, command.MetaDescription, command.KeyWords, command.ProductCategoryId);
             productRepository.Create(product);
+            try
+            {
+                productRepository.Save();
+            }
+            catch
+            {
+
+                return result.Faild(ApplicationMessage.NullFildMessage);
+            }
             productRepository.Save();
             return result.Success();
         }
@@ -66,14 +82,20 @@ namespace ShopManagement.Application.Producta
 
 
             var slug = command.Slug.Slugify();
-         
+
             var path = $"{product.ProductCategory.Slug}/{command.Slug}";
             var picture = fileUploader.Upload(command.Picture, path);
 
             product.Edit(command.Name, command.Code, command.Description, command.ShortDescription, picture, command.PictureAlt,
                command.PictureTitle, slug, command.MetaDescription, command.KeyWords, command.ProductCategoryId);
-
-            productRepository.Save();
+            try
+            {
+                productRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.NullFildMessage);
+            }
             return result.Success();
         }
 
@@ -96,7 +118,15 @@ namespace ShopManagement.Application.Producta
                 return result.Faild(ApplicationMessage.NullMessage);
 
             product.Remove();
-            productRepository.Save();
+
+            try
+            {
+                productRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return result.Success();
         }
 

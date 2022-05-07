@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "W3Akv8uKCyMmKxLeik4ZnuDTFpSp0ypPgMNPocZ2CBZFB1GwR9mFEB8oWHgQklPf+IGQMWAAuGwsFZ3Yg5rdJg==",
+  "dgSpecHash": "z8F2vVnK3Xi/yOm+RpgFLzA3XuDQebW79+M1Y5PFi2WZ+DauGECyBR39CSsMW7bJesCxzW9YWvcsP+r21uwVQw==",
   "success": true,
   "projectFilePath": "D:\\Shoply_Project\\Code\\Shoply\\ServiceHost\\ServiceHost.csproj",
   "expectedPackageFiles": [
@@ -208,8 +208,7 @@
     "C:\\Users\\Albaloo.Co\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Albaloo.Co\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Albaloo.Co\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Albaloo.Co\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "C:\\Users\\Albaloo.Co\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.16\\microsoft.netcore.app.host.win-x64.5.0.16.nupkg.sha512"
+    "C:\\Users\\Albaloo.Co\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": [
     {

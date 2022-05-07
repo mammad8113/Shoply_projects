@@ -31,7 +31,14 @@ namespace BlogManagement.Application.Article.App
                 return result.Faild(ApplicationMessage.NullFildMessage);
 
             article.Activate();
-            articleRepository.Save();
+            try
+            {
+                articleRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return result.Success();
         }
 
@@ -51,7 +58,14 @@ namespace BlogManagement.Application.Article.App
              command.CanonicalAddress, command.ArticleCategoryId);
 
             articleRepository.Create(article);
-            articleRepository.Save();
+            try
+            {
+                articleRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.NullFildMessage);
+            }
             return result.Success();
         }
 
@@ -73,8 +87,14 @@ namespace BlogManagement.Application.Article.App
 
             article.Edit(command.Title, picture, command.ShortDescription, command.Description, command.PublishDate.ToGeorgianDateTime(),
                slug, command.KeyWords, command.MetaDescription, command.CanonicalAddress, command.ArticleCategoryId);
-
-            articleRepository.Save();
+            try
+            {
+                articleRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.NullFildMessage);
+            }
             return result.Success();
         }
 
@@ -91,7 +111,14 @@ namespace BlogManagement.Application.Article.App
                 return result.Faild(ApplicationMessage.NullFildMessage);
 
             article.Remove();
-            articleRepository.Save();
+            try
+            {
+                articleRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return result.Success();
         }
 

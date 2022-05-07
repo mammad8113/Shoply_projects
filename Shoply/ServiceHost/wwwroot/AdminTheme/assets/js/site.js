@@ -25,12 +25,13 @@ async function showModal() {
     debugger;
     var url = window.location.hash.toLowerCase();
     let urledit = url.split("&handler=")[1];
+    let id = 0;
     if (url.includes("?id=")) {
         let split = url.split("?id=");
         let productid = split.splice(1, 1)[0].split("&")[0];
 
         let edit = document.getElementById(`EditProduct_${productid}`);
-        let id;
+      
         if (urledit == "edit") {
 
             if (edit != undefined && edit != null) {
@@ -40,7 +41,7 @@ async function showModal() {
     }
     $("#MainModal").modal("show");
     let btntext = $("#btncategory");
-    if (id != undefined && btntext != undefined && btntext != null) {
+    if (id >0 && btntext != undefined && btntext != null) {
         let text = await GetCategory(id);
         btntext.text(text);
     }
@@ -236,7 +237,7 @@ async function SetCategory(id, name, backId) {
                 let category = ``;
                 var name = `${c.name}`;
                 category = `  <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
-                        <a  onclick='SetCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
+                        <a  style="cursor:pointer" onclick='SetCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
                     </div>`;
 
                 categories.append(category);
@@ -274,7 +275,7 @@ async function SetCategory(id, name, backId) {
                 let category = ``;
                 var name = `${c.name}`;
                 category = `  <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
-                               <a  onclick='SetCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
+                               <a style="cursor:pointer" onclick='SetCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
                              </div>`;
 
                 categories.append(category);
@@ -313,7 +314,7 @@ async function ChooseCategory(id, name, backId) {
                 let category = ``;
                 var name = `${c.name}`;
                 category = `  <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
-                             <span onclick='checkCategory(${c.id},"${name}")' class="fa fa-check fa-2x text-success"></span>
+                             <span style="cursor:pointer" onclick='checkCategory(${c.id},"${name}")' class="fa fa-check fa-2x text-success"></span>
                         <a onclick='ChooseCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
                     </div>`;
 
@@ -345,8 +346,8 @@ async function ChooseCategory(id, name, backId) {
                 let category = ``;
                 var name = `${c.name}`;
                 category = `  <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
-                               <span onclick='checkCategory(${c.id},"${name}")' class="fa fa-check fa-2x text-success"></span>
-                        <a onclick='ChooseCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
+                               <span style="cursor:pointer" onclick='checkCategory(${c.id},"${name}")' class="fa fa-check fa-2x text-success"></span>
+                        <a style="cursor:pointer" onclick='ChooseCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
                     </div>`;
 
                 categories.append(category);
@@ -368,8 +369,8 @@ async function ChooseCategory(id, name, backId) {
                 let category = ``;
                 var name = `${c.name}`;
                 category = `  <div style="border:1px solid gray; padding:2px;border-radius:6px;margin:5px 0;">
-                               <span onclick='checkCategory(${c.id},"${name}")' class="fa fa-check fa-2x text-success"></span>
-                        <a onclick='ChooseCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
+                               <span style="cursor:pointer" onclick='checkCategory(${c.id},"${name}")' class="fa fa-check fa-2x text-success"></span>
+                        <a style="cursor:pointer" onclick='ChooseCategory(${c.id},"${name.toString()}",${id})'>${c.name}</a>
                     </div>`;
 
                 categories.append(category);
@@ -455,7 +456,7 @@ jQuery.validator.unobtrusive.adapters.addBool("fileExtention");
 async function GetCategory(id) {
     debugger;
     let response = await fetch(`https://iranshoply.ir/api/ProductCategory/GetParent/${id}`);
-    let name = await fetch(`https://localhost:5001/api/ProductCategory/GetCategoryName/${id}`);
+    let name = await fetch(`https://iranshoply.ir/api/ProductCategory/GetCategoryName/${id}`);
     let data = await response.json();
     var category = await name.json();
     let btntext = ``;

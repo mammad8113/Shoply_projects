@@ -1,3 +1,4 @@
+﻿using _01_framwork.Applicatin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -23,12 +24,12 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Slides
         public void OnGet(ProductPictureSearchModel searchModel)
         {
             Slides = slideApplication.GetAll();
-           
+
         }
         public IActionResult OnGetCreate()
         {
             var command = new CreateSlide();
-           
+
             return Partial("./Create", command);
         }
         public JsonResult OnPostCreate(CreateSlide command)
@@ -39,7 +40,7 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Slides
         public IActionResult OnGetEdit(long id)
         {
             var product = slideApplication.GetDetals(id);
-      
+
             return Partial("./Edit", product);
         }
 

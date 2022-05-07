@@ -33,7 +33,7 @@ namespace _01_framwork.Infrastructure
             return dbContext.Find<T>(id);
         }
 
-        public List<T> GetAll()
+        public  List<T> GetAll()
         {
             return dbContext.Set<T>().ToList();
         }

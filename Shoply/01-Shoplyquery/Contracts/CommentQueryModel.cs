@@ -12,6 +12,7 @@ namespace _01_Shoplyquery.Contracts.Product
         public string Parent { get; set; }
         public string Image { get; set; }
         public long AcountId { get; set; }
+        public int Rating { get; set; }
         public long? ParentId { get; set; }
         public List<CommentQueryModel> Children { get; set; }
     }

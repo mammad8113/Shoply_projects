@@ -61,11 +61,21 @@
                                         <div class="single-grid-product__category-rating">
                                             <span class="category"><a asp-page="/ProductCategory" asp-route-id="@product.CategorySlug">@product.Category</a></span>
                                             <span class="rating">
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star-outline"></i>
+                                                @if (product.Comments.Count > 0 && product.Rating > 0)
+                                                {
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        <i class="ion-android-star @(Math.Round((decimal)(product.Rating/product.Comments.Count))>=i?"active":"")"></i>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        <i class="ion-android-star"></i>
+                                                    }
+                                                }
+
                                             </span>
                                         </div>
 

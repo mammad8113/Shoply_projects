@@ -22,7 +22,14 @@ namespace ShopManagement.Application.Address
         {
             var Addresss = new Domain.Address.Agg.Address(command.Street, command.State, command.City, command.AcountId);
             addressRepository.Create(Addresss);
-            addressRepository.Save();
+            try
+            {
+                addressRepository.Save();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine(ApplicationMessage.NullFildMessage);
+            }
             return Addresss.Id;
         }
 
@@ -31,7 +38,14 @@ namespace ShopManagement.Application.Address
             var operation = new OperationResult();
             var address = addressRepository.GetBy(x => x.Id == command.Id);
             address.Edit(command.Street, command.State, command.City, command.AcountId);
-            addressRepository.Save();
+            try
+            {
+                addressRepository.Save();
+            }
+            catch
+            {
+                return operation.Faild(ApplicationMessage.NullFildMessage);
+            }
             return operation.Success();
         }
 
@@ -55,7 +69,14 @@ namespace ShopManagement.Application.Address
             var address = addressRepository.Get(id);
             if (address != null)
                 address.Remove();
-            addressRepository.Save();
+            try
+            {
+                addressRepository.Save();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

@@ -15,5 +15,6 @@ namespace CommentManagement.Application.Contracts.Comment
         public int type { get; set; }
         public long AcountId { get; set; }
         public long? ParentId { get; set; }
+        public int Rating { get; set; }
     }
 }

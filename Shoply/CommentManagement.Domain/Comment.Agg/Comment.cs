@@ -17,6 +17,7 @@ namespace CommentManagement.Domain.Comment.Agg
         public long AcountId { get; set; }
         public long OwnerRecordId { get; private set; }
         public int Type { get; private set; }
+        public int Rating { get; private set; }
         public long? ParentId { get; set; }
         public Comment Parent { get; set; }
         public List<Comment> Children { get; set; }
@@ -25,15 +26,16 @@ namespace CommentManagement.Domain.Comment.Agg
         protected Comment()
         {
         }
-        public Comment(string name, string message,string mobile , long ownerRecordId, long acountId,int type, long? parentId)
+        public Comment(string name, string message, string mobile, long ownerRecordId, long acountId, int type, long? parentId, int rating)
         {
             Name = name;
             Message = message;
-           Mobile = mobile;
+            Mobile = mobile;
             OwnerRecordId = ownerRecordId;
             AcountId = acountId;
             Type = type;
             ParentId = parentId;
+            Rating = rating;
         }
         public void Confirm()
         {

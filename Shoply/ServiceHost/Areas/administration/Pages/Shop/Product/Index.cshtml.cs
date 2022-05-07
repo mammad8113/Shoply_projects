@@ -1,3 +1,4 @@
+﻿using _01_framwork.Applicatin;
 using _01_framwork.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -27,7 +28,7 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Product
         [NeddsPermission((int)ShopPermission.ListProducts)]
         public void OnGet(CategorySearchModel searchModel)
         {
-          
+
             Products = productApplication.Search(searchModel);
             ProductCategories = productCategoryApplication.GetProductCategories();
             productCategories = new SelectList(productCategoryApplication.GetProductCategories(0), "Id", "Name");
@@ -47,7 +48,7 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Product
             var result = productApplication.Create(command);
             return new JsonResult(result);
         }
-       
+        [NeddsPermission((int)ShopPermission.EditProduct)]
         public IActionResult OnGetEdit(int id)
         {
             var product = productApplication.GetDetals(id);
@@ -60,6 +61,7 @@ namespace ServiceHost.Areas.administration.Pages.Shop.Product
             var result = productApplication.Edit(command);
             return new JsonResult(result);
         }
+
         [NeddsPermission((int)ShopPermission.RemoveProduct)]
         public IActionResult OnGetRemove(long id)
         {

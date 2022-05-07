@@ -29,7 +29,14 @@ namespace BlogManagement.Application.ArticleCategory.App
                 return result.Faild(ApplicationMessage.NullFildMessage);
 
             category.Activate();
-            articleCategoryRepository.Save();
+            try
+            {
+                articleCategoryRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return result.Success();
         }
 
@@ -43,12 +50,19 @@ namespace BlogManagement.Application.ArticleCategory.App
             var paht = $"ArticleCategory/{slug}";
 
             var picturePath = fileUploader.Upload(command.Picture, paht);
-            var articleCategory = new BlogManagement.Domain.ArticleCategory.Agg.ArticleCategory(command.Name, command.ShortDescription,
-                picturePath,command.PictureAlt,command.PictureTitle, command.Description, command.ShowOrder, slug, command.KeyWords, command.MetaDescription,
+            var articleCategory = new Domain.ArticleCategory.Agg.ArticleCategory(command.Name, command.ShortDescription,
+                picturePath, command.PictureAlt, command.PictureTitle, command.Description, command.ShowOrder, slug, command.KeyWords, command.MetaDescription,
                 command.CanonicalAddress);
 
             articleCategoryRepository.Create(articleCategory);
-            articleCategoryRepository.Save();
+            try
+            {
+                articleCategoryRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.NullFildMessage);
+            }
             return result.Success();
 
         }
@@ -69,16 +83,22 @@ namespace BlogManagement.Application.ArticleCategory.App
             var picturePath = fileUploader.Upload(command.Picture, paht);
 
             category.Edit(command.Name, command.ShortDescription,
-                  command.Description,picturePath,command.PictureAlt,command.PictureTitle, command.ShowOrder, slug, command.KeyWords, command.MetaDescription,
+                  command.Description, picturePath, command.PictureAlt, command.PictureTitle, command.ShowOrder, slug, command.KeyWords, command.MetaDescription,
                   command.CanonicalAddress);
-
-            articleCategoryRepository.Save();
+            try
+            {
+                articleCategoryRepository.Save();
+            }
+            catch
+            {
+                return result.Faild(ApplicationMessage.NullFildMessage);
+            }
             return result.Success();
         }
 
         public List<ArticleCategoryViewModel> GetAll()
         {
-           return articleCategoryRepository.GetSelectList();
+            return articleCategoryRepository.GetSelectList();
         }
 
         public EditArticleCategory GetDetals(long id)
@@ -94,7 +114,14 @@ namespace BlogManagement.Application.ArticleCategory.App
                 return result.Faild(ApplicationMessage.NullFildMessage);
 
             category.Remove();
-            articleCategoryRepository.Save();
+            try
+            {
+                articleCategoryRepository.Save();
+            }
+            catch 
+            {
+                return result.Faild(ApplicationMessage.UnspecifiedError);
+            }
             return result.Success();
         }
 

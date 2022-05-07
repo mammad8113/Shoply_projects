@@ -27,7 +27,7 @@ namespace ShopManagement.Application.Comment
             try
             {
                 var comment = new CommentManagement.Domain.Comment.Agg.Comment(command.Name, command.Message, command.Mobile,
-                    command.OwnerRecordId, command.AcountId, command.type, command.ParentId);
+                    command.OwnerRecordId, command.AcountId, command.type, command.ParentId, command.Rating);
                 commentRepository.Create(comment);
                 commentRepository.Save();
             }

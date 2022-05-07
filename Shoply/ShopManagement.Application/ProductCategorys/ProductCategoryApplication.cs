@@ -28,7 +28,14 @@ namespace ShopManagement.Application.ProductCategorys
         {
             var category = productCategoryRepository.Get(id);
             category.Activate();
-            productCategoryRepository.Save();
+            try
+            {
+                productCategoryRepository.Save();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public OperationResult Create(CreateProductCategory command)
@@ -40,8 +47,8 @@ namespace ShopManagement.Application.ProductCategorys
                 var picturePath = command.Slug;
                 var picture = fileUploader.Upload(command.Picture, picturePath);
                 ProductCategory productCategory = new ProductCategory(command.Name, command.Description, picture,
-                     command.PictureAlt, command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation,command.ParentId);
-            
+                     command.PictureAlt, command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation, command.ParentId);
+
                 productCategoryRepository.Create(productCategory);
                 productCategoryRepository.Save();
                 return operation.Success();
@@ -61,8 +68,15 @@ namespace ShopManagement.Application.ProductCategorys
             string pathPicture = command.Slug;
             var picture = fileUploader.Upload(command.Picture, pathPicture);
             var operation = productCategory.Edit(command.Name, command.Description, picture, command.PictureAlt,
-                   command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation,command.ParentId);
-            productCategoryRepository.Save();
+                   command.PictureTitle, command.Keywords, command.MetaDescription, slug, validation, command.ParentId);
+            try
+            {
+                productCategoryRepository.Save();
+            }
+            catch
+            {
+                return operation.Faild(ApplicationMessage.NullFildMessage);
+            }
             return operation;
 
         }
@@ -86,7 +100,14 @@ namespace ShopManagement.Application.ProductCategorys
         {
             var category = productCategoryRepository.Get(id);
             category.Remove();
-            productCategoryRepository.Save();
+            try
+            {
+                productCategoryRepository.Save();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel search)

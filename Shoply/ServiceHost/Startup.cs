@@ -25,6 +25,7 @@ using ShopManagement.Presentation.Api;
 using ShopManagment.Imfrastructure.Config;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
@@ -46,7 +47,7 @@ namespace ServiceHost
         {
             services.AddHttpContextAccessor();
             var connectionString = Configuration.GetConnectionString("ShoplyDb");
-          
+
             services.AddShopSection(connectionString);
             services.AddDisCountSection(connectionString);
             services.AddInventorySection(connectionString);
@@ -96,12 +97,9 @@ namespace ServiceHost
 
             services.AddCors(options => options.AddPolicy("MyPolicy", builder =>
             {
-                //builder.WithOrigins("https://localhost:5001")
                 builder.AllowAnyOrigin()
                 .AllowAnyMethod()
-                //.WithMethods(HttpMethods.Get)
                 .AllowAnyHeader();
-
             }));
 
             services.AddDistributedMemoryCache();
@@ -130,7 +128,7 @@ namespace ServiceHost
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -149,6 +147,8 @@ namespace ServiceHost
 
             app.UseCookiePolicy();
             app.UseRouting();
+
+
 
             app.UseAuthorization();
             app.UseCors("MyPolicy");

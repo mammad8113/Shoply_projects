@@ -12,8 +12,9 @@ namespace _01_framwork.Applicatin
         public const string NullMessage = "اطلاعاتی یافت نشد";
         public const string NullFildMessage = "اطلاعات به درستی وارد نشده اند";
         public const string PasswordNotMath = "رمز وارد شده با تکرار رمز یکسان نیستند";
-        public const string ExistUsername ="همچین نام کاربری در سایت وجود دارد";
-        public const string ExistMobil ="همچین شماره مبایلی در سایت موجود است";
+        public const string ExistUsername = "همچین نام کاربری در سایت وجود دارد";
+        public const string ExistMobil = "همچین شماره مبایلی در سایت موجود است";
         public const string NotFoundUser = "نام کاربری یا رمز عبور اشتباه است";
+        public const string UnspecifiedError = "خطای نامشخصی رخ داده است.";
     }
 }

@@ -7,9 +7,19 @@
     ViewData["Keywords"] = @Model.Product.KeyWords;
     ViewData["MetaDescription"] = @Model.Product.MetaDescription;
     var categories = categoryQuery.GetParent(@Model.Product.CategoryId);
+
+    decimal rating = 0;
+    var comments = Model.Product.Comments.Count;
+    var totalratings = Model.Product.Comments.Sum(x => x.Rating);
+    if (comments > 0 && totalratings > 0)
+    {
+        float device = totalratings / comments;
+        rating = Math.Ceiling((decimal)device);
+    }
 }
 <div class="breadcrumb-area section-space--half">
     <div class="container wide">
+
         <div class="row">
             <div class="col-lg-12">
                 <!--=======  breadcrumb wrpapper  =======-->
@@ -21,6 +31,7 @@
                             <li>
                                 <a asp-page="/Index">صفحه اصلی</a>
                             </li>
+
                             @foreach (var category in categories)
                             {
                                 <li>
@@ -128,15 +139,14 @@
                                     <h4 class="product-title">@Model.Product.Name</h4>
                                     <div class="product-rating">
                                         <span class="rating">
-                                            <i class="ion-android-star active"></i>
-                                            <i class="ion-android-star active"></i>
-                                            <i class="ion-android-star active"></i>
-                                            <i class="ion-android-star active"></i>
-                                            <i class="ion-android-star-outline"></i>
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                <i class="ion-android-star @(rating>=i?"active":"")"></i>
+                                            }
                                         </span>
 
                                         <span class="review-count">
-                                            <a href="#">(2 reviews)</a> | <a href="#">نظر دهید</a>
+                                            <a>(کامنت @comments )</a> | <a href="#comment">نظر دهید</a>
                                         </span>
                                     </div>
 
@@ -262,62 +272,26 @@
 
                                             <div class="product-rating-wrap">
 
-                                                @*    <div class="rating-list">
-                                                    <div class="sin-list float-right">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <span>(5)</span>
-                                                    </div>
-                                                    <div class="sin-list float-right">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <span>(3)</span>
-                                                    </div>
-                                                    <div class="sin-list float-right">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <span>(1)</span>
-                                                    </div>
-                                                    <div class="sin-list float-right">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <span>(0)</span>
-                                                    </div>
-                                                    <div class="sin-list float-right">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <span>(0)</span>
-                                                    </div>
-                                                    </div>*@
                                                 <div class="ratings-wrapper">
                                                     @foreach (var comment in Model.Product.Comments)
                                                     {
                                                         <div class="sin-ratings">
                                                             <div class="rating-author">
                                                                 <h3>@comment.Name</h3>
-                                                                @*   <div class="rating-star">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <span>(5)</span>
-                                                                    </div>*@
+                                                                <div class="rating-star">
+                                                                    @if (comment.Rating > 0)
+                                                                    {
+                                                                        for (int j = 1; j <= comment.Rating; j++)
+                                                                        {
+                                                                            <i class="fa fa-star"></i>
+                                                                        }
+                                                                    }
+                                                                    @for (int j = 1; j <= (5 - comment.Rating); j++)
+                                                                    {
+                                                                        <i class="fa fa-star-o"></i>
+                                                                    }
+                                                                    <span>(@comment.Rating)</span>
+                                                                </div>
                                                             </div>
                                                             <p>
                                                                 @Html.Raw(comment.Message)
@@ -325,11 +299,20 @@
                                                         </div>
                                                     }
                                                 </div>
-                                                <div class="rating-form-wrapper fix">
+                                                <div id="comment" class="rating-form-wrapper fix">
                                                     <h3>نظر خود را بنویسید</h3>
                                                     <form method="post">
                                                         <div class="rating-form row">
+                                                            <div class="col-12 mb-15">
+                                                                <h5>امتیاز دهید:</h5>
+                                                                <div class="rating-star fix">
+                                                                    @for (int i = 1; i <= 5; i++)
+                                                                    {
+                                                                        <i class="fa fa-star-o" id="@i" onclick="active(this)"></i>
+                                                                    }
 
+                                                                </div>
+                                                            </div>
                                                             <div class="col-md-6 col-12 form-group">
                                                                 <label for="Name">نام:</label>
                                                                 <input id="Name" name="Name" placeholder="نام" type="text">
@@ -344,6 +327,7 @@
                                                             </div>
                                                             <input type="hidden" id="OwnerRecordId" name="OwnerRecordId" value="@Model.Product.Id" />
                                                             <input type="hidden" id="productSlug" name="productSlug" value="@Model.Product.Slug" />
+                                                            <input type="hidden" id="Rating" name="Rating" value="0" />
                                                             <div class="col-12">
                                                                 <input value="ارسال" type="submit">
                                                             </div>
@@ -362,3 +346,34 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+<script type="text/javascript">
+    function active(star){
+        debugger;
+
+        $("#Rating").val(star.id);
+
+        let s=document.getElementById(star.id);
+        if(!s.classList.contains("fa-star")){
+
+          for(i=1 ; i<=star.id;i++)
+          {
+           document.getElementById(`${i}`).classList.add("fa-star")
+           document.getElementById(`${i}`).classList.remove("fa-star-o");
+          }
+
+        }
+        let id=parseInt(star.id)+1;
+
+        for(i=id ;i<=5;i++)
+        {
+            if(document.getElementById(`${i}`).classList.contains("fa-star") ){
+
+           document.getElementById(`${i}`).classList.add("fa-star-o");
+           document.getElementById(`${i}`).classList.remove("fa-star");
+             }
+        }
+    }
+</script>
+}
