@@ -27,7 +27,7 @@ namespace ServiceHost
         public void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
             var handlerpermission = (NeddsPermissionAttribute)
-                context.HandlerMethod.MethodInfo.GetCustomAttribute(typeof(NeddsPermissionAttribute));
+                context?.HandlerMethod.MethodInfo.GetCustomAttribute(typeof(NeddsPermissionAttribute));
 
             if (handlerpermission == null)
                 return;
