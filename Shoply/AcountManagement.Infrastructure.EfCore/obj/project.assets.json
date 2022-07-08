@@ -8450,19 +8450,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Albaloo.Co\\.nuget\\packages\\": {}
+    "C:\\Users\\mohammad_nz\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Infrastructure.EfCore\\AcountManagement.Infrastructure.EfCore.csproj",
+      "projectUniqueName": "D:\\Shoply\\Shoply\\AcountManagement.Infrastructure.EfCore\\AcountManagement.Infrastructure.EfCore.csproj",
       "projectName": "AcountManagement.Infrastructure.EfCore",
-      "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Infrastructure.EfCore\\AcountManagement.Infrastructure.EfCore.csproj",
-      "packagesPath": "C:\\Users\\Albaloo.Co\\.nuget\\packages\\",
-      "outputPath": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Infrastructure.EfCore\\obj\\",
+      "projectPath": "D:\\Shoply\\Shoply\\AcountManagement.Infrastructure.EfCore\\AcountManagement.Infrastructure.EfCore.csproj",
+      "packagesPath": "C:\\Users\\mohammad_nz\\.nuget\\packages\\",
+      "outputPath": "D:\\Shoply\\Shoply\\AcountManagement.Infrastructure.EfCore\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Albaloo.Co\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mohammad_nz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8476,11 +8481,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Domain\\AcountManagement.Domain.csproj": {
-              "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\AcountManagement.Domain\\AcountManagement.Domain.csproj"
+            "D:\\Shoply\\Shoply\\AcountManagement.Domain\\AcountManagement.Domain.csproj": {
+              "projectPath": "D:\\Shoply\\Shoply\\AcountManagement.Domain\\AcountManagement.Domain.csproj"
             },
-            "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Application.Contracts\\ShopManagement.Application.Contracts.csproj": {
-              "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\ShopManagement.Application.Contracts\\ShopManagement.Application.Contracts.csproj"
+            "D:\\Shoply\\Shoply\\ShopManagement.Application.Contracts\\ShopManagement.Application.Contracts.csproj": {
+              "projectPath": "D:\\Shoply\\Shoply\\ShopManagement.Application.Contracts\\ShopManagement.Application.Contracts.csproj"
             }
           }
         }
@@ -8525,7 +8530,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   },

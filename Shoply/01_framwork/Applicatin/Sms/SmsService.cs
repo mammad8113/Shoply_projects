@@ -15,6 +15,11 @@ namespace _01_framwork.Applicatin.Sms
             _configuration = configuration;
         }
 
+        public void OnGetPassword(object source, GetPasswordEventArgs args)
+        {
+            Send(args.Mobile, args.Code);
+        }
+
         public void Send(string number, string message)
         {
             var token = GetToken();

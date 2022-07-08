@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application;
+using _01_framwork;
 using _01_framwork.Applicatin;
 using _01_framwork.Applicatin.Sms;
 using _01_framwork.Infrastructure;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace AcountManagement.Application.Acount
 {
+  
     public class AcountApplication : IAcountApplication
     {
         private readonly IAcountRepository acountRepository;
@@ -32,7 +34,11 @@ namespace AcountManagement.Application.Acount
             this.smsService = smsService;
         }
 
-        public OperationResult ChangPassword(ChangPassword command)
+       
+
+       
+
+        public override OperationResult ChangPassword(ChangPassword command)
         {
             var operation = new OperationResult();
             var Acount = acountRepository.Get(command.Id);
@@ -54,7 +60,7 @@ namespace AcountManagement.Application.Acount
             }
             return operation.Success();
         }
-        public OperationResult Create(RegisterAcount command)
+        public override OperationResult Create(RegisterAcount command)
         {
             var operation = new OperationResult();
             if (acountRepository.Exist(x => x.Username == command.Username))
@@ -97,7 +103,7 @@ namespace AcountManagement.Application.Acount
             return operation.Success();
         }
 
-        public OperationResult Edit(EditAcount command)
+        public override OperationResult Edit(EditAcount command)
         {
             var operation = new OperationResult();
 
@@ -128,22 +134,22 @@ namespace AcountManagement.Application.Acount
             return operation.Success();
         }
 
-        public AcountViewModel GetAcount(long id)
+        public override AcountViewModel GetAcount(long id)
         {
             return acountRepository.GetAcount(id);
         }
 
-        public List<AcountViewModel> GetAll()
+        public override List<AcountViewModel> GetAll()
         {
             return acountRepository.GetAcounts();
         }
 
-        public EditAcount GetDetals(long id)
+        public override EditAcount GetDetals(long id)
         {
             return acountRepository.GetDetals(id);
         }
 
-        public PasswordResult GetPassword(RegesterMobil command)
+        public override PasswordResult GetPassword(RegesterMobil command)
         {
             var operation = new PasswordResult();
             var acount = acountRepository.GetBy(x => x.Mobile == command.Mobile);
@@ -158,20 +164,24 @@ namespace AcountManagement.Application.Acount
                 int num3 = random.Next(0, 9);
                 int num4 = random.Next(0, 9);
                 var code = $"{num1}{num2}{num3}{num4}";
-                smsService.Send(command.Mobile, code);
+                OnGetPassword(new GetPasswordEventArgs()
+                {
+                    Code = code,
+                    Mobile = command.Mobile
+                });
                 return operation.Successs("عملیات با موفقعیت انجام شد", code, acount.Id);
             }
             return operation.Faild("همچین شماره ای در سیستم موجود نیست");
 
         }
 
-        public string GetPhoto(long id)
+        public override string GetPhoto(long id)
         {
 
             return acountRepository.GetPhoto(id);
         }
 
-        public OperationResult Login(Login command)
+        public override OperationResult Login(Login command)
         {
             var operation = new OperationResult();
             var acount = acountRepository.GetBy(x => x.Username == command.UserName);
@@ -192,17 +202,17 @@ namespace AcountManagement.Application.Acount
 
         }
 
-        public void Logout()
+        public override void Logout()
         {
             authHelper.SignOut();
         }
 
-        public int NewAcount()
+        public override int NewAcount()
         {
             return acountRepository.NewAcount();
         }
 
-        public List<AcountViewModel> Search(AcountSearchModel searchModel)
+        public  override List<AcountViewModel> Search(AcountSearchModel searchModel)
         {
             return acountRepository.Search(searchModel);
         }

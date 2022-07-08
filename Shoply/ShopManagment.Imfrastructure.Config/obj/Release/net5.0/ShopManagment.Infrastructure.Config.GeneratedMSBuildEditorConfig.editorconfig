@@ -7,4 +7,4 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ShopManagment.Infrastructure.Config
-build_property.ProjectDir = D:\Shoply_Project\Code\Shoply\ShopManagment.Imfrastructure.Config\
+build_property.ProjectDir = D:\Shoply\Shoply\ShopManagment.Imfrastructure.Config\

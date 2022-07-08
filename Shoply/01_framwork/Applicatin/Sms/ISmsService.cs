@@ -3,5 +3,6 @@
     public interface ISmsService
     {
         void Send(string number, string message);
+        void OnGetPassword(object source, GetPasswordEventArgs args);
     }
 }

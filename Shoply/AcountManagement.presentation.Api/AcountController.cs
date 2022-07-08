@@ -1,5 +1,6 @@
 ﻿
 using _01_framwork.Applicatin;
+using _01_framwork.Applicatin.Sms;
 using AcountManagement.Application.Contracts.Acount;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,12 @@ namespace AcountManagement.presentation.Api
     public class AcountController : ControllerBase
     {
         private readonly IAcountApplication acountApplication;
+        private readonly ISmsService smsService;
 
-        public AcountController(IAcountApplication acountApplication)
+        public AcountController(IAcountApplication acountApplication,ISmsService smsService)
         {
             this.acountApplication = acountApplication;
+            this.smsService = smsService;
         }
         [HttpGet()]
         public void CheckMobileAndGetCode()
@@ -25,6 +28,7 @@ namespace AcountManagement.presentation.Api
         [HttpPost()]
         public PasswordResult CheckMobileAndGetCode(RegesterMobil command)
         {
+            acountApplication.getPassword += smsService.OnGetPassword;
             return acountApplication.GetPassword(command);
         }
         [Route("ChangPassword")]

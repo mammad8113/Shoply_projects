@@ -7103,19 +7103,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Albaloo.Co\\.nuget\\packages\\": {}
+    "C:\\Users\\mohammad_nz\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Shoply_Project\\Code\\Shoply\\BlogManagement.Application\\BlogManagement.Application.csproj",
+      "projectUniqueName": "D:\\Shoply\\Shoply\\BlogManagement.Application\\BlogManagement.Application.csproj",
       "projectName": "BlogManagement.Application",
-      "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\BlogManagement.Application\\BlogManagement.Application.csproj",
-      "packagesPath": "C:\\Users\\Albaloo.Co\\.nuget\\packages\\",
-      "outputPath": "D:\\Shoply_Project\\Code\\Shoply\\BlogManagement.Application\\obj\\",
+      "projectPath": "D:\\Shoply\\Shoply\\BlogManagement.Application\\BlogManagement.Application.csproj",
+      "packagesPath": "C:\\Users\\mohammad_nz\\.nuget\\packages\\",
+      "outputPath": "D:\\Shoply\\Shoply\\BlogManagement.Application\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Albaloo.Co\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mohammad_nz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7129,8 +7134,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Shoply_Project\\Code\\Shoply\\BlogManagement.Domain\\BlogManagement.Domain.csproj": {
-              "projectPath": "D:\\Shoply_Project\\Code\\Shoply\\BlogManagement.Domain\\BlogManagement.Domain.csproj"
+            "D:\\Shoply\\Shoply\\BlogManagement.Domain\\BlogManagement.Domain.csproj": {
+              "projectPath": "D:\\Shoply\\Shoply\\BlogManagement.Domain\\BlogManagement.Domain.csproj"
             }
           }
         }
@@ -7159,7 +7164,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   },
